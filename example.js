@@ -7,12 +7,12 @@ var defaults = require('./defaults');
 
   input:name: 'hackney city farm'
 
-  focus.point.lat: 1.1
-  focus.point.lon: 2.2
+  focus:point:lat: 1.1
+  focus:point:lon: 2.2
 
-  input.housenumber: 101
-  input.street: "hackney road"
-  input.postcode: "E81DN"
+  input:housenumber: 101
+  input:street: "hackney road"
+  input:postcode: "E81DN"
 
   input:admin:alpha3: "GBR"
   input:admin:admin0: "hackney"
@@ -39,7 +39,7 @@ var vs = new query.Vars( defaults );
 var q = new query.layout.FilteredBooleanQuery();
 
 vs.var( 'input:name','hackney city farm' );
-vs.set({ 'focus.point.lat': 1, 'focus.point.lon': 2 });
+vs.set({ 'focus:point:lat': 1, 'focus:point:lon': 2 });
 vs.set({ 'input:housenumber': 1, 'input:street': 'foo street' });
 vs.set({ 'boundary:circle:lat': 1, 'boundary:circle:lon': 2 });
 

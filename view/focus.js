@@ -4,8 +4,8 @@ var phrase = require('./phrase');
 module.exports = function( vs ){
 
   // validate required params
-  if( !vs.isset('focus.point.lat') ||
-      !vs.isset('focus.point.lon') ||
+  if( !vs.isset('focus:point:lat') ||
+      !vs.isset('focus:point:lon') ||
       !vs.isset('centroid:field') ||
       !vs.isset('function_score:score_mode') ||
       !vs.isset('function_score:boost_mode') ||
@@ -37,8 +37,8 @@ module.exports = function( vs ){
   func[ vs.var('focus:function') ] = {};
   func[ vs.var('focus:function') ][ vs.var('centroid:field') ] = {
     origin: {
-      lat: vs.var('focus.point.lat'),
-      lon: vs.var('focus.point.lon')
+      lat: vs.var('focus:point:lat'),
+      lon: vs.var('focus:point:lon')
     },
     offset: vs.var('focus:offset'),
     scale: vs.var('focus:scale'),
