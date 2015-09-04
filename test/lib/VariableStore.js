@@ -31,12 +31,12 @@ module.exports.tests.interface = function(test, common) {
   });
   test('instantiate', function(t) {
     var vs = new VariableStore();
-    t.deepEqual(v._vars, {}, 'default value');
+    t.deepEqual(vs._vars, {}, 'default value');
     t.end();
   });
   test('instantiate: with values', function(t) {
     var vs = new VariableStore({ a: 'b', c: 'd' });
-    t.equal(Object.keys(v._vars).length, 2, 'init value');
+    t.equal(Object.keys(vs._vars).length, 2, 'init value');
     t.end();
   });
 };
@@ -79,8 +79,8 @@ module.exports.tests.var = function(test, common) {
     var vs = new VariableStore();
 
     var placeholder = vs.var('a');
-    t.equal(t._vars['a'].val(), '');
-    t.equal(placeholder, '');
+    t.equal(vs._vars['a'].get(), '');
+    t.equal(placeholder.get(), '');
 
     t.end();
   });
@@ -89,7 +89,7 @@ module.exports.tests.var = function(test, common) {
 
     vs.var('a');
     vs.var('a','b');
-    t.equal(t._vars['a'].val(), 'b');
+    t.equal(vs._vars['a'].get(), 'b');
 
     t.end();
   });
@@ -97,7 +97,7 @@ module.exports.tests.var = function(test, common) {
     var vs = new VariableStore();
 
     vs.var('a','b');
-    t.equal(t._vars['a'].val(), 'b');
+    t.equal(vs._vars['a'].get(), 'b');
 
     t.end();
   });
@@ -106,7 +106,7 @@ module.exports.tests.var = function(test, common) {
 
     var placeholder = vs.var('a','b');
     vs.var('a').set('z');
-    t.equal(placeholder, 'z');
+    t.equal(placeholder.get(), 'z');
 
     t.end();
   });
@@ -189,10 +189,10 @@ module.exports.tests.unset = function(test, common) {
     var vs = new VariableStore();
 
     vs.var('a','b');
-    t.equal(Object.keys(v._vars).length, 1);
+    t.equal(Object.keys(vs._vars).length, 1);
 
     t.true(vs.unset('a'));
-    t.equal(Object.keys(v._vars).length, 0);
+    t.equal(Object.keys(vs._vars).length, 0);
 
     t.end();
   });
@@ -225,9 +225,9 @@ module.exports.tests.set = function(test, common) {
     var vs = new VariableStore();
 
     vs.set({ a: 'b', c: 'd' });
-    t.equal(Object.keys(v._vars).length, 2);
-    t.equal(t.var('a'), 'b');
-    t.equal(t.var('c'), 'd');
+    t.equal(Object.keys(vs._vars).length, 2);
+    t.equal(vs.var('a').get(), 'b');
+    t.equal(vs.var('c').get(), 'd');
 
     t.end();
   });
