@@ -60,7 +60,7 @@ vs.export();
 
 #### Default Variables
 
-You can initalize a variable collection when you instantiate it, this library provides a dictionary of [common default](https://github.com/pelias/query/blob/master/defaults.json)
+You can initalize a variable collection when you instantiate it, this library provides a dictionary of [common default](https://github.com/pelias/query/blob/master/defaults.json) values.
 
 ```javascript
 var query = require('pelias-query');
@@ -113,15 +113,15 @@ An example of the above view rendered would look like this:
 ```javascript
 var query = require('pelias-query');
 
-var vs = new query.Vars();
-vs.var('input:name', 'hackney city farm');
-vs.var('ngram:analyzer', 'standard');
-vs.var('ngram:field', 'name.default');
-vs.var('ngram:boost', 1);
+var vs = new query.Vars({
+  'input:name': 'hackney city farm',
+  'ngram:analyzer': 'standard',
+  'ngram:field': 'name.default',
+  'ngram:boost': 1
+});
 
 var view = query.view.ngrams;
-
-console.log( JSON.stringify( view( vs ), null, 2 ));
+var rendered = view( vs );
 ```
 
 ```javascript

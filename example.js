@@ -87,16 +87,4 @@ q.filter( query.view.boundary_circle )
 
 var rendered = q.render( vs );
 
-//console.log( JSON.stringify( rendered, null, 2 ) );
-
-var query = require('./index');
-
-var vs = new query.Vars();
-vs.var('input:name', 'hackney city farm');
-vs.var('ngram:analyzer', 'standard');
-vs.var('ngram:field', 'name.default');
-vs.var('ngram:boost', 1);
-
-var view = query.view.ngrams;
-
-console.log( JSON.stringify( view( vs ), null, 2 ));
+console.log( JSON.stringify( rendered, null, 2 ) );
