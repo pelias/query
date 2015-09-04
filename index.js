@@ -15,3 +15,5 @@ module.exports.view = {
   boundary_rect: require('./view/boundary_rect'),
   boundary_country: require('./view/boundary_country')
 };
+
+module.exports.defaults = require('./defaults');

@@ -35,10 +35,10 @@ var defaults = require('./defaults');
   boundary:country: "USA"
 **/
 
-var vs = new query.Vars( defaults );
+var vs = new query.Vars( query.defaults );
 var q = new query.layout.FilteredBooleanQuery();
 
-vs.var( 'input:name','hackney city farm' );
+vs.var( 'input:name', 'hackney city farm' );
 vs.set({ 'focus:point:lat': 1, 'focus:point:lon': 2 });
 vs.set({ 'input:housenumber': 1, 'input:street': 'foo street' });
 vs.set({ 'boundary:circle:lat': 1, 'boundary:circle:lon': 2 });
@@ -87,4 +87,16 @@ q.filter( query.view.boundary_circle )
 
 var rendered = q.render( vs );
 
-console.log( JSON.stringify( rendered, null, 2 ) );
+//console.log( JSON.stringify( rendered, null, 2 ) );
+
+var query = require('./index');
+
+var vs = new query.Vars();
+vs.var('input:name', 'hackney city farm');
+vs.var('ngram:analyzer', 'standard');
+vs.var('ngram:field', 'name.default');
+vs.var('ngram:boost', 1);
+
+var view = query.view.ngrams;
+
+console.log( JSON.stringify( view( vs ), null, 2 ));
