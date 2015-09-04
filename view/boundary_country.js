@@ -3,8 +3,8 @@ module.exports = function( vs ){
 
   // validate required params
   if( !vs.isset('boundary:country') ||
-      !vs.var('admin:alpha3:analyzer') ||
-      !vs.var('admin:alpha3:field') ){
+      !vs.isset('admin:alpha3:analyzer') ||
+      !vs.isset('admin:alpha3:field') ){
     return null;
   }
 
