@@ -104,7 +104,7 @@ var myview = function( vs ){
 }
 ```
 
-It's best practise to validate the variable you are going to use at the top of your view so that 1) it doesn't execute with unmet dependencies and 2) it is clear for other developers how to execute it.
+It's best practise to validate the variable(s) you are going to use at the top of your view so that 1) it doesn't execute with unmet dependencies and 2) it is clear for other developers how to execute it.
 
 #### Example
 
