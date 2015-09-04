@@ -14,14 +14,14 @@ var defaults = require('./defaults');
   input:street: "hackney road"
   input:postcode: "E81DN"
 
-  input:admin:alpha3: "GBR"
-  input:admin:admin0: "hackney"
-  input:admin:admin1: "hackney"
-  input:admin:admin1_abbr: "hackney"
-  input:admin:admin2: "hackney"
-  input:admin:local_admin: "hackney"
-  input:admin:locality: "hackney"
-  input:admin:neighborhood: "hackney"
+  input:alpha3: "GBR"
+  input:admin0: "hackney"
+  input:admin1: "hackney"
+  input:admin1_abbr: "hackney"
+  input:admin2: "hackney"
+  input:local_admin: "hackney"
+  input:locality: "hackney"
+  input:neighborhood: "hackney"
 
   boundary:circle:lat: 1
   boundary:circle:lon: 2
@@ -52,6 +52,10 @@ vs.set({
 
 vs.set({
   'boundary:country': 'USA'
+});
+
+vs.set({
+  'input:admin2': 'New York'
 });
 
 // mandatory matches
