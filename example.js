@@ -27,12 +27,12 @@ var defaults = require('./defaults');
   boundary:circle:lon: 2
   boundary:circle:radius: "50km"
 
-  boundary.rect.top: 1
-  boundary.rect.right: 2
-  boundary.rect.bottom: 2
-  boundary.rect.left: 1
+  boundary:rect:top: 1
+  boundary:rect:right: 2
+  boundary:rect:bottom: 2
+  boundary:rect:left: 1
 
-  boundary.country: "USA"
+  boundary:country: "USA"
 **/
 
 var vs = new query.Vars( defaults );
