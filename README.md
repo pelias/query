@@ -80,7 +80,7 @@ Views are essentially just a function which takes one arguments (the variable co
 
 ```javascript
 // example of a 'view'
-function( vs ){
+function view( vs ){
 
   // validate required params
   if( !vs.isset('input:name') ||
