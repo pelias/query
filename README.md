@@ -83,7 +83,7 @@ console.log( vs.export() );
 
 Variables coming from user input should be set on the variable store **whenever they are available**, below is a list of common user variables which can be set/unset to enable/disable query functionality.
 
-Note: this list is non exhaustive, see the validation section of each view to see which variables it uses (explained below).
+Note: this list is non exhaustive, see the validation section of each view to confirm which variables it uses (explained below).
 
 ```
 input:name: 'hackney city farm'
@@ -245,6 +245,96 @@ var q = new query.layout.FilteredBooleanQuery();
 // this view is used to mediate 'tied' scoring situations
 q.sort( view );
 ```
+
+### Composing Complex Queries
+
+Great! so with the building blocks above we can start to build composable, testable and re-usable queries.
+
+#### Reverse Geocode
+
+One of the simplest queries to build is a reverse geocoder, in this case we have indexed some documents with a `lat/lon` centroid and we would like to find the 1 nearest record to an arbitrary point.
+
+Note: The name of the field name used is stored in the variable `centroid:field`.
+
+```javascript
+var query = require('pelias-query'),
+    vs = new query.Vars( query.defaults ),
+    q = new query.layout.FilteredBooleanQuery();
+
+// this is our target point (somewhere in London)
+var target = { lat: 51.5, lon: -0.06 };
+
+// we only want 1 result
+vs.var('size', 1);
+
+// we can (optionally set an outer bounds to the query)
+vs.var('boundary:circle:lat', target.lat);
+vs.var('boundary:circle:lon', target.lon);
+vs.var('boundary:circle:radius', '5km');
+q.filter( query.view.boundary_circle );
+
+// sort results so the nearest one comes first
+vs.var('focus:point:lat', target.lat);
+vs.var('focus:point:lon', target.lon);
+q.sort( query.view.sort_distance );
+
+// render the query
+var rendered = q.render( vs );
+```
+
+results in a query such as:
+
+```javascript
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "bool": {}
+      },
+      "filter": {
+        "bool": {
+          "should": [
+            {
+              "geo_distance": {
+                "distance": "5km",
+                "distance_type": "plane",
+                "optimize_bbox": "indexed",
+                "_cache": true,
+                "center_point": {
+                  "lat": 51.5,
+                  "lon": -0.06
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "size": 1,
+  "track_scores": true,
+  "sort": [
+    "_score",
+    {
+      "_geo_distance": {
+        "order": "asc",
+        "distance_type": "plane",
+        "center_point": {
+          "lat": 51.5,
+          "lon": -0.06
+        }
+      }
+    }
+  ]
+}
+```
+
+#### More Examples
+
+The above is an example of how you can compose a query which is testable and debuggable, it can also be mixed & matched with other queries.
+
+More examples can be found in the `./examples` directory.
+
 
 ## Contributing
 
