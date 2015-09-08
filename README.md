@@ -404,7 +404,7 @@ vs.set({
   - the input text provided by the user
   - the input point to use for localization
 **/
-vs.var( 'input:name', 'union square' );
+vs.var('input:name', 'union square');
 vs.var('focus:point:lat', focus.lat);
 vs.var('focus:point:lon', focus.lon);
 
