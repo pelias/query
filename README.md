@@ -169,10 +169,10 @@ In most cases you can assume that records which match more conditions will appea
 ```javascript
 var q = new query.layout.FilteredBooleanQuery();
 
-// a 'SHOULD' condition, if a record matches, it's score will be increased
+// a 'should' condition, if a record matches, it's score will be increased
 q.score( view );
 
-// this is simply a more explicit equivalent of the above
+// this is simply a more explicit equivalent of the above ('should' is the default)
 q.score( view, 'should' );
 
 // in this case we mark the view as a 'must' match condition.
