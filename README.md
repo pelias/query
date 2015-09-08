@@ -445,10 +445,9 @@ results in a query such as:
 
 #### More Examples
 
-The above is an example of how you can compose a query which is testable and debuggable, it can also be mixed & matched with other queries.
+The above are an examples of how you can compose queries which are testable debuggable and re-usable, they can also be mixed & matched with other queries.
 
-Rather than trying to document an exasutive list of geospatial and liguistic queries here we have added a bunch of examples in the [examples directory](https://github.com/pelias/query/tree/master/examples).
-
+Rather than trying to document an exasutive list of geospatial and liguistic queries here; we have added a bunch of examples in the [examples directory](https://github.com/pelias/query/tree/master/examples).
 
 ## Contributing
 
