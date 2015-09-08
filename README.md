@@ -95,7 +95,7 @@ This library provides a dictionary of common [default values](https://github.com
 
 The defaults should be sufficient in the vast majority of cases but you may elect to change these defaults in order to modify how the queries execute for your specific installation.
 
-Note: You can override any of the defaults at runtime.
+**note: **You can override any of the defaults at runtime.
 
 ```javascript
 var query = require('pelias-query');
@@ -111,7 +111,7 @@ console.log( vs.export() );
 
 Variables coming from user input should be set on the variable store **whenever they are available**, below is a list of common user variables which can be set/unset to enable/disable query functionality.
 
-Note: this list is non exhaustive, see the validation section of each view to confirm which variables it uses (explained below).
+**note:** this list is non exhaustive, see the validation section of each view to confirm which variables it uses (explained below).
 
 ```
 input:name: 'hackney city farm'
