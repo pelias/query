@@ -16,6 +16,7 @@ module.exports = function( vs ){
   // match query
   view.match[ vs.var('phrase:field') ] = {
     analyzer: vs.var('phrase:analyzer'),
+    type: 'phrase',
     boost: vs.var('phrase:boost'),
     slop: vs.var('phrase:slop'),
     query: vs.var('input:name')
