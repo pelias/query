@@ -10,8 +10,8 @@ Layout.prototype.score = function( view, operator ){
   return this;
 };
 
-Layout.prototype.filter = function( view, operator ){
-  this._filter.push([ view, operator === 'must' ? 'must': 'should' ]);
+Layout.prototype.filter = function( view ){
+  this._filter.push([ view, 'must' ]);
   return this;
 };
 
