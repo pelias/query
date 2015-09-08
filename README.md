@@ -371,34 +371,42 @@ In effect this means that we still show far away places but we also give more pr
 
 ```javascript
 var query = require('pelias-query'),
-    vs = new query.Vars( query.defaults ),
-    q = new query.layout.FilteredBooleanQuery();
+    vs = new query.Vars( query.defaults );
 
 // this is our focus point (somewhere in London)
 var focus = { lat: 51.5, lon: -0.06 };
 
-// the input text provided by the user
-vs.var('input:name', 'union square');
+/**
+  build a query with 2 conditions:
+  - the linguistic matching strategy for scoring (phrase)
+  - the geographic decay function (focus)
+**/
+var q = new query.layout.FilteredBooleanQuery()
+  .score( query.view.phrase )
+  .score( query.view.focus );
 
-// the field on which to match and analyzer to use
-vs.var('phrase:field', 'phrase.default');
-vs.var('phrase:analyzer', 'standard');
+/**
+  configure implementation-specific settings:
+  - phrase settings
+  - focus settings
+**/
+vs.set({
+  'phrase:field': 'phrase.default',
+  'phrase:analyzer': 'standard',
+  'focus:function': 'gauss',
+  'focus:offset': '10km',
+  'focus:scale': '100km',
+  'focus:decay': 0.4
+});
 
-// the linguistic matching strategy to use for scoring
-q.score(query.view.phrase);
-
-// the input point to use for localization
+/**
+  set the user-specific variables:
+  - the input text provided by the user
+  - the input point to use for localization
+**/
+vs.var( 'input:name', 'union square' );
 vs.var('focus:point:lat', focus.lat);
 vs.var('focus:point:lon', focus.lon);
-
-// we can (optionally) change the decay arc
-vs.var('focus:function', 'gauss');
-vs.var('focus:offset', '10km');
-vs.var('focus:scale', '100km');
-vs.var('focus:decay', 0.4);
-
-// apply the geographic decay function
-q.score(query.view.focus);
 
 // render the query
 var rendered = q.render( vs );
