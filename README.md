@@ -236,15 +236,15 @@ In most cases you can assume that **records which match more of these conditions
 var q = new query.layout.FilteredBooleanQuery();
 
 // a 'should' condition, if a record matches, it's score will be increased
-q.score( view );
+q.score(view);
 
 // this is simply a more explicit equivalent of the above ('should' is the default)
-q.score( view, 'should' );
+q.score(view, 'should');
 
 // in this case we mark the view as a 'must' match condition.
 // Matching results will effect the score **but** in this case
 // **non-matching records will be removed from the results completely**
-q.score( view, 'must' );
+q.score(view, 'must');
 ```
 
 ##### Filter
@@ -257,7 +257,7 @@ The `.filter` method is used to assign views which **do not effect the scoring**
 var q = new query.layout.FilteredBooleanQuery();
 
 // **non-matching records will be removed from the results completely**
-q.filter( view );
+q.filter(view);
 ```
 
 ##### Sort
@@ -302,12 +302,12 @@ vs.var('size', 1);
 vs.var('boundary:circle:lat', focus.lat);
 vs.var('boundary:circle:lon', focus.lon);
 vs.var('boundary:circle:radius', '5km');
-q.filter( query.view.boundary_circle );
+q.filter(query.view.boundary_circle);
 
 // sort results so the nearest one comes first
 vs.var('focus:point:lat', focus.lat);
 vs.var('focus:point:lon', focus.lon);
-q.sort( query.view.sort_distance );
+q.sort(query.view.sort_distance);
 
 // render the query
 var rendered = q.render( vs );
@@ -379,14 +379,14 @@ var query = require('pelias-query'),
 var focus = { lat: 51.5, lon: -0.06 };
 
 // the input text provided by the user
-vs.var( 'input:name', 'union square' );
+vs.var('input:name', 'union square');
 
 // the field on which to match and analyzer to use
-vs.var( 'phrase:field', 'phrase.default' );
-vs.var( 'phrase:analyzer', 'standard' );
+vs.var('phrase:field', 'phrase.default');
+vs.var('phrase:analyzer', 'standard');
 
 // the linguistic matching strategy to use for scoring
-q.score( query.view.phrase );
+q.score(query.view.phrase);
 
 // the input point to use for localization
 vs.var('focus:point:lat', focus.lat);
@@ -399,7 +399,7 @@ vs.var('focus:scale', '100km');
 vs.var('focus:decay', 0.4);
 
 // apply the geographic decay function
-q.score( query.view.focus );
+q.score(query.view.focus);
 
 // render the query
 var rendered = q.render( vs );
