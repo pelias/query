@@ -111,7 +111,7 @@ console.log( vs.export() );
 
 Variables coming from user input should be set on the variable store **whenever they are available**, below is a list of common user variables which can be set/unset to enable/disable query functionality.
 
-**note:** this list is non exhaustive, see the validation section of each view to confirm which variables it uses (explained below).
+**note:** This list is non exhaustive, see the validation section of each view in order to confirm which specific variables it uses (explained below).
 
 ```
 input:name: 'hackney city farm'
@@ -225,9 +225,9 @@ var q = new query.layout.FilteredBooleanQuery();
 
 ##### FilteredBooleanQuery API
 
-The `FilteredBooleanQuery` has two different methods for assigning conditional views and one method for handling the sorting of results.
+The `FilteredBooleanQuery` has two different methods for **assigning conditional views** *and* one method for handling the **sorting of results**.
 
-##### Score
+##### .score()
 
 The `.score` method is used to assign views which **will effect the scoring** of the results.
 
@@ -248,7 +248,7 @@ q.score(view, 'should');
 q.score(view, 'must');
 ```
 
-##### Filter
+##### .filter()
 
 The `.filter` method is used to assign views which **do not effect the scoring** of results.
 
@@ -261,7 +261,7 @@ var q = new query.layout.FilteredBooleanQuery();
 q.filter(view);
 ```
 
-##### Sort
+##### .sort()
 
 The `.sort` method is used to assign views which effect the sorting of results.
 
