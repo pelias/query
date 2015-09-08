@@ -1,5 +1,6 @@
 
 module.exports.Vars = require('./lib/VariableStore');
+module.exports.Variable = require('./lib/Variable');
 
 module.exports.layout = {
   FilteredBooleanQuery: require('./layout/FilteredBooleanQuery')
