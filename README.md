@@ -254,7 +254,7 @@ Great! so with the building blocks above we can start to build composable, testa
 
 One of the simplest queries to build is a reverse geocoder, in this case we have indexed some documents with a `lat/lon` centroid and we would like to find the 1 nearest record to an arbitrary point.
 
-Note: The name of the field name used is stored in the variable `centroid:field`.
+Note: The name of the field name we used to store the `lat/lon` data is stored in `centroid:field` and the elasticsearch field type is 'geo_point'.
 
 ```javascript
 var query = require('pelias-query'),
