@@ -251,6 +251,8 @@ q.score( view, 'must' );
 
 The `.filter` method is used to assign views which **do not effect the scoring** of results.
 
+**note:** The more results you remove before sorting; using either this method *or* the `.score` method above (with 'must'), the better your query performance will be.
+
 ```javascript
 var q = new query.layout.FilteredBooleanQuery();
 
