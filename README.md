@@ -402,7 +402,6 @@ q.score(query.view.focus);
 
 // render the query
 var rendered = q.render( vs );
-console.log( JSON.stringify( rendered, null, 2 ) );
 ```
 
 results in a query such as:
@@ -475,7 +474,7 @@ results in a query such as:
 
 #### More Examples
 
-The above are an examples of how you can compose queries which are testable, debuggable and re-usable, they can also be mixed & matched with other queries to build even more complex queries.
+The above are examples of how you can compose queries which are testable, debuggable and re-usable, they can also be mixed & matched with other queries to build even more complex queries.
 
 Rather than trying to document an exaustive list of geospatial and liguistic queries here; we have added a bunch of examples in the [examples directory](https://github.com/pelias/query/tree/master/examples).
 
