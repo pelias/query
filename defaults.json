@@ -3,6 +3,9 @@
   "track_scores": true,
 
   "centroid:field": "center_point",
+  
+  "sort:distance:order": "asc",
+  "sort:distance:distance_type": "plane",
 
   "boundary:circle:radius": "50km",
   "boundary:circle:distance_type": "plane",

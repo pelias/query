@@ -14,7 +14,8 @@ module.exports.view = {
   admin: require('./view/admin'),
   boundary_circle: require('./view/boundary_circle'),
   boundary_rect: require('./view/boundary_rect'),
-  boundary_country: require('./view/boundary_country')
+  boundary_country: require('./view/boundary_country'),
+  sort_distance: require('./view/sort_distance')
 };
 
 module.exports.defaults = require('./defaults');
