@@ -95,7 +95,7 @@ This library provides a dictionary of common [default values](https://github.com
 
 The defaults should be sufficient in the vast majority of cases but you may elect to change these defaults in order to modify how the queries execute for your specific installation.
 
-**note: **You can override any of the defaults at runtime.
+**note:** You can override any of the defaults at runtime.
 
 ```javascript
 var query = require('pelias-query');
