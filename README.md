@@ -386,7 +386,7 @@ var q = new query.layout.FilteredBooleanQuery()
   .score( query.view.focus );
 
 /**
-  configure implementation-specific settings:
+  configure implementation-specific settings (or simply use the defaults):
   - phrase settings
   - focus settings
 **/
