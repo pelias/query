@@ -63,9 +63,11 @@ console.log( dict );
 
 #### Default Variables
 
-You can initalize the variables in a collection when you instantiate it. This library provides a dictionary of common [default values](https://github.com/pelias/query/blob/master/defaults.json).
+You can initalize the variables in a store when you instantiate it. This library provides a dictionary of common [default values](https://github.com/pelias/query/blob/master/defaults.json).
 
 The defaults should be used in a majority of cases but you may change these defaults in order to modify how the queries execute for your specific installation.
+
+Note: You can override any of the defaults at runtime.
 
 ```javascript
 var query = require('pelias-query');
@@ -75,6 +77,43 @@ var vs = new query.Vars( query.defaults );
 
 // print all set variables
 console.log( vs.export() );
+```
+
+#### User Variables
+
+Variables coming from user input should be set on the variable store **whenever they are available**, below is a list of common user variables which can be set/unset to enable/disable query functionality.
+
+Note: this list is non exhaustive, see the validation section of each view to see which variables it uses (explained below).
+
+```
+input:name: 'hackney city farm'
+
+focus:point:lat: 1.1
+focus:point:lon: 2.2
+
+input:housenumber: 101
+input:street: "hackney road"
+input:postcode: "E81DN"
+
+input:alpha3: "GBR"
+input:admin0: "hackney"
+input:admin1: "hackney"
+input:admin1_abbr: "hackney"
+input:admin2: "hackney"
+input:local_admin: "hackney"
+input:locality: "hackney"
+input:neighborhood: "hackney"
+
+boundary:circle:lat: 1
+boundary:circle:lon: 2
+boundary:circle:radius: "50km"
+
+boundary:rect:top: 1
+boundary:rect:right: 2
+boundary:rect:bottom: 2
+boundary:rect:left: 1
+
+boundary:country: "USA"
 ```
 
 ### Views
