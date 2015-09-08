@@ -16,14 +16,16 @@ The `pelias-query` npm module can be found here:
 
 ### Variables
 
-We can use variables as placeholders to build a query before we know the final value.
+Variables are used as placeholders in order to pre-build queries before we know the final values which will be provided by the user.
 
-Variables can only be javascript primative types: `string|numeric|boolean`
+**note:** Variables can only be javascript primative types: `string` *or* `numeric` *or* `boolean`
+
+#### VariableStore API
 
 ```javascript
 var query = require('pelias-query');
 
-// create a new variable collection
+// create a new variable store
 var vs = new query.Vars();
 
 // set a variable
@@ -55,12 +57,15 @@ vs.set({
 });
 
 // export variables for debugging
-vs.export();
+var dict = vs.export();
+console.log( dict );
 ```
 
 #### Default Variables
 
-You can initalize a variable collection when you instantiate it, this library provides a dictionary of [common default](https://github.com/pelias/query/blob/master/defaults.json) values.
+You can initalize the variablea in a collection when you instantiate it. This library provides a dictionary of [common default](https://github.com/pelias/query/blob/master/defaults.json) values.
+
+The defaults should be used in a majority of cases but you may change the defaults in order to modify how the queries execute for your specific installation.
 
 ```javascript
 var query = require('pelias-query');
@@ -76,7 +81,7 @@ console.log( vs.export() );
 
 Complex queries can be composed of smaller 'views', these are query blocks which are marked up with placeholder variables and later 'compiled' with the actual user variables in place.
 
-Views are essentially just a function which takes one arguments (the variable collection `vs`) and returns either `null` (if the required variables are not available) *or* a javascript object which encapsulates the view.
+Views are essentially just a function which takes one arguments (the variable store `vs`) and returns either `null` (if the required variables are not available) *or* a javascript object which encapsulates the view.
 
 ```javascript
 // example of a 'view'
@@ -104,14 +109,15 @@ function ( vs ){
 }
 ```
 
-It's best practise to validate the variable(s) you are going to use at the top of your view so that 1) it doesn't execute with unmet dependencies and 2) it is clear for other developers how to execute it.
+It's best practise to validate the variable(s) you are going to use at the top of your view so that 1) it doesn't execute with unmet dependencies and 2) it is clear for other developers which variables are required to execute it.
 
-#### Example
+#### View API
 
 An example of the above view rendered would look like this:
 
 ```javascript
-var query = require('pelias-query');
+var query = require('pelias-query'),
+    view = query.view.ngrams;
 
 var vs = new query.Vars({
   'input:name': 'hackney city farm',
@@ -120,7 +126,6 @@ var vs = new query.Vars({
   'ngram:boost': 1
 });
 
-var view = query.view.ngrams;
 var rendered = view( vs );
 ```
 
@@ -135,6 +140,51 @@ var rendered = view( vs );
   }
 }
 ```
+
+### Layouts
+
+Just as with most MVC frameworks the 'meta' view is called a 'layout', this is the envelope which wraps all other views.
+
+There is only one view available in this library (at this time), named the `FilteredBooleanQuery`. This is essentially the most versatile type of elasticsearch query, all other examples you find online are simplified versions of this `layout`.
+
+```javascript
+var query = require('pelias-query');
+
+var q = new query.layout.FilteredBooleanQuery();
+```
+
+##### FilteredBooleanQuery API
+
+The `FilteredBooleanQuery` has two different methods for assigning views.
+
+##### Score
+
+The `.score` method is used to assign views which **will effect the scoring** of the results.
+
+In most cases you can assume that records which match more conditions will appear higher in the results than those which match fewer.
+
+```javascript
+var q = new query.layout.FilteredBooleanQuery();
+
+// a 'SHOULD' condition, if a record matches, it's score will be increased
+q.score( view );
+
+// this is simply a more explicit equivalent of the above
+q.score( view, 'should' );
+
+// in this case we mark the view as a 'must' match condition. Matching results will effect the score **but** in this case **non-matching records will be removed from the results completely**
+q.score( view, 'must' );
+```
+
+##### Filter
+
+The `.filter` method is used to assign views which **do not effect the scoring** of results.
+
+```javascript
+var q = new query.layout.FilteredBooleanQuery();
+
+// **non-matching records will be removed from the results completely**
+q.filter( view );`
 
 ## Contributing
 
