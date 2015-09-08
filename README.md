@@ -34,12 +34,12 @@ In many cases query logic is simply copy->pasted between queries to ensure valid
 
 This repo aims to solve some of these issues by providing:
 
-- a logical boundary between query composition and input validation
-- a way to notate query variables which is distict from the RESTful API
-- a method of composing complex queries from smaller components
+- a logical boundary between query composition and input validation.
+- a way to notate query variables which is distict from the RESTful API.
+- a method of composing complex queries from smaller components.
 - a way of testing/debugging and re-using queries across repos/forks.
 
-The composition workflow should be very familiar to any who have used an MVC-type framework before.
+The composition workflow should be instantly familiar to anyone who has used an MVC-type framework before.
 
 ### Variables
 
