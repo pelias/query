@@ -261,21 +261,21 @@ var query = require('pelias-query'),
     vs = new query.Vars( query.defaults ),
     q = new query.layout.FilteredBooleanQuery();
 
-// this is our target point (somewhere in London)
-var target = { lat: 51.5, lon: -0.06 };
+// this is our focus point (somewhere in London)
+var focus = { lat: 51.5, lon: -0.06 };
 
 // we only want 1 result
 vs.var('size', 1);
 
 // we can (optionally) set an outer bounds to the query
-vs.var('boundary:circle:lat', target.lat);
-vs.var('boundary:circle:lon', target.lon);
+vs.var('boundary:circle:lat', focus.lat);
+vs.var('boundary:circle:lon', focus.lon);
 vs.var('boundary:circle:radius', '5km');
 q.filter( query.view.boundary_circle );
 
 // sort results so the nearest one comes first
-vs.var('focus:point:lat', target.lat);
-vs.var('focus:point:lon', target.lon);
+vs.var('focus:point:lat', focus.lat);
+vs.var('focus:point:lon', focus.lon);
 q.sort( query.view.sort_distance );
 
 // render the query
@@ -325,6 +325,120 @@ results in a query such as:
         }
       }
     }
+  ]
+}
+```
+
+
+#### Linguistic Search with Local Bias
+
+This example is the most commonly requested full-text search query. In this case we match *all* results but we also apply the following scoring:
+
+1. better linguistic matches rank higher in the results
+2. records near the 'focus' point also gain a localized 'boost'
+
+In effect this means that we still show far away places but we also give more priority to local places.
+
+```javascript
+var query = require('pelias-query'),
+    vs = new query.Vars( query.defaults ),
+    q = new query.layout.FilteredBooleanQuery();
+
+// this is our focus point (somewhere in London)
+var focus = { lat: 51.5, lon: -0.06 };
+
+// the input text provided by the user
+vs.var( 'input:name', 'union square' );
+
+// the field on which to match and analyzer to use
+vs.var( 'phrase:field', 'phrase.default' );
+vs.var( 'phrase:analyzer', 'standard' );
+
+// the linguistic matching strategy to use for scoring
+q.score( query.view.phrase );
+
+// the input point to use for localization
+vs.var('focus:point:lat', focus.lat);
+vs.var('focus:point:lon', focus.lon);
+
+// we can (optionally) change the decay arc
+vs.var('focus:function', 'gauss');
+vs.var('focus:offset', '10km');
+vs.var('focus:scale', '100km');
+vs.var('focus:decay', 0.4);
+
+// apply the geographic decay function
+q.score( query.view.focus );
+
+// render the query
+var rendered = q.render( vs );
+console.log( JSON.stringify( rendered, null, 2 ) );
+```
+
+results in a query such as:
+
+```javascript
+{
+  "query": {
+    "filtered": {
+      "query": {
+        "bool": {
+          "should": [
+            {
+              "match": {
+                "phrase.default": {
+                  "analyzer": "standard",
+                  "type": "phrase",
+                  "boost": 1,
+                  "slop": 2,
+                  "query": "union square"
+                }
+              }
+            },
+            {
+              "function_score": {
+                "query": {
+                  "match": {
+                    "phrase.default": {
+                      "analyzer": "standard",
+                      "type": "phrase",
+                      "boost": 1,
+                      "slop": 2,
+                      "query": "union square"
+                    }
+                  }
+                },
+                "functions": [
+                  {
+                    "gauss": {
+                      "center_point": {
+                        "origin": {
+                          "lat": 51.5,
+                          "lon": -0.06
+                        },
+                        "offset": "10km",
+                        "scale": "100km",
+                        "decay": 0.4
+                      }
+                    }
+                  }
+                ],
+                "score_mode": "avg",
+                "boost_mode": "replace"
+              }
+            }
+          ]
+        }
+      },
+      "filter": {
+        "bool": {}
+      }
+    }
+  },
+  "size": 10,
+  "track_scores": true,
+  "sort": [
+    "_score"
   ]
 }
 ```
