@@ -189,7 +189,8 @@ The `.filter` method is used to assign views which **do not effect the scoring**
 var q = new query.layout.FilteredBooleanQuery();
 
 // **non-matching records will be removed from the results completely**
-q.filter( view );`
+q.filter( view );
+```
 
 ## Contributing
 
