@@ -63,7 +63,7 @@ console.log( dict );
 
 #### Default Variables
 
-You can initalize the variables in a collection when you instantiate it. This library provides a dictionary of [common default](https://github.com/pelias/query/blob/master/defaults.json) values.
+You can initalize the variables in a collection when you instantiate it. This library provides a dictionary of common [default values](https://github.com/pelias/query/blob/master/defaults.json).
 
 The defaults should be used in a majority of cases but you may change these defaults in order to modify how the queries execute for your specific installation.
 
