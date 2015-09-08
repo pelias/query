@@ -239,7 +239,7 @@ In effect this method is not as useful as it sounds, for the most part you shoul
 
 This function is only really useful in cases where a 'tiebreaker' is needed. For example: searching 'mcdonalds' may result in several records which scored the same value, in this case we can attempt to 'break the tie'.
 
-**warning:** These functions still effect performance even when not required for tiebreaking as they are computed for every document which matches the above conditions.
+**warning:** These functions are computed for every document which matches the above conditions. Adding many `.sort` conditions may have a negative affect on query performance.
 
 ```javascript
 var q = new query.layout.FilteredBooleanQuery();
