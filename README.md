@@ -164,7 +164,7 @@ The `FilteredBooleanQuery` has two different methods for assigning conditional v
 
 The `.score` method is used to assign views which **will effect the scoring** of the results.
 
-In most cases you can assume that records which match more conditions will appear higher in the results than those which match fewer.
+In most cases you can assume that **records which match more of these conditions will appear higher in the results than those which match fewer**.
 
 ```javascript
 var q = new query.layout.FilteredBooleanQuery();
