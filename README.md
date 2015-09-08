@@ -63,9 +63,9 @@ console.log( dict );
 
 #### Default Variables
 
-You can initalize the variablea in a collection when you instantiate it. This library provides a dictionary of [common default](https://github.com/pelias/query/blob/master/defaults.json) values.
+You can initalize the variables in a collection when you instantiate it. This library provides a dictionary of [common default](https://github.com/pelias/query/blob/master/defaults.json) values.
 
-The defaults should be used in a majority of cases but you may change the defaults in order to modify how the queries execute for your specific installation.
+The defaults should be used in a majority of cases but you may change these defaults in order to modify how the queries execute for your specific installation.
 
 ```javascript
 var query = require('pelias-query');
@@ -81,7 +81,7 @@ console.log( vs.export() );
 
 Complex queries can be composed of smaller 'views', these are query blocks which are marked up with placeholder variables and later 'compiled' with the actual user variables in place.
 
-Views are essentially just a function which takes one arguments (the variable store `vs`) and returns either `null` (if the required variables are not available) *or* a javascript object which encapsulates the view.
+Views are essentially just a function which takes one argument (the variable store `vs`) and returns either `null` (if the required variables are not available) *or* a javascript object which encapsulates the view.
 
 ```javascript
 // example of a 'view'
@@ -109,7 +109,9 @@ function ( vs ){
 }
 ```
 
-It's best practise to validate the variable(s) you are going to use at the top of your view so that 1) it doesn't execute with unmet dependencies and 2) it is clear for other developers which variables are required to execute it.
+It's best practise to validate the variable(s) you are going to use at the top of your view so that:
+1. it doesn't execute with unmet dependencies *and*
+2. it is clear for other developers which variables are required to execute it
 
 #### View API
 
@@ -172,7 +174,9 @@ q.score( view );
 // this is simply a more explicit equivalent of the above
 q.score( view, 'should' );
 
-// in this case we mark the view as a 'must' match condition. Matching results will effect the score **but** in this case **non-matching records will be removed from the results completely**
+// in this case we mark the view as a 'must' match condition.
+// Matching results will effect the score **but** in this case
+// **non-matching records will be removed from the results completely**
 q.score( view, 'must' );
 ```
 
