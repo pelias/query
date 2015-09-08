@@ -38,6 +38,7 @@ This repo aims to solve some of these issues by providing:
 - a way to notate query variables which is distict from the RESTful API.
 - a method of composing complex queries from smaller components.
 - a way of testing/debugging and re-using queries across repos/forks.
+- a language which describes the problem domain rather than an individual implementation.
 
 The composition workflow should be instantly familiar to anyone who has used an MVC-type framework before.
 
