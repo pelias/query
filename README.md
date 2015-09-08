@@ -109,7 +109,8 @@ function ( vs ){
 }
 ```
 
-It's best practise to validate the variable(s) you are going to use at the top of your view so that:
+It's best practice to validate the variable(s) you are going to use at the top of your view so that:
+
 1. it doesn't execute with unmet dependencies *and*
 2. it is clear for other developers which variables are required to execute it
 
