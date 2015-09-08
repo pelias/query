@@ -91,7 +91,7 @@ console.log( dict );
 
 #### Default Variables
 
-You can initalize the variables in a store when you instantiate it. This library provides a dictionary of common [default values](https://github.com/pelias/query/blob/master/defaults.json).
+This library provides a dictionary of common [default values](https://github.com/pelias/query/blob/master/defaults.json) which can be used when instantiating a new variable store.
 
 The defaults should be used in a majority of cases but you may change these defaults in order to modify how the queries execute for your specific installation.
 
