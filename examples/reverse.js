@@ -30,8 +30,10 @@ vs.set({
 });
 
 // set focus point
-vs.var('focus:point:lat', focus.lat);
-vs.var('focus:point:lon', focus.lon);
+vs.set({
+  'focus:point:lat': focus.lat,
+  'focus:point:lon': focus.lon
+});
 
 // render the query
 var rendered = q.render( vs );
