@@ -158,7 +158,7 @@ var q = new query.layout.FilteredBooleanQuery();
 
 ##### FilteredBooleanQuery API
 
-The `FilteredBooleanQuery` has two different methods for assigning views.
+The `FilteredBooleanQuery` has two different methods for assigning conditional views and one method for handling the sorting of results.
 
 ##### Score
 
@@ -190,6 +190,21 @@ var q = new query.layout.FilteredBooleanQuery();
 
 // **non-matching records will be removed from the results completely**
 q.filter( view );
+```
+
+##### Sort
+
+The `.sort` method is used to assign views which effect the sorting of results.
+
+In effect this method is not as useful as it sounds, for the most part you should be using `.score` methods above to effect the sorting of results.
+
+This function is only really useful in cases where a 'tiebreaker' is needed. For example: searching 'mcdonalds' may result in several records which scored the same value, in this case we can attempt to 'break the tie'.
+
+```javascript
+var q = new query.layout.FilteredBooleanQuery();
+
+// this view is used to mediate 'tied' scoring situations
+q.sort( view );
 ```
 
 ## Contributing
