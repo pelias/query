@@ -267,7 +267,7 @@ var target = { lat: 51.5, lon: -0.06 };
 // we only want 1 result
 vs.var('size', 1);
 
-// we can (optionally set an outer bounds to the query)
+// we can (optionally) set an outer bounds to the query
 vs.var('boundary:circle:lat', target.lat);
 vs.var('boundary:circle:lon', target.lon);
 vs.var('boundary:circle:radius', '5km');
