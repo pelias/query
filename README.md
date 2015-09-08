@@ -16,7 +16,7 @@ The `pelias-query` npm module can be found here:
 
 #### About
 
-This repository contains all the *geospatial* and *liguistic* matching elasticsearch queries used in the [https://github.com/pelias/pelias](Pelias geocoder).
+This repository contains all the *geospatial* and *liguistic* matching elasticsearch queries used in the [Pelias geocoder](https://github.com/pelias/pelias).
 
 An attempt has been made to provide the queries in a more general-purpose fashion, where only a few variables need to be changed in order to use the same queries with an elasticsearch [document schema](https://github.com/pelias/schema) which is not exactly the same as the one which ships with Pelias.
 
@@ -26,9 +26,11 @@ Feel free to fork the project, Pull Requests are welcome!
 
 As the complexity and variability of database queries grows in a large project, their maintenance starts to become more and more difficult.
 
+Changes to the controller layer can have significant impact on the query layer and vice versa, making refactoring a chore.
+
 Additionally; the controller code used to compose these queries becomes a horrible mix of user input validation and query composition logic.
 
-In many cases query logic is copy->pasted between queries when it can simply be reused.
+In many cases query logic is simply copy->pasted between queries to ensure validity when it could simply be reused.
 
 This repo aims to solve some of these issues by providing:
 
@@ -37,7 +39,7 @@ This repo aims to solve some of these issues by providing:
 - a method of composing complex queries from smaller components
 - a way of testing/debugging and re-using queries across repos/forks.
 
-The general API design should be familiar to those who have used an MVC-type framework before.
+The composition workflow should be very familiar to any who have used an MVC-type framework before.
 
 ### Variables
 
