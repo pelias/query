@@ -14,6 +14,31 @@ The `pelias-query` npm module can be found here:
 
 [https://npmjs.org/package/pelias-query](https://npmjs.org/package/pelias-query)
 
+#### About
+
+This repository contains all the *geospatial* and *liguistic* matching elasticsearch queries used in the [https://github.com/pelias/pelias](Pelias geocoder).
+
+An attempt has been made to provide the queries in a more general-purpose fashion, where only a few variables need to be changed in order to use the same queries with an elasticsearch [document schema](https://github.com/pelias/schema) which is not exactly the same as the one which ships with Pelias.
+
+Feel free to fork the project, Pull Requests are welcome!
+
+#### Motivation
+
+As the complexity and variability of database queries grows in a large project, their maintenance starts to become more and more difficult.
+
+Additionally; the controller code used to compose these queries becomes a horrible mix of user input validation and query composition logic.
+
+In many cases query logic is copy->pasted between queries when it can simply be reused.
+
+This repo aims to solve some of these issues by providing:
+
+- a logical boundary between query composition and input validation
+- a way to notate query variables which is distict from the RESTful API
+- a method of composing complex queries from smaller components
+- a way of testing/debugging and re-using queries across repos/forks.
+
+The general API design should be familiar to those who have used an MVC-type framework before.
+
 ### Variables
 
 Variables are used as placeholders in order to pre-build queries before we know the final values which will be provided by the user.
@@ -449,7 +474,7 @@ results in a query such as:
 
 The above are an examples of how you can compose queries which are testable, debuggable and re-usable, they can also be mixed & matched with other queries to build even more complex queries.
 
-Rather than trying to document an exasutive list of geospatial and liguistic queries here; we have added a bunch of examples in the [examples directory](https://github.com/pelias/query/tree/master/examples).
+Rather than trying to document an exaustive list of geospatial and liguistic queries here; we have added a bunch of examples in the [examples directory](https://github.com/pelias/query/tree/master/examples).
 
 If you have any further questions please open an issue.
 
