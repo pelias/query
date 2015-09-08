@@ -93,7 +93,7 @@ console.log( dict );
 
 This library provides a dictionary of common [default values](https://github.com/pelias/query/blob/master/defaults.json) which can be used when instantiating a new variable store.
 
-The defaults should be used in a majority of cases but you may change these defaults in order to modify how the queries execute for your specific installation.
+The defaults should be sufficient in the vast majority of cases but you may elect to change these defaults in order to modify how the queries execute for your specific installation.
 
 Note: You can override any of the defaults at runtime.
 
