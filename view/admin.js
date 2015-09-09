@@ -8,7 +8,8 @@ module.exports = function( property ){
   return function( vs ){
 
     // validate required params
-    if( !vs.isset('input:'+property) ||
+    if( !property ||
+        !vs.isset('input:'+property) ||
         !vs.isset('admin:'+property+':analyzer') ||
         !vs.isset('admin:'+property+':field') ||
         !vs.isset('admin:'+property+':boost') ){
