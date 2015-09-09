@@ -39,6 +39,7 @@ Layout.prototype.render = function( vs ){
 
   // handle filter views under 'filter' section (only 'must' is allowed here)
   if( this._filter.length ){
+    q.query.filtered.filter = { bool: {} };
     this._filter.forEach( function( condition ){
       var view = condition[0], operator = condition[1];
       if( !q.query.filtered.filter.bool.hasOwnProperty( operator ) ){
@@ -72,9 +73,6 @@ Layout.base = function( vs ){
     query: {
       filtered: {
         query: {
-          bool: {}
-        },
-        filter: {
           bool: {}
         }
       }
