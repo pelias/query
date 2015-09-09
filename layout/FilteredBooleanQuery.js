@@ -11,7 +11,7 @@ Layout.prototype.score = function( view, operator ){
 };
 
 Layout.prototype.filter = function( view ){
-  this._filter.push([ view, 'must' ]);
+  this._filter.push( view );
   return this;
 };
 
@@ -39,15 +39,13 @@ Layout.prototype.render = function( vs ){
 
   // handle filter views under 'filter' section (only 'must' is allowed here)
   if( this._filter.length ){
-    q.query.filtered.filter = { bool: {} };
-    this._filter.forEach( function( condition ){
-      var view = condition[0], operator = condition[1];
-      if( !q.query.filtered.filter.bool.hasOwnProperty( operator ) ){
-        q.query.filtered.filter.bool[ operator ] = [];
-      }
+    this._filter.forEach( function( view ){
       var rendered = view( vs );
       if( rendered ){
-        q.query.filtered.filter.bool[ operator ].push( rendered );
+        if( !q.query.filtered.hasOwnProperty( 'filter' ) ){
+          q.query.filtered.filter = { bool: { must: [] } };
+        }
+        q.query.filtered.filter.bool.must.push( rendered );
       }
     });
   }
