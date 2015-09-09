@@ -20,8 +20,8 @@ module.exports = function( vs ){
 
   // centroid
   view._geo_distance[ vs.var('centroid:field') ] = {
-    lat: vs.var('boundary:circle:lat'),
-    lon: vs.var('boundary:circle:lon')
+    lat: vs.var('focus:point:lat'),
+    lon: vs.var('focus:point:lon')
   };
 
   return view;
