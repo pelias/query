@@ -8,6 +8,8 @@ module.exports.layout = {
 
 module.exports.view = {
   focus: require('./view/focus'),
+  popularity: require('./view/popularity'),
+  localregions: require('./view/localregions'),
   ngrams: require('./view/ngrams'),
   phrase: require('./view/phrase'),
   address: require('./view/address'),

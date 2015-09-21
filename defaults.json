@@ -74,5 +74,16 @@
 
   "admin:neighborhood:analyzer": "peliasAdmin",
   "admin:neighborhood:field": "neighborhood",
-  "admin:neighborhood:boost": 1
+  "admin:neighborhood:boost": 1,
+
+  "popularity:field": "popularity",
+  "popularity:modifier": "sqrt",
+  "popularity:max_boost": 2,
+  "popularity:weight": 1,
+
+  "localregions:weight": 10,
+  "localregions:function": "linear",
+  "localregions:offset": "100km",
+  "localregions:scale": "500km",
+  "localregions:decay": 0.5
 }
