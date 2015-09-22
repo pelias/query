@@ -23,7 +23,7 @@ module.exports = function( subview ){
     // base view
     var view = {
       function_score: {
-        query: subview,
+        query: subview( vs ),
         functions: [],
         score_mode: vs.var('function_score:score_mode'),
         boost_mode: vs.var('function_score:boost_mode'),
