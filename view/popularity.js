@@ -1,6 +1,11 @@
 
-module.exports = function( types ){
+module.exports = function( subview ){
   return function( vs ){
+
+    // query section reduces the number of records which
+    // the decay function is applied to.
+    // we simply re-use the another view for the function query.
+    if( !subview ){ return null; } // subview validation failed
 
     // validate required params
     if( !vs.isset('popularity:field') ||
@@ -12,37 +17,18 @@ module.exports = function( types ){
     // base view
     var view = {
       function_score: {
-        query: {
-          'filtered': {
-            'filter': {
-              'exists': {
-                'field': vs.var('popularity:field')
-              }
-            }
-          }
-        },
-        // filter: {
-        //   'or': [
-        //     { 'type': { 'value': 'admin0' } },
-        //     { 'type': { 'value': 'admin1' } },
-        //     { 'type': { 'value': 'admin2' } }
-        //   ]
-        // },
+        query: subview( vs ),
         max_boost: vs.var('popularity:max_boost'),
         functions: [],
         score_mode: 'first',
         boost_mode: 'replace',
+        filter: {
+          'exists': {
+            'field': vs.var('popularity:field')
+          }
+        }
       }
     };
-
-    // a list of _types to target
-    if( Array.isArray( types ) ){
-      view.function_score.filter = {
-        or: types.map( function( type ){
-          return { type: { value: type } };
-        })
-      };
-    }
 
     view.function_score.functions.push({
       field_value_factor: {
