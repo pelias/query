@@ -3,7 +3,7 @@
   "track_scores": true,
 
   "centroid:field": "center_point",
-  
+
   "sort:distance:order": "asc",
   "sort:distance:distance_type": "plane",
 
@@ -80,6 +80,11 @@
   "popularity:modifier": "sqrt",
   "popularity:max_boost": 2,
   "popularity:weight": 1,
+
+  "population:field": "population",
+  "population:modifier": "sqrt",
+  "population:max_boost": 2,
+  "population:weight": 1,
 
   "localregions:weight": 10,
   "localregions:function": "linear",
