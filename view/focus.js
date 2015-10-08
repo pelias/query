@@ -13,6 +13,7 @@ module.exports = function( subview ){
         !vs.isset('centroid:field') ||
         !vs.isset('function_score:score_mode') ||
         !vs.isset('function_score:boost_mode') ||
+        !vs.isset('focus:weight') ||
         !vs.isset('focus:function') ||
         !vs.isset('focus:offset') ||
         !vs.isset('focus:scale') ||
@@ -26,12 +27,12 @@ module.exports = function( subview ){
         query: subview( vs ),
         functions: [],
         score_mode: vs.var('function_score:score_mode'),
-        boost_mode: vs.var('function_score:boost_mode'),
+        boost_mode: vs.var('function_score:boost_mode')
       }
     };
 
     // decay function
-    var func = {};
+    var func = { weight: vs.var('focus:weight') };
     func[ vs.var('focus:function') ] = {};
     func[ vs.var('focus:function') ][ vs.var('centroid:field') ] = {
       origin: {

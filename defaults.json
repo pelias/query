@@ -28,6 +28,7 @@
   "focus:offset": "1km",
   "focus:scale": "50km",
   "focus:decay": 0.5,
+  "focus:weight": 2,
 
   "function_score:score_mode": "avg",
   "function_score:boost_mode": "replace",
@@ -78,13 +79,13 @@
 
   "popularity:field": "popularity",
   "popularity:modifier": "sqrt",
-  "popularity:max_boost": 2,
+  "popularity:max_boost": 999999,
   "popularity:weight": 1,
 
   "population:field": "population",
   "population:modifier": "sqrt",
-  "population:max_boost": 2,
-  "population:weight": 1,
+  "population:max_boost": 999999,
+  "population:weight": 2,
 
   "localregions:weight": 10,
   "localregions:function": "linear",
