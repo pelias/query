@@ -10,7 +10,7 @@ module.exports = function( vs ){
   var view = { "terms": {} };
 
   // terms query
-  view.terms[ vs.var('category:field') ] = vs.var('category:categories');
+  view.terms[ vs.var('category:field') ] = vs.var('category:categories').get();
 
   return view;
 };
