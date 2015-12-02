@@ -16,7 +16,7 @@ The `pelias-query` npm module can be found here:
 
 #### About
 
-This repository contains all the *geospatial* and *liguistic* matching elasticsearch queries used in the [Pelias geocoder](https://github.com/pelias/pelias).
+This repository contains all the *geospatial* and *linguistic* matching elasticsearch queries used in the [Pelias geocoder](https://github.com/pelias/pelias).
 
 An attempt has been made to provide the queries in a more general-purpose fashion. Only a few variables need to be changed in order to use the same queries with any elasticsearch [schema](https://github.com/pelias/schema).
 
