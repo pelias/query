@@ -15,6 +15,7 @@ module.exports.view = {
   phrase: require('./view/phrase'),
   address: require('./view/address'),
   admin: require('./view/admin'),
+  category: require('./view/category'),
   boundary_circle: require('./view/boundary_circle'),
   boundary_rect: require('./view/boundary_rect'),
   boundary_country: require('./view/boundary_country'),
