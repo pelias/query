@@ -1,4 +1,4 @@
-Elasticsearch geospatial and liguistic matching queries used by Pelias.
+Elasticsearch geospatial and linguistic matching queries used by Pelias.
 
 ## Installation
 
@@ -16,9 +16,9 @@ The `pelias-query` npm module can be found here:
 
 #### About
 
-This repository contains all the *geospatial* and *linguistic* matching elasticsearch queries used in the [Pelias geocoder](https://github.com/pelias/pelias).
+This repository contains all the *geospatial* and *linguistic* matching Elasticsearch queries used in the [Pelias geocoder](https://github.com/pelias/pelias).
 
-An attempt has been made to provide the queries in a more general-purpose fashion. Only a few variables need to be changed in order to use the same queries with any elasticsearch [schema](https://github.com/pelias/schema).
+An attempt has been made to provide the queries in a more general-purpose fashion. Only a few variables need to be changed in order to use the same queries with any Elasticsearch [schema](https://github.com/pelias/schema).
 
 Feel free to fork the project, Pull Requests are welcome!
 
@@ -35,7 +35,7 @@ In many cases query logic is simply copy->pasted between queries to ensure valid
 This repo aims to solve some of these issues by providing:
 
 - a logical boundary between query composition and input validation.
-- a way to notate query variables which is distict from the RESTful API.
+- a way to notate query variables which is distinct from the RESTful API.
 - a method of composing complex queries from smaller components.
 - a way of testing/debugging and re-using queries across repos/forks.
 - a language which describes the problem domain rather than an individual implementation.
@@ -46,7 +46,7 @@ The composition workflow should be instantly familiar to anyone who has used an 
 
 Variables are used as placeholders in order to pre-build queries before we know the final values which will be provided by the user.
 
-**note:** Variables can only be javascript primative types: `string` *or* `numeric` *or* `boolean`
+**note:** Variables can only be Javascript primative types: `string` *or* `numeric` *or* `boolean`
 
 #### VariableStore API
 
@@ -65,7 +65,7 @@ vs.var('input:name').set('hackney city farm');
 // get a variable
 var a = vs.var('input:name');
 
-// get the primative value of a variable
+// get the primitive value of a variable
 var a = vs.var('input:name');
 a.get(); // hackney city farm
 a.toString(); // hackney city farm
@@ -215,7 +215,7 @@ var rendered = view( vs );
 
 Just as with most MVC frameworks the 'meta' view is called a 'layout', this is the envelope which wraps all other views.
 
-There is only one view available in this library (at this time), named the `FilteredBooleanQuery`. This is essentially the most versatile type of elasticsearch query, all other examples you find online are simplified versions of this `layout`.
+There is only one view available in this library (at this time), named the `FilteredBooleanQuery`. This is essentially the most versatile type of Elasticsearch query, all other examples you find online are simplified versions of this `layout`.
 
 ```javascript
 var query = require('pelias-query');
@@ -280,7 +280,7 @@ q.sort( view );
 
 ### Composing Complex Queries
 
-Great! so with the building blocks above we can start to build composable, testable and re-usable queries.
+Great! So with the building blocks above we can start to build composable, testable and re-usable queries.
 
 #### Reverse Geocode
 
@@ -494,7 +494,7 @@ results in a query such as:
 
 The above are examples of how you can compose queries which are testable, debuggable and re-usable, they can also be mixed & matched with other queries to build even more complex queries.
 
-Rather than trying to document an exaustive list of geospatial and liguistic queries here; we have added a bunch of examples in the [examples directory](https://github.com/pelias/query/tree/master/examples).
+Rather than trying to document an exhaustive list of geospatial and linguistic queries here; we have added a bunch of examples in the [examples directory](https://github.com/pelias/query/tree/master/examples).
 
 If you have any further questions please open an issue.
 
