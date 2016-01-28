@@ -46,7 +46,7 @@ The composition workflow should be instantly familiar to anyone who has used an 
 
 Variables are used as placeholders in order to pre-build queries before we know the final values which will be provided by the user.
 
-**note:** Variables can only be Javascript primative types: `string` *or* `numeric` *or* `boolean`
+**note:** Variables can only be Javascript primitive types: `string` *or* `numeric` *or* `boolean`, plus `array`. No objects allowed.
 
 #### VariableStore API
 
