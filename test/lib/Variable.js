@@ -36,9 +36,6 @@ module.exports.tests.set = function(test, common) {
     t.throws(function(){
       v.set( null );
     });
-    t.throws(function(){
-      v.set([ 'a' ]);
-    });
     t.end();
   });
   test('set: valid value', function(t) {
@@ -61,6 +58,9 @@ module.exports.tests.set = function(test, common) {
 
     v.set(false);
     t.equal(v.$, false, 'bolean');
+
+    v.set(['a', 'b']);
+    t.deepEqual(v.$, ['a', 'b'], 'array');
 
     t.end();
   });

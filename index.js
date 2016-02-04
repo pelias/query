@@ -19,7 +19,8 @@ module.exports.view = {
   boundary_rect: require('./view/boundary_rect'),
   boundary_country: require('./view/boundary_country'),
   sort_distance: require('./view/sort_distance'),
-  sort_numeric_script: require('./view/sort_numeric_script')
+  sort_numeric_script: require('./view/sort_numeric_script'),
+  sources: require('./view/sources')
 };
 
 module.exports.defaults = require('./defaults');
