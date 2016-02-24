@@ -1,7 +1,7 @@
 {
   "name": "pelias-query",
   "version": "5.0.0",
-  "description": "",
+  "description": "An Elasticsearch query builder for Pelias",
   "main": "index.js",
   "scripts": {
     "test": "node test/run.js | tap-spec"
