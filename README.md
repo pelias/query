@@ -123,14 +123,14 @@ input:housenumber: 101
 input:street: "hackney road"
 input:postcode: "E81DN"
 
-input:alpha3: "GBR"
-input:admin0: "hackney"
-input:admin1: "hackney"
-input:admin1_abbr: "hackney"
-input:admin2: "hackney"
-input:local_admin: "hackney"
+input:country_a: "GBR"
+input:country: "hackney"
+input:region: "hackney"
+input:region_a: "hackney"
+input:county: "hackney"
+input:localadmin: "hackney"
 input:locality: "hackney"
-input:neighborhood: "hackney"
+input:neighbourhood: "hackney"
 
 boundary:circle:lat: 1
 boundary:circle:lon: 2
