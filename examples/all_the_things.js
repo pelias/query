@@ -16,7 +16,7 @@ vs.set({
 });
 
 vs.set({ 'boundary:country': 'USA' });
-vs.set({ 'input:admin2': 'New York' });
+vs.set({ 'input:county': 'New York' });
 
 // mandatory matches
 q.score( query.view.boundary_country, 'must' )
@@ -32,14 +32,14 @@ q.score( query.view.address('housenumber') )
  .score( query.view.address('postcode') );
 
 // admin components
-q.score( query.view.admin('alpha3') )
- .score( query.view.admin('admin0') )
- .score( query.view.admin('admin1') )
- .score( query.view.admin('admin1_abbr') )
- .score( query.view.admin('admin2') )
- .score( query.view.admin('local_admin') )
+q.score( query.view.admin('country_a') )
+ .score( query.view.admin('country') )
+ .score( query.view.admin('region') )
+ .score( query.view.admin('region_a') )
+ .score( query.view.admin('county') )
+ .score( query.view.admin('localadmin') )
  .score( query.view.admin('locality') )
- .score( query.view.admin('neighborhood') );
+ .score( query.view.admin('neighbourhood') );
 
 // non-scoring hard filters
 q.filter( query.view.boundary_circle )

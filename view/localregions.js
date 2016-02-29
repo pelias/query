@@ -20,8 +20,8 @@ module.exports = function( types ){
         // filter: {
         //   'or': [
         //     { 'type': { 'value': 'locality' } },
-        //     { 'type': { 'value': 'local_admin' } },
-        //     { 'type': { 'value': 'neighborhood' } }
+        //     { 'type': { 'value': 'localadmin' } },
+        //     { 'type': { 'value': 'neighbourhood' } }
         //   ]
         // },
         // max_boost: 2,
