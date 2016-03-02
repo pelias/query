@@ -4,7 +4,8 @@
   "description": "An Elasticsearch query builder for Pelias",
   "main": "index.js",
   "scripts": {
-    "test": "node test/run.js | tap-spec"
+    "units": "node test/run.js | tap-spec",
+    "test": "npm run unit"
   },
   "repository": {
     "type": "git",
