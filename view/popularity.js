@@ -21,19 +21,15 @@ module.exports = function( subview ){
         max_boost: vs.var('popularity:max_boost'),
         functions: [],
         score_mode: 'first',
-        boost_mode: 'replace',
-        filter: {
-          'exists': {
-            'field': vs.var('popularity:field')
-          }
-        }
+        boost_mode: 'replace'
       }
     };
 
     view.function_score.functions.push({
       field_value_factor: {
         modifier: vs.var('popularity:modifier'),
-        field: vs.var('popularity:field')
+        field: vs.var('popularity:field'),
+        missing: 1
       },
       weight: vs.var('popularity:weight')
     });

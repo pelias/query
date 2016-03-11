@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "units": "node test/run.js | tap-spec",
-    "test": "npm run unit"
+    "test": "npm run units"
   },
   "repository": {
     "type": "git",
