@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/pelias/query#readme",
   "dependencies": {
-    "check-types": "^3.3.1"
+    "check-types": "^6.0.0"
   },
   "devDependencies": {
     "tap-spec": "^4.1.0",
