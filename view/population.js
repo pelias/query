@@ -21,19 +21,15 @@ module.exports = function( subview ){
         max_boost: vs.var('population:max_boost'),
         functions: [],
         score_mode: 'first',
-        boost_mode: 'replace',
-        filter: {
-          'exists': {
-            'field': vs.var('population:field')
-          }
-        }
+        boost_mode: 'replace'
       }
     };
 
     view.function_score.functions.push({
       field_value_factor: {
         modifier: vs.var('population:modifier'),
-        field: vs.var('population:field')
+        field: vs.var('population:field'),
+        missing: 1
       },
       weight: vs.var('population:weight')
     });
