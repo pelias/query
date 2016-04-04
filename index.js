@@ -12,7 +12,6 @@ module.exports.view = {
   population: require('./view/population'),
   localregions: require('./view/localregions'),
   ngrams: require('./view/ngrams'),
-  multingrams: require('./view/multingrams'),
   phrase: require('./view/phrase'),
   address: require('./view/address'),
   admin: require('./view/admin'),
