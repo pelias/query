@@ -11,20 +11,29 @@ module.exports = function( property ){
     if( !property ||
         !vs.isset('input:'+property) ||
         !vs.isset('admin:'+property+':analyzer') ||
-        !vs.isset('admin:'+property+':field') ||
+        (!vs.isset('admin:'+property+':field') && !vs.isset('admin:'+property+':multifield')) ||
         !vs.isset('admin:'+property+':boost') ){
       return null;
     }
 
-    // base view
-    var view = { "match": {} };
-    
-    // match query
-    view.match[ vs.var('admin:'+property+':field') ] = {
-      analyzer: vs.var('admin:'+property+':analyzer'),
-      boost: vs.var('admin:'+property+':boost'),
-      query: vs.var('input:'+property)
-    };
+    if(vs.isset('admin:'+property+':multifield')) {
+      var view = { "multi_match": { // multi_match query
+	analyzer: vs.var('admin:'+property+':analyzer'),
+	boost: vs.var('admin:'+property+':boost'),
+	query: vs.var('input:'+property),
+	fields: vs.var('admin:'+property+':multifield')
+      }};
+    }
+    else {
+      var view = { "match": {} };
+
+      // match query
+      view.match[ vs.var('admin:'+property+':field') ] = {
+	analyzer: vs.var('admin:'+property+':analyzer'),
+	boost: vs.var('admin:'+property+':boost'),
+	query: vs.var('input:'+property)
+      };
+    }
 
     return view;
   };
