@@ -9,7 +9,7 @@ module.exports = function( subview ){
 
     // validate required params
     if( !vs.isset('population:field') ||
-        !vs.isset('population:modifier'),
+        !vs.isset('population:modifier') || 
         !vs.isset('population:max_boost') ){
       return null;
     }
