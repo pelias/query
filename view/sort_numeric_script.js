@@ -14,7 +14,7 @@ module.exports = function( script_name ){
 
     // groovy script
     var view = {
-      "_script": {
+      '_script': {
         'file': script_name,
         'type': 'number',
         'order': 'desc'

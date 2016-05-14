@@ -11,12 +11,10 @@ module.exports.tests.interface = function(test, common) {
     t.end();
   });
 
-}
+};
 
 module.exports.tests.invalid_admin_values = function(test, common) {
   test('empty admin_properties should return null', function(t) {
-    var vs = new VariableStore();
-
     var admin_multi_match = require('../../view/admin_multi_match')([]);
 
     var vs = new VariableStore();

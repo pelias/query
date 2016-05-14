@@ -25,7 +25,7 @@ module.exports.tests.interface = function(test, common) {
     t.end();
   });
 
-}
+};
 
 module.exports.tests.no_property = function(test, common) {
   test('empty property should return null even if all other fields are present', function(t) {
@@ -88,7 +88,7 @@ module.exports.tests.missing_variable_conditions = function(test, common) {
     });
   });
 
-}
+};
 
 module.exports.tests.no_exceptions_conditions = function(test, common) {
   test('all required values should return formed object', function(t) {
@@ -114,14 +114,14 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           }
         }
       }
-    }
+    };
 
     t.deepEquals(actual, expected, 'should have returned object');
     t.end();
 
   });
 
-}
+};
 
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {

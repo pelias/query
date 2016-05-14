@@ -28,7 +28,7 @@ module.exports.tests.interface = function(test, common) {
     t.end();
   });
 
-}
+};
 
 module.exports.tests.missing_variable_conditions = function(test, common) {
   var variables = Object.keys(getBaseVariableStore().export());
@@ -62,14 +62,14 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           lon: { $: 'lon value' }
         }
       }
-    }
+    };
 
     t.deepEquals(actual, expected, 'should have returned object');
     t.end();
 
   });
 
-}
+};
 
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {

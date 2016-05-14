@@ -25,7 +25,7 @@ module.exports.tests.interface = function(test, common) {
     t.end();
   });
 
-}
+};
 
 module.exports.tests.missing_variable_conditions = function(test, common) {
   test('null subview should return null', function(t) {
@@ -61,7 +61,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
       return {
         'subview field': 'subview value'
       };
-    }
+    };
 
     var population = require('../../view/population')(subview);
 
@@ -90,7 +90,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
         boost_mode: 'replace'
       }
 
-    }
+    };
 
     t.deepEquals(actual, expected, 'should have returned object');
     t.end();

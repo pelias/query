@@ -25,7 +25,7 @@ module.exports.tests.interface = function(test, common) {
     t.end();
   });
 
-}
+};
 
 module.exports.tests.no_property = function(test, common) {
   ['', 0, false].forEach(function(falseyValue) {
@@ -80,14 +80,14 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           }
         }
       }
-    }
+    };
 
     t.deepEquals(actual, expected, 'should have returned object');
     t.end();
 
   });
 
-}
+};
 
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {

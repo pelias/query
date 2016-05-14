@@ -25,7 +25,7 @@ module.exports.tests.interface = function(test, common) {
     t.end();
   });
 
-}
+};
 
 module.exports.tests.missing_variable_conditions = function(test, common) {
   var variables = Object.keys(getBaseVariableStore().export());
@@ -40,7 +40,7 @@ module.exports.tests.missing_variable_conditions = function(test, common) {
     });
   });
 
-}
+};
 
 module.exports.tests.no_exceptions_conditions = function(test, common) {
   test('all fields available should populate all fields', function(t) {
@@ -54,14 +54,14 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           query: { $: 'name value' }
         }
       }
-    }
+    };
 
     t.deepEquals(actual, expected, 'should have returned object');
     t.end();
 
   });
 
-}
+};
 
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {

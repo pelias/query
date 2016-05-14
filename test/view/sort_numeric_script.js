@@ -11,7 +11,7 @@ module.exports.tests.interface = function(test, common) {
     t.end();
   });
 
-}
+};
 
 module.exports.tests.missing_variable_conditions = function(test, common) {
   test('null subview should return null', function(t) {

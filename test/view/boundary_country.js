@@ -24,7 +24,7 @@ module.exports.tests.interface = function(test, common) {
     t.end();
   });
 
-}
+};
 
 module.exports.tests.missing_variable_conditions = function(test, common) {
   var variables = Object.keys(getBaseVariableStore().export());
@@ -39,7 +39,7 @@ module.exports.tests.missing_variable_conditions = function(test, common) {
     });
   });
 
-}
+};
 
 module.exports.tests.no_exceptions_conditions = function(test, common) {
   test('no boundary:country should return null', function(t) {
@@ -58,14 +58,14 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           }
         }
       }
-    }
+    };
 
     t.deepEquals(actual, expected, 'should have returned object');
     t.end();
 
   });
 
-}
+};
 
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {

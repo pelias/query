@@ -30,7 +30,7 @@ module.exports.tests.interface = function(test, common) {
     t.end();
   });
 
-}
+};
 
 module.exports.tests.missing_variable_conditions = function(test, common) {
   var variables = Object.keys(getBaseVariableStore().export());
@@ -79,7 +79,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
         boost_mode: 'replace'
       }
 
-    }
+    };
 
     t.deepEquals(actual, expected, 'should have returned object');
     t.end();
@@ -122,12 +122,12 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
         boost_mode: 'replace'
       }
 
-    }
+    };
 
     t.deepEquals(actual, expected, 'should have returned object');
     t.end();
 
-  })
+  });
 
 };
 

@@ -17,8 +17,8 @@ module.exports = function( property ){
     }
 
     // base view
-    var view = { "match": {} };
-    
+    var view = { 'match': {} };
+
     // match query
     view.match[ vs.var('address:'+property+':field') ] = {
       analyzer: vs.var('address:'+property+':analyzer'),

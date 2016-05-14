@@ -10,7 +10,7 @@ module.exports.tests.interface = function(test, common) {
     t.end();
   });
 
-}
+};
 
 module.exports.tests.missing_variable_conditions = function(test, common) {
   test('sources not set in VariableStore should return null', function(t) {
