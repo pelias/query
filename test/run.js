@@ -3,6 +3,7 @@ var tape = require('tape');
 var common = {};
 
 var tests = [
+  require('./layout/FilteredBooleanQuery.js'),
   require('./lib/Variable.js'),
   require('./lib/VariableStore.js'),
   require('./view/address.js'),
