@@ -217,7 +217,7 @@ module.exports.tests.scores = function(test, common) {
 
   });
 
-}
+};
 
 module.exports.tests.filter = function(test, common) {
   test('all filter views returning truthy values should be added in order to sort', function(t) {
