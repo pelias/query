@@ -1,6 +1,6 @@
 {
   "name": "pelias-query",
-  "version": "6.3.0",
+  "version": "7.0.0",
   "description": "An Elasticsearch query builder for Pelias",
   "main": "index.js",
   "scripts": {
