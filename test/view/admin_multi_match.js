@@ -7,7 +7,7 @@ module.exports.tests.interface = function(test, common) {
     var admin_multi_match = require('../../view/admin_multi_match');
 
     t.equal(typeof admin_multi_match, 'function', 'valid function');
-    t.equal(admin_multi_match.length, 1, 'takes 1 args');
+    t.equal(admin_multi_match.length, 2, 'takes 2 args');
     t.end();
   });
 
@@ -81,7 +81,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
     vs.var('admin:property2:field', 'property2_field value');
     vs.var('admin:property2:boost', 'property2_boost value');
 
-    var admin_multi_match = require('../../view/admin_multi_match')(['property1', 'property2']);
+    var admin_multi_match = require('../../view/admin_multi_match')(['property1', 'property2'], 'analyzer value');
 
     var actual = admin_multi_match(vs);
 
@@ -92,7 +92,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           'property2_field value^property2_boost value'
         ],
         'query': { $: 'property1 value' },
-        'analyzer': 'peliasAdmin'
+        'analyzer': 'analyzer value'
       }
     };
 
@@ -107,7 +107,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
     vs.var('admin:property1:field', 'property1_field value');
     // there is no boost
 
-    var admin_multi_match = require('../../view/admin_multi_match')(['property1']);
+    var admin_multi_match = require('../../view/admin_multi_match')(['property1'], 'analyzer value');
 
     var actual = admin_multi_match(vs);
 
@@ -117,7 +117,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           'property1_field value^1'
         ],
         'query': { $: 'property1 value' },
-        'analyzer': 'peliasAdmin'
+        'analyzer': 'analyzer value'
       }
     };
 
