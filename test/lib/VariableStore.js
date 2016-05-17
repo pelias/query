@@ -79,7 +79,7 @@ module.exports.tests.var = function(test, common) {
     var vs = new VariableStore();
 
     var placeholder = vs.var('a');
-    t.equal(vs._vars['a'].get(), '');
+    t.equal(vs._vars.a.get(), '');
     t.equal(placeholder.get(), '');
 
     t.end();
@@ -89,7 +89,7 @@ module.exports.tests.var = function(test, common) {
 
     vs.var('a');
     vs.var('a','b');
-    t.equal(vs._vars['a'].get(), 'b');
+    t.equal(vs._vars.a.get(), 'b');
 
     t.end();
   });
@@ -97,7 +97,7 @@ module.exports.tests.var = function(test, common) {
     var vs = new VariableStore();
 
     vs.var('a','b');
-    t.equal(vs._vars['a'].get(), 'b');
+    t.equal(vs._vars.a.get(), 'b');
 
     t.end();
   });
@@ -144,10 +144,10 @@ module.exports.tests.isset = function(test, common) {
     vs.var('b','test');
     vs.unset('b');
     t.false(vs.isset('b'));
-    
+
     vs.var('c',false);
     t.true(vs.isset('c'));
-    
+
     vs.var('d','test');
     t.true(vs.isset('d'));
 
@@ -236,12 +236,12 @@ module.exports.tests.set = function(test, common) {
 module.exports.tests.export = function(test, common) {
   test('export', function(t) {
     var vs = new VariableStore();
-    
+
     t.deepEqual(vs.export(), {});
 
     vs.var('a',1.1);
     t.deepEqual(vs.export(), {a: 1.1});
-    
+
     t.end();
   });
 };

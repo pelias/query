@@ -4,6 +4,7 @@
   "description": "An Elasticsearch query builder for Pelias",
   "main": "index.js",
   "scripts": {
+    "lint": "jshint .",
     "units": "node test/run.js | tap-spec",
     "test": "npm run units"
   },
@@ -18,9 +19,11 @@
   },
   "homepage": "https://github.com/pelias/query#readme",
   "dependencies": {
-    "check-types": "^7.0.0"
+    "check-types": "^7.0.0",
+    "jshint": "^2.9.2"
   },
   "devDependencies": {
+    "jshint": "^2.5.6",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.0"
   }

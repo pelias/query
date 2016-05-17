@@ -5,14 +5,14 @@ module.exports = function( vs ){
   if( !vs.isset('input:name') ||
       !vs.isset('phrase:analyzer') ||
       !vs.isset('phrase:field') ||
-      !vs.isset('phrase:boost'),
+      !vs.isset('phrase:boost') ||
       !vs.isset('phrase:slop') ){
     return null;
   }
 
   // base view
-  var view = { "match": {} };
-  
+  var view = { 'match': {} };
+
   // match query
   view.match[ vs.var('phrase:field') ] = {
     analyzer: vs.var('phrase:analyzer'),
