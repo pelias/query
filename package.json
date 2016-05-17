@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "jshint .",
     "units": "node test/run.js | tap-spec",
-    "test": "npm run units"
+    "test": "npm run units",
+    "validate": "npm ls"
   },
   "repository": {
     "type": "git",
@@ -19,12 +20,17 @@
   },
   "homepage": "https://github.com/pelias/query#readme",
   "dependencies": {
-    "check-types": "^7.0.0",
-    "jshint": "^2.9.2"
+    "check-types": "^7.0.0"
   },
   "devDependencies": {
     "jshint": "^2.5.6",
+    "precommit-hook": "^3.0.0",
     "tap-spec": "^4.1.0",
     "tape": "^4.2.0"
-  }
+  },
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ]
 }
