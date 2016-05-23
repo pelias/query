@@ -7,7 +7,7 @@ var multi_match = require('./multi_match');
 /*
  * Match several admin fields against the same query
  */
-module.exports = function( admin_properties ){
+module.exports = function( admin_properties, analyzer ){
   return function( vs ){
 
     // check which of the possible admin_properties are actually set
@@ -42,7 +42,7 @@ module.exports = function( admin_properties ){
     var queryVar = 'input:' + valid_admin_properties[0];
 
     // send the parameters to the standard multi_match view
-    var view = multi_match(vs, fields_with_boosts, 'peliasAdmin', queryVar);
+    var view = multi_match(vs, fields_with_boosts, analyzer, queryVar);
 
     return view;
   };
