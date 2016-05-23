@@ -9,7 +9,7 @@ module.exports = function( vs ){
   }
 
   // base view
-  var view = { "match": {} };
+  var view = { 'match': {} };
 
   // match query
   view.match[ vs.var('admin:country_a:field') ] = {

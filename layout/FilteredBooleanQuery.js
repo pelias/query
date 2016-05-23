@@ -22,7 +22,7 @@ Layout.prototype.sort = function( view ){
 
 Layout.prototype.render = function( vs ){
   var q = Layout.base( vs );
-  
+
   // handle scoring views under 'query' section (both 'must' & 'should')
   if( this._score.length ){
     this._score.forEach( function( condition ){
@@ -53,9 +53,6 @@ Layout.prototype.render = function( vs ){
   // handle sorting views under 'sort'
   if( this._sort.length ){
     this._sort.forEach( function( view ){
-      if( !Array.isArray( q.sort ) ){
-        q.sort = [];
-      }
       var rendered = view( vs );
       if( rendered ){
         q.sort.push( rendered );

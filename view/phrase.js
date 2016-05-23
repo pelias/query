@@ -5,14 +5,16 @@ module.exports = function( vs ){
   if( !vs.isset('input:name') ||
       !vs.isset('phrase:analyzer') ||
       (!vs.isset('phrase:field') && !vs.isset('phrase:multifield')) ||
-      !vs.isset('phrase:boost'),
+      !vs.isset('phrase:boost') ||
       !vs.isset('phrase:slop') ){
     return null;
   }
 
+  var view;
+
   if (vs.isset('phrase:multifield')) {
       // multi match query
-    var view = { "multi_match": {
+    view = { 'multi_match': {
       type: 'phrase',
       analyzer: vs.var('phrase:analyzer'),
       boost: vs.var('phrase:boost'),
@@ -23,7 +25,7 @@ module.exports = function( vs ){
   }
   else {
     // base view
-    var view = { "match": {} };
+    view = { 'match': {} };
 
     // match query
     view.match[ vs.var('phrase:field') ] = {

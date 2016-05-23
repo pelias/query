@@ -16,8 +16,10 @@ module.exports = function( property ){
       return null;
     }
 
+    var view;
+
     if(vs.isset('admin:'+property+':multifield')) {
-      var view = { "multi_match": { // multi_match query
+      view = { 'multi_match': { // multi_match query
 	analyzer: vs.var('admin:'+property+':analyzer'),
 	boost: vs.var('admin:'+property+':boost'),
 	query: vs.var('input:'+property),
@@ -25,7 +27,7 @@ module.exports = function( property ){
       }};
     }
     else {
-      var view = { "match": {} };
+      view = { 'match': {} };
 
       // match query
       view.match[ vs.var('admin:'+property+':field') ] = {

@@ -9,9 +9,11 @@ module.exports = function( vs ){
     return null;
   }
 
+  var view;
+
   if(vs.isset('ngram:multifield')) {
     // multi match query
-    var view = { "multi_match": {
+    view = { 'multi_match': {
       analyzer: vs.var('ngram:analyzer'),
       boost: vs.var('ngram:boost'),
       query: vs.var('input:name'),
@@ -19,7 +21,7 @@ module.exports = function( vs ){
     }};
   }
   else {
-    var view = { "match": {} };
+    view = { 'match': {} };
 
     // match query
     view.match[ vs.var('ngram:field') ] = {
