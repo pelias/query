@@ -109,7 +109,7 @@ module.exports.tests.toString = function(test, common) {
   test('toString: array', function(t) {
     var v = new Variable();
     v.set([1, 2, 3]);
-    t.equal(''+v, '[1,2,3]', 'array');
+    t.equal(''+v.toString(), '1,2,3', 'array');
     t.end();
   });
 };
@@ -130,7 +130,7 @@ module.exports.tests.toJSON = function(test, common) {
   test('toJSON: array', function(t) {
     var v = new Variable();
     v.set([1, 2, 3]);
-    t.equal(v.toJSON(), '[1,2,3]', 'array');
+    t.equal(JSON.stringify({ test: v }), '{"test":[1,2,3]}', 'array');
     t.end();
   });
 };
