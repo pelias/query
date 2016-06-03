@@ -1,5 +1,8 @@
 sudo: false
 language: node_js
+cache:
+  directories:
+    - node_modules
 notifications:
   email: false
 node_js:
@@ -23,6 +26,10 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+before_install:
+  - npm i -g npm@^2.0.0
+before_script:
+  - npm prune
 after_success:
   - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
   - python travis_after_all.py
