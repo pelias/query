@@ -1,6 +1,5 @@
 {
   "name": "pelias-query",
-  "version": "7.0.0",
   "description": "An Elasticsearch query builder for Pelias",
   "main": "index.js",
   "scripts": {
