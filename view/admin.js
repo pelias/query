@@ -20,10 +20,10 @@ module.exports = function( property ){
 
     if(vs.isset('admin:'+property+':multifield')) {
       view = { 'multi_match': { // multi_match query
-	analyzer: vs.var('admin:'+property+':analyzer'),
-	boost: vs.var('admin:'+property+':boost'),
-	query: vs.var('input:'+property),
-	fields: vs.var('admin:'+property+':multifield')
+        analyzer: vs.var('admin:'+property+':analyzer'),
+        boost: vs.var('admin:'+property+':boost'),
+        query: vs.var('input:'+property),
+        fields: vs.var('admin:'+property+':multifield')
       }};
     }
     else {
@@ -31,9 +31,9 @@ module.exports = function( property ){
 
       // match query
       view.match[ vs.var('admin:'+property+':field') ] = {
-	analyzer: vs.var('admin:'+property+':analyzer'),
-	boost: vs.var('admin:'+property+':boost'),
-	query: vs.var('input:'+property)
+        analyzer: vs.var('admin:'+property+':analyzer'),
+        boost: vs.var('admin:'+property+':boost'),
+        query: vs.var('input:'+property)
       };
     }
 
