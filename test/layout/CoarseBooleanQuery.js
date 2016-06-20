@@ -274,7 +274,7 @@ function individualLayer(layer, value, fields) {
       must: [
         { term: { layer: layer } },
         { multi_match: { query: value, fields: fields }},
-        { match_phrase: { 'name.default': value } }
+        { match_phrase: { 'phrase.default': value } }
       ]
     }
   };

@@ -22,7 +22,7 @@ function addCoarseLayer(layer, coarse_value, fields) {
         },
         {
           match_phrase: {
-            'name.default': coarse_value
+            'phrase.default': coarse_value
           }
         }
       ]
