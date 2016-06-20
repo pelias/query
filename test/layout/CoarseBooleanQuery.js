@@ -112,13 +112,13 @@ module.exports.tests.base_render = function(test, common) {
 
   });
 
-  test('VariableStore with city-only should only include city parts and no fallbacks', function(t) {
+  test('VariableStore with locality-only should only include city parts and no fallbacks', function(t) {
     var query = new CoarseBooleanQuery();
 
     var vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
-    vs.var('input:city', 'coarse city value');
+    vs.var('input:locality', 'coarse city value');
     vs.var('input:county', 'coarse county value');
     vs.var('input:state', 'coarse state value');
     vs.var('input:country', 'coarse country value');

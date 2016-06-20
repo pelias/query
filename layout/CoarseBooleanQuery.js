@@ -9,15 +9,15 @@ Layout.prototype.score = function( view, operator ){
 
 function addCoarseLayer(layer, coarse_value, fields) {
   var o = {
-    'bool': {
-      'must': [
+    bool: {
+      must: [
         {
-          'term': { 'layer': layer }
+          term: { layer: layer }
         },
         {
-          'multi_match': {
-            'query': coarse_value,
-            'fields': [layer, layer+'_a']
+          multi_match: {
+            query: coarse_value,
+            fields: [layer, layer+'_a']
           }
         }
       ]
@@ -35,8 +35,8 @@ function getCoarseValue(vs) {
   if (vs.isset('input:borough')) {
     return vs.var('input:borough').toString();
   }
-  if (vs.isset('input:city')) {
-    return vs.var('input:city').toString();
+  if (vs.isset('input:locality')) {
+    return vs.var('input:locality').toString();
   }
   if (vs.isset('input:county')) {
     return vs.var('input:county').toString();
