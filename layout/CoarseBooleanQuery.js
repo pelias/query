@@ -19,6 +19,11 @@ function addCoarseLayer(layer, coarse_value, fields) {
             query: coarse_value,
             fields: [layer, layer+'_a']
           }
+        },
+        {
+          match_phrase: {
+            'name.default': coarse_value
+          }
         }
       ]
     }
