@@ -39,7 +39,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:borough', 'coarse borough value');
     vs.var('input:city', 'coarse city value');
     vs.var('input:county', 'coarse county value');
-    vs.var('input:state', 'coarse state value');
+    vs.var('input:region', 'coarse region value');
     vs.var('input:country', 'coarse country value');
 
     var actual = query.render(vs);
@@ -80,7 +80,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:borough', 'coarse borough value');
     vs.var('input:city', 'coarse city value');
     vs.var('input:county', 'coarse county value');
-    vs.var('input:state', 'coarse state value');
+    vs.var('input:region', 'coarse region value');
     vs.var('input:country', 'coarse country value');
 
     var actual = query.render(vs);
@@ -120,7 +120,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('track_scores', 'track_scores value');
     vs.var('input:locality', 'coarse city value');
     vs.var('input:county', 'coarse county value');
-    vs.var('input:state', 'coarse state value');
+    vs.var('input:region', 'coarse region value');
     vs.var('input:country', 'coarse country value');
 
     var actual = query.render(vs);
@@ -159,7 +159,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
     vs.var('input:county', 'coarse county value');
-    vs.var('input:state', 'coarse state value');
+    vs.var('input:region', 'coarse region value');
     vs.var('input:country', 'coarse country value');
 
     var actual = query.render(vs);
@@ -197,30 +197,30 @@ module.exports.tests.base_render = function(test, common) {
     var vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
-    vs.var('input:region_a', 'coarse state value');
+    vs.var('input:region', 'coarse region value');
     vs.var('input:country', 'coarse country value');
 
     var actual = query.render(vs);
 
     t.equals(actual.query.bool.should.length, 9);
     t.deepEquals(actual.query.bool.should[0], individualLayer('neighbourhood',
-        'coarse state value', ['neighbourhood', 'neighbourhood_a']));
+        'coarse region value', ['neighbourhood', 'neighbourhood_a']));
     t.deepEquals(actual.query.bool.should[1], individualLayer('borough',
-        'coarse state value', ['borough', 'borough_a']));
+        'coarse region value', ['borough', 'borough_a']));
     t.deepEquals(actual.query.bool.should[2], individualLayer('locality',
-        'coarse state value', ['locality', 'locality_a']));
+        'coarse region value', ['locality', 'locality_a']));
     t.deepEquals(actual.query.bool.should[3], individualLayer('localadmin',
-        'coarse state value', ['localadmin', 'localadmin_a']));
+        'coarse region value', ['localadmin', 'localadmin_a']));
     t.deepEquals(actual.query.bool.should[4], individualLayer('county',
-        'coarse state value', ['county', 'county_a']));
+        'coarse region value', ['county', 'county_a']));
     t.deepEquals(actual.query.bool.should[5], individualLayer('macrocounty',
-        'coarse state value', ['macrocounty', 'macrocounty_a']));
+        'coarse region value', ['macrocounty', 'macrocounty_a']));
     t.deepEquals(actual.query.bool.should[6], individualLayer('region',
-        'coarse state value', ['region', 'region_a']));
+        'coarse region value', ['region', 'region_a']));
     t.deepEquals(actual.query.bool.should[7], individualLayer('macroregion',
-        'coarse state value', ['macroregion', 'macroregion_a']));
+        'coarse region value', ['macroregion', 'macroregion_a']));
     t.deepEquals(actual.query.bool.should[8], individualLayer('country',
-        'coarse state value', ['country', 'country_a']));
+        'coarse region value', ['country', 'country_a']));
 
     t.deepEquals(actual.size.toString(), 'size value');
     t.deepEquals(actual.track_scores.toString(), 'track_scores value');
@@ -235,7 +235,7 @@ module.exports.tests.base_render = function(test, common) {
     var vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
-    vs.var('input:country_a', 'coarse country value');
+    vs.var('input:country', 'coarse country value');
 
     var actual = query.render(vs);
 

@@ -46,10 +46,10 @@ function getCoarseValue(vs) {
   if (vs.isset('input:county')) {
     return vs.var('input:county').toString();
   }
-  if (vs.isset('input:region_a')) {
-    return vs.var('input:region_a').toString();
+  if (vs.isset('input:region')) {
+    return vs.var('input:region').toString();
   }
-  return vs.var('input:country_a').toString();
+  return vs.var('input:country').toString();
 }
 
 Layout.prototype.render = function( vs ){
