@@ -15,11 +15,7 @@ module.exports.tests.base_render = function(test, common) {
 
     var expected = {
       query: {
-        filtered: {
-          query: {
-            bool: {}
-          }
-        }
+        bool: {}
       },
       size: { $: 'size value' },
       track_scores: { $: 'track_scores value' },
@@ -69,19 +65,15 @@ module.exports.tests.scores = function(test, common) {
 
     var expected = {
       query: {
-        filtered: {
-          query: {
-            bool: {
-              must: [
-                { 'score field 1': 'score value 1'},
-                { 'score field 3': 'score value 3'}
-              ],
-              should: [
-                { 'score field 2': 'score value 2'},
-                { 'score field 4': 'score value 4'}
-              ]
-            }
-          }
+        bool: {
+          must: [
+            { 'score field 1': 'score value 1'},
+            { 'score field 3': 'score value 3'}
+          ],
+          should: [
+            { 'score field 2': 'score value 2'},
+            { 'score field 4': 'score value 4'}
+          ]
         }
       },
       size: { $: 'size value' },
@@ -111,14 +103,10 @@ module.exports.tests.scores = function(test, common) {
 
     var expected = {
       query: {
-        filtered: {
-          query: {
-            bool: {
-              should: [
-                { 'score field': 'score value'}
-              ]
-            }
-          }
+        bool: {
+          should: [
+            { 'score field': 'score value'}
+          ]
         }
       },
       size: { $: 'size value' },
@@ -148,14 +136,10 @@ module.exports.tests.scores = function(test, common) {
 
     var expected = {
       query: {
-        filtered: {
-          query: {
-            bool: {
-              should: [
-                { 'score field': 'score value'}
-              ]
-            }
-          }
+        bool: {
+          should: [
+            { 'score field': 'score value'}
+          ]
         }
       },
       size: { $: 'size value' },
@@ -195,15 +179,11 @@ module.exports.tests.scores = function(test, common) {
 
     var expected = {
       query: {
-        filtered: {
-          query: {
-            bool: {
-              should: [
-                { 'score field 1': 'score value 1'},
-                { 'score field 2': 'score value 2'}
-              ]
-            }
-          }
+        bool: {
+          should: [
+            { 'score field 1': 'score value 1'},
+            { 'score field 2': 'score value 2'}
+          ]
         }
       },
       size: { $: 'size value' },
@@ -249,18 +229,11 @@ module.exports.tests.filter = function(test, common) {
 
     var expected = {
       query: {
-        filtered: {
-          query: {
-            bool: {}
-          },
-          filter: {
-            bool: {
-              must: [
-                { 'filter field 1': 'filter value 1'},
-                { 'filter field 2': 'filter value 2'}
-              ]
-            }
-          }
+        bool: {
+          filter: [
+            { 'filter field 1': 'filter value 1'},
+            { 'filter field 2': 'filter value 2'}
+          ]
         }
       },
       size: { $: 'size value' },
@@ -305,11 +278,7 @@ module.exports.tests.sort = function(test, common) {
 
     var expected = {
       query: {
-        filtered: {
-          query: {
-            bool: {}
-          }
-        }
+        bool: {}
       },
       size: { $: 'size value' },
       track_scores: { $: 'track_scores value' },
