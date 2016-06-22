@@ -172,7 +172,6 @@ Layout.prototype.render = function( vs ){
   if (vs.isset('input:housenumber') && vs.isset('input:street')) {
     q.query.bool.should.push(addHouseNumberAndStreet(vs));
   }
-
   if (vs.isset('input:neighbourhood')) {
     q.query.bool.should.push(addNeighbourhood(vs));
   }

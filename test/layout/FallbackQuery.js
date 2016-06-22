@@ -1,4 +1,4 @@
-var ScoredBooleanQuery = require('../../layout/ScoredBooleanQuery');
+var FallbackQuery = require('../../layout/FallbackQuery');
 var VariableStore = require('../../lib/VariableStore');
 var diff = require('deep-diff').diff;
 
@@ -6,7 +6,7 @@ module.exports.tests = {};
 
 module.exports.tests.base_render = function(test, common) {
   test('instance with nothing set should render to base request', function(t) {
-    var query = new ScoredBooleanQuery();
+    var query = new FallbackQuery();
 
     var vs = new VariableStore();
     vs.var('size', 'size value');
@@ -30,7 +30,7 @@ module.exports.tests.base_render = function(test, common) {
   });
 
   test('VariableStore with neighbourhood-only should only include neighbourhood parts and no fallbacks', function(t) {
-    var query = new ScoredBooleanQuery();
+    var query = new FallbackQuery();
 
     var vs = new VariableStore();
     vs.var('size', 'size value');
@@ -76,7 +76,7 @@ module.exports.tests.base_render = function(test, common) {
   });
 
   test('VariableStore with neighbourhood and other fields should include all others', function(t) {
-    var query = new ScoredBooleanQuery();
+    var query = new FallbackQuery();
 
     var vs = new VariableStore();
     vs.var('size', 'size value');
