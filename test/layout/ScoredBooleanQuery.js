@@ -99,6 +99,55 @@ module.exports.tests.base_render = function(test, common) {
               bool: {
                 must: [
                   {
+                    term: { layer: 'address' }
+                  },
+                  {
+                    match_phrase: {
+                      'address_parts.number': 'house number value'
+                    }
+                  },
+                  {
+                    match_phrase: {
+                      'address_parts.street': 'street value'
+                    }
+                  },
+                  {
+                    multi_match: {
+                      'query': 'neighbourhood value',
+                      'fields': ['neighbourhood', 'neighbourhood_a']
+                    }
+                  },
+                  {
+                    multi_match: {
+                      'query': 'borough value',
+                      'fields': ['borough', 'borough_a']
+                    }
+                  },
+                  {
+                    multi_match: {
+                      'query': 'locality value',
+                      'fields': ['locality', 'locality_a', 'localadmin', 'localadmin_a']
+                    }
+                  },
+                  {
+                    multi_match: {
+                      'query': 'region value',
+                      'fields': ['region', 'region_a']
+                    }
+                  },
+                  {
+                    multi_match: {
+                      'query': 'country value',
+                      'fields': ['country', 'country_a']
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              bool: {
+                must: [
+                  {
                     term: { layer: 'neighbourhood' }
                   },
                   {

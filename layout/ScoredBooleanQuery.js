@@ -31,7 +31,7 @@ function addPrimary(value, layer, fields) {
 
 }
 
-function addMultiMatch(value, fields) {
+function addSecondary(value, fields) {
   return {
       multi_match: {
         'query': value,
@@ -41,24 +41,69 @@ function addMultiMatch(value, fields) {
 
 }
 
+function addHouseNumberAndStreet(vs) {
+  var o = {
+    bool: {
+      must: [
+        {
+          term: { layer: 'address' }
+        },
+        {
+          match_phrase: {
+            'address_parts.number': vs.var('input:housenumber').toString()
+          }
+        },
+        {
+          match_phrase: {
+            'address_parts.street': vs.var('input:street').toString()
+          }
+        }
+      ]
+    }
+  };
+
+  if (vs.isset('input:neighbourhood')) {
+    o.bool.must.push(addSecondary(vs.var('input:neighbourhood').toString(), ['neighbourhood', 'neighbourhood_a']));
+  }
+
+  if (vs.isset('input:borough')) {
+    o.bool.must.push(addSecondary(vs.var('input:borough').toString(), ['borough', 'borough_a']));
+  }
+
+  if (vs.isset('input:locality')) {
+    o.bool.must.push(addSecondary(vs.var('input:locality').toString(), ['locality', 'locality_a', 'localadmin', 'localadmin_a']));
+  }
+
+  if (vs.isset('input:region')) {
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['region', 'region_a']));
+  }
+
+  if (vs.isset('input:country')) {
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
+  }
+
+  return o;
+
+}
+
 function addNeighbourhood(vs) {
   var o = addPrimary(vs.var('input:neighbourhood').toString(),
             'neighbourhood', ['neighbourhood', 'neighbourhood_a']);
 
   if (vs.isset('input:borough')) {
-    o.bool.must.push(addMultiMatch(vs.var('input:borough').toString(), ['borough', 'borough_a']));
+    o.bool.must.push(addSecondary(vs.var('input:borough').toString(), ['borough', 'borough_a']));
   }
 
   if (vs.isset('input:locality')) {
-    o.bool.must.push(addMultiMatch(vs.var('input:locality').toString(), ['locality', 'locality_a', 'localadmin', 'localadmin_a']));
+    o.bool.must.push(addSecondary(vs.var('input:locality').toString(), ['locality', 'locality_a', 'localadmin', 'localadmin_a']));
   }
 
   if (vs.isset('input:region')) {
-    o.bool.must.push(addMultiMatch(vs.var('input:region').toString(), ['region', 'region_a']));
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['region', 'region_a']));
   }
 
   if (vs.isset('input:country')) {
-    o.bool.must.push(addMultiMatch(vs.var('input:country').toString(), ['country', 'country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
   }
 
   return o;
@@ -70,15 +115,15 @@ function addBorough(vs) {
             'borough', ['borough', 'borough_a']);
 
   if (vs.isset('input:locality')) {
-    o.bool.must.push(addMultiMatch(vs.var('input:locality').toString(), ['locality', 'locality_a', 'localadmin', 'localadmin_a']));
+    o.bool.must.push(addSecondary(vs.var('input:locality').toString(), ['locality', 'locality_a', 'localadmin', 'localadmin_a']));
   }
 
   if (vs.isset('input:region')) {
-    o.bool.must.push(addMultiMatch(vs.var('input:region').toString(), ['region', 'region_a']));
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['region', 'region_a']));
   }
 
   if (vs.isset('input:country')) {
-    o.bool.must.push(addMultiMatch(vs.var('input:country').toString(), ['country', 'country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
   }
 
   return o;
@@ -90,11 +135,11 @@ function addLocality(vs) {
             'locality', ['locality', 'locality_a']);
 
   if (vs.isset('input:region')) {
-    o.bool.must.push(addMultiMatch(vs.var('input:region').toString(), ['region', 'region_a']));
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['region', 'region_a']));
   }
 
   if (vs.isset('input:country')) {
-    o.bool.must.push(addMultiMatch(vs.var('input:country').toString(), ['country', 'country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
   }
 
   return o;
@@ -106,7 +151,7 @@ function addRegion(vs) {
             'region', ['region', 'region_a']);
 
   if (vs.isset('input:country')) {
-    o.bool.must.push(addMultiMatch(vs.var('input:country').toString(), ['country', 'country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
   }
 
   return o;
@@ -124,36 +169,10 @@ function addCountry(vs) {
 Layout.prototype.render = function( vs ){
   var q = Layout.base( vs );
 
-  // if (vs.isset('input:housenumber') && vs.isset('input:street')) {
-  //   var o = {
-  //     bool: {
-  //       must: [
-  //         {
-  //           term: { layer: 'address' }
-  //         },
-  //         {
-  //           match_phrase: {
-  //             street: vs.var('input:street').toString()
-  //           }
-  //         },
-  //         {
-  //           match_phrase: {
-  //             housenumber: vs.var('input:housenumber').toString()
-  //           }
-  //         },
-  //         // {
-  //         //   match_phrase: {
-  //         //     'name.default': vs.var('input:housenumber').toString() + ' ' + vs.var('input:street').toString()
-  //         //   }
-  //         // }
-  //
-  //       ]
-  //     }
-  //   };
-  //
-  //   q.query.bool.should.push(o);
-  //
-  // }
+  if (vs.isset('input:housenumber') && vs.isset('input:street')) {
+    q.query.bool.should.push(addHouseNumberAndStreet(vs));
+  }
+
   if (vs.isset('input:neighbourhood')) {
     q.query.bool.should.push(addNeighbourhood(vs));
   }
