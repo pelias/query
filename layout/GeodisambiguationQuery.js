@@ -1,3 +1,41 @@
+// This query is useful for querying a value across a number of different
+// layers when the analysis engine returns exactly 1 thing.
+//
+// For example, libpostal identifies "Luxembourg" to be a country whereas anyone
+// who's aware of the technical debt in Europe knows that there is a place named
+// Luxembourg is legitimately all of the following:
+//
+// - a country
+// - a region in the country of Luxembourg
+// - a locality in the region of Luxembourg in the country of Luxembourg
+// - a region in the country of Belgium
+//
+// For another example, Lancaster is all of the following:
+// - a city in Pennsylvania
+// - a county in Pennsylvania
+// - a city in Great Britain
+// - a city in California
+// - a city in Ohio
+// - (many other cities)
+//
+// Yet one more example, Ontario is all of the following:
+// - a province in Canada
+// - a city in California
+// - a city in Oregon
+// - (many other cities)
+//
+// This Query module searches a value across all supported coarse layers:
+// - neighbourhood
+// - borough
+// - locality
+// - localadmin
+// - county
+// - macrocounty
+// - region
+// - macroregion
+// - country
+//
+
 function Layout(){
   this._score = [];
 }
