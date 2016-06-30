@@ -1,34 +1,10 @@
-var CoarseBooleanQuery = require('../../layout/CoarseBooleanQuery');
+var CoarseBooleanQuery = require('../../layout/GeodisambiguationQuery');
 var VariableStore = require('../../lib/VariableStore');
 var diff = require('deep-diff').diff;
 
 module.exports.tests = {};
 
 module.exports.tests.base_render = function(test, common) {
-  // test('instance with nothing set should render to base request', function(t) {
-  //   var query = new CoarseBooleanQuery();
-  //
-  //   var vs = new VariableStore();
-  //   vs.var('size', 'size value');
-  //   vs.var('track_scores', 'track_scores value');
-  //
-  //   var actual = query.render(vs);
-  //
-  //   var expected = {
-  //     query: {
-  //       bool: {
-  //         should: []
-  //       }
-  //     },
-  //     size: { $: 'size value' },
-  //     track_scores: { $: 'track_scores value' }
-  //   };
-  //
-  //   t.deepEquals(actual, expected);
-  //   t.end();
-  //
-  // });
-
   test('VariableStore with neighbourhood-only should only include neighbourhood parts and no fallbacks', function(t) {
     var query = new CoarseBooleanQuery();
 
@@ -273,8 +249,7 @@ function individualLayer(layer, value, fields) {
     bool: {
       must: [
         { term: { layer: layer } },
-        { multi_match: { query: value, fields: fields }},
-        { match_phrase: { 'phrase.default': value } }
+        { multi_match: { query: value, fields: fields }}
       ]
     }
   };
