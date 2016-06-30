@@ -3,7 +3,9 @@ module.exports.Vars = require('./lib/VariableStore');
 module.exports.Variable = require('./lib/Variable');
 
 module.exports.layout = {
-  FilteredBooleanQuery: require('./layout/FilteredBooleanQuery')
+  FilteredBooleanQuery: require('./layout/FilteredBooleanQuery'),
+  FallbackQuery: require('./layout/FallbackQuery'),
+  GeodisambiguationQuery: require('./layout/GeodisambiguationQuery')
 };
 
 module.exports.view = {
