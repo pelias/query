@@ -50,11 +50,6 @@ module.exports.tests.base_render = function(test, common) {
                     term: { layer: 'neighbourhood' }
                   },
                   {
-                    match_phrase: {
-                      'phrase.default': 'neighbourhood value'
-                    }
-                  },
-                  {
                     multi_match: {
                       'query': 'neighbourhood value',
                       'fields': ['neighbourhood', 'neighbourhood_a']
@@ -75,7 +70,7 @@ module.exports.tests.base_render = function(test, common) {
 
   });
 
-  test('VariableStore with neighbourhood and other fields should include all others', function(t) {
+  test('VariableStore with number+street and less granular fields should include all others', function(t) {
     var query = new FallbackQuery();
 
     var vs = new VariableStore();
@@ -151,11 +146,6 @@ module.exports.tests.base_render = function(test, common) {
                     term: { layer: 'neighbourhood' }
                   },
                   {
-                    match_phrase: {
-                      'phrase.default': 'neighbourhood value'
-                    }
-                  },
-                  {
                     multi_match: {
                       'query': 'neighbourhood value',
                       'fields': ['neighbourhood', 'neighbourhood_a']
@@ -195,11 +185,6 @@ module.exports.tests.base_render = function(test, common) {
                     term: { layer: 'borough' }
                   },
                   {
-                    match_phrase: {
-                      'phrase.default': 'borough value'
-                    }
-                  },
-                  {
                     multi_match: {
                       'query': 'borough value',
                       'fields': ['borough', 'borough_a']
@@ -233,11 +218,6 @@ module.exports.tests.base_render = function(test, common) {
                     term: { layer: 'locality' }
                   },
                   {
-                    match_phrase: {
-                      'phrase.default': 'locality value'
-                    }
-                  },
-                  {
                     multi_match: {
                       'query': 'locality value',
                       'fields': ['locality', 'locality_a']
@@ -265,11 +245,6 @@ module.exports.tests.base_render = function(test, common) {
                     term: { layer: 'region' }
                   },
                   {
-                    match_phrase: {
-                      'phrase.default': 'region value'
-                    }
-                  },
-                  {
                     multi_match: {
                       'query': 'region value',
                       'fields': ['region', 'region_a']
@@ -289,11 +264,6 @@ module.exports.tests.base_render = function(test, common) {
                 must: [
                   {
                     term: { layer: 'country' }
-                  },
-                  {
-                    match_phrase: {
-                      'phrase.default': 'country value'
-                    }
                   },
                   {
                     multi_match: {
