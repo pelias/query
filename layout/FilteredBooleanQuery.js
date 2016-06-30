@@ -27,12 +27,12 @@ Layout.prototype.render = function( vs ){
   if( this._score.length ){
     this._score.forEach( function( condition ){
       var view = condition[0], operator = condition[1];
-      if( !q.query.filtered.query.bool.hasOwnProperty( operator ) ){
-        q.query.filtered.query.bool[ operator ] = [];
-      }
       var rendered = view( vs );
       if( rendered ){
-        q.query.filtered.query.bool[ operator ].push( rendered );
+        if( !q.query.bool.hasOwnProperty( operator ) ){
+          q.query.bool[ operator ] = [];
+        }
+        q.query.bool[ operator ].push( rendered );
       }
     });
   }
@@ -42,10 +42,10 @@ Layout.prototype.render = function( vs ){
     this._filter.forEach( function( view ){
       var rendered = view( vs );
       if( rendered ){
-        if( !q.query.filtered.hasOwnProperty( 'filter' ) ){
-          q.query.filtered.filter = { bool: { must: [] } };
+        if( !q.query.bool.hasOwnProperty( 'filter' ) ){
+          q.query.bool.filter = [];
         }
-        q.query.filtered.filter.bool.must.push( rendered );
+        q.query.bool.filter.push( rendered );
       }
     });
   }
@@ -66,11 +66,7 @@ Layout.prototype.render = function( vs ){
 Layout.base = function( vs ){
   return {
     query: {
-      filtered: {
-        query: {
-          bool: {}
-        }
-      }
+      bool: {}
     },
     size: vs.var('size'),
     track_scores: vs.var('track_scores'),
