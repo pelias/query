@@ -3,7 +3,7 @@
 >[Mapzen](https://www.mapzen.com/) that also powers [Mapzen Search](https://mapzen.com/projects/search). Our
 >official user documentation is [here](https://mapzen.com/documentation/search/).
 
-# Pelias API Server
+# Pelias Query
 Elasticsearch geospatial and linguistic matching queries used by Pelias.
 
 [![Build Status](https://travis-ci.org/pelias/query.png?branch=master)](https://travis-ci.org/pelias/query)
