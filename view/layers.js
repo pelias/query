@@ -1,9 +1,9 @@
 var terms = require('./terms');
 
 module.exports = function( vs ){
-  if( !vs.isset('sources')) {
+  if( !vs.isset('layers')) {
     return null;
   }
 
-  return terms('source', vs.var('sources'));
+  return terms('layer', vs.var('layers'));
 };
