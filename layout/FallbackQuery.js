@@ -18,6 +18,13 @@
 // In the case that a full street+city+state+country is correct and found, all
 // OR'd queries will return results so only the most specific result should be
 // retained
+//
+// If the analyzed input contains both a query and housenumber+street, then
+// the constructured query searches for the query term in the context of the coarse
+// inputs, then falls back to the housenumber+street.  It's important to not
+// search for the query term and housenumber+street at the same time because
+// only venues matching the query term at that exact housenumber+street would
+// be returned.
 
 function Layout(){
   this._score = [];
@@ -54,7 +61,7 @@ function addPrimary(value, layer, fields, likely_to_have_abbreviation) {
   //  since the indexed value is 'Pennsylvania', not 'PA'.  Having this conditional
   //  here allows primary matches in regions and countries, where there is less
   //  danger of analysis ambiguity, to only have to match on region/region_a or
-  //  country/country_a.  Commented out to show intent.  
+  //  country/country_a.  Commented out to show intent.
   //
   // if (!likely_to_have_abbreviation) {
   //   o.bool.must.push(
@@ -80,6 +87,38 @@ function addSecondary(value, fields) {
         'fields': fields
       }
   };
+
+}
+
+function addQuery(vs) {
+  var o = addPrimary(vs.var('input:query').toString(),
+            'venue', ['phrase.default'], false);
+
+  // add neighbourhood if specified
+  if (vs.isset('input:neighbourhood')) {
+    o.bool.must.push(addSecondary(vs.var('input:neighbourhood').toString(), ['neighbourhood', 'neighbourhood_a']));
+  }
+
+  // add borough if specified
+  if (vs.isset('input:borough')) {
+    o.bool.must.push(addSecondary(vs.var('input:borough').toString(), ['borough', 'borough_a']));
+  }
+
+  // add locality if specified
+  if (vs.isset('input:locality')) {
+    o.bool.must.push(addSecondary(vs.var('input:locality').toString(), ['locality', 'locality_a', 'localadmin', 'localadmin_a']));
+  }
+
+  // add region if specified
+  if (vs.isset('input:region')) {
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['region', 'region_a']));
+  }
+
+  if (vs.isset('input:country')) {
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
+  }
+
+  return o;
 
 }
 
@@ -225,6 +264,9 @@ function addCountry(vs) {
 Layout.prototype.render = function( vs ){
   var q = Layout.base( vs );
 
+  if (vs.isset('input:query')) {
+    q.query.bool.should.push(addQuery(vs));
+  }
   if (vs.isset('input:housenumber') && vs.isset('input:street')) {
     q.query.bool.should.push(addHouseNumberAndStreet(vs));
   }
