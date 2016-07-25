@@ -96,26 +96,27 @@ function addQuery(vs) {
 
   // add neighbourhood if specified
   if (vs.isset('input:neighbourhood')) {
-    o.bool.must.push(addSecondary(vs.var('input:neighbourhood').toString(), ['neighbourhood', 'neighbourhood_a']));
+    o.bool.must.push(addSecondary(vs.var('input:neighbourhood').toString(), ['parent.neighbourhood', 'parent.neighbourhood_a']));
   }
 
   // add borough if specified
   if (vs.isset('input:borough')) {
-    o.bool.must.push(addSecondary(vs.var('input:borough').toString(), ['borough', 'borough_a']));
+    o.bool.must.push(addSecondary(vs.var('input:borough').toString(), ['parent.borough', 'parent.borough_a']));
   }
 
   // add locality if specified
   if (vs.isset('input:locality')) {
-    o.bool.must.push(addSecondary(vs.var('input:locality').toString(), ['locality', 'locality_a', 'localadmin', 'localadmin_a']));
+    o.bool.must.push(addSecondary(vs.var('input:locality').toString(),
+      ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']));
   }
 
   // add region if specified
   if (vs.isset('input:region')) {
-    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['region', 'region_a']));
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['parent.region', 'parent.region_a']));
   }
 
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
   }
 
   return o;
@@ -145,26 +146,27 @@ function addHouseNumberAndStreet(vs) {
 
   // add neighbourhood if specified
   if (vs.isset('input:neighbourhood')) {
-    o.bool.must.push(addSecondary(vs.var('input:neighbourhood').toString(), ['neighbourhood', 'neighbourhood_a']));
+    o.bool.must.push(addSecondary(vs.var('input:neighbourhood').toString(), ['parent.neighbourhood', 'parent.neighbourhood_a']));
   }
 
   // add borough if specified
   if (vs.isset('input:borough')) {
-    o.bool.must.push(addSecondary(vs.var('input:borough').toString(), ['borough', 'borough_a']));
+    o.bool.must.push(addSecondary(vs.var('input:borough').toString(), ['parent.borough', 'parent.borough_a']));
   }
 
   // add locality if specified
   if (vs.isset('input:locality')) {
-    o.bool.must.push(addSecondary(vs.var('input:locality').toString(), ['locality', 'locality_a', 'localadmin', 'localadmin_a']));
+    o.bool.must.push(addSecondary(vs.var('input:locality').toString(),
+      ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']));
   }
 
   // add region if specified
   if (vs.isset('input:region')) {
-    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['region', 'region_a']));
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['parent.region', 'parent.region_a']));
   }
 
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
   }
 
   return o;
@@ -173,26 +175,27 @@ function addHouseNumberAndStreet(vs) {
 
 function addNeighbourhood(vs) {
   var o = addPrimary(vs.var('input:neighbourhood').toString(),
-            'neighbourhood', ['neighbourhood', 'neighbourhood_a'], false);
+            'neighbourhood', ['parent.neighbourhood', 'parent.neighbourhood_a'], false);
 
   // add borough if specified
   if (vs.isset('input:borough')) {
-    o.bool.must.push(addSecondary(vs.var('input:borough').toString(), ['borough', 'borough_a']));
+    o.bool.must.push(addSecondary(vs.var('input:borough').toString(), ['parent.borough', 'parent.borough_a']));
   }
 
   // add locality if specified
   if (vs.isset('input:locality')) {
-    o.bool.must.push(addSecondary(vs.var('input:locality').toString(), ['locality', 'locality_a', 'localadmin', 'localadmin_a']));
+    o.bool.must.push(addSecondary(vs.var('input:locality').toString(),
+      ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']));
   }
 
   // add region if specified
   if (vs.isset('input:region')) {
-    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['region', 'region_a']));
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['parent.region', 'parent.region_a']));
   }
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
   }
 
   return o;
@@ -201,21 +204,22 @@ function addNeighbourhood(vs) {
 
 function addBorough(vs) {
   var o = addPrimary(vs.var('input:borough').toString(),
-            'borough', ['borough', 'borough_a'], false);
+            'borough', ['parent.borough', 'parent.borough_a'], false);
 
   // add locality if specified
   if (vs.isset('input:locality')) {
-    o.bool.must.push(addSecondary(vs.var('input:locality').toString(), ['locality', 'locality_a', 'localadmin', 'localadmin_a']));
+    o.bool.must.push(addSecondary(vs.var('input:locality').toString(),
+      ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']));
   }
 
   // add region if specified
   if (vs.isset('input:region')) {
-    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['region', 'region_a']));
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['parent.region', 'parent.region_a']));
   }
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
   }
 
   return o;
@@ -224,16 +228,16 @@ function addBorough(vs) {
 
 function addLocality(vs) {
   var o = addPrimary(vs.var('input:locality').toString(),
-            'locality', ['locality', 'locality_a'], false);
+            'locality', ['parent.locality', 'parent.locality_a'], false);
 
   // add region if specified
   if (vs.isset('input:region')) {
-    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['region', 'region_a']));
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['parent.region', 'parent.region_a']));
   }
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
   }
 
   return o;
@@ -242,11 +246,11 @@ function addLocality(vs) {
 
 function addRegion(vs) {
   var o = addPrimary(vs.var('input:region').toString(),
-            'region', ['region', 'region_a'], true);
+            'region', ['parent.region', 'parent.region_a'], true);
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['country', 'country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
   }
 
   return o;
@@ -255,7 +259,7 @@ function addRegion(vs) {
 
 function addCountry(vs) {
   var o = addPrimary(vs.var('input:country').toString(),
-            'country', ['country', 'country_a'], true);
+            'country', ['parent.country', 'parent.country_a'], true);
 
   return o;
 

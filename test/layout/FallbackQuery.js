@@ -52,7 +52,7 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'neighbourhood value',
-                      'fields': ['neighbourhood', 'neighbourhood_a']
+                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   }
                 ]
@@ -106,31 +106,31 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'neighbourhood value',
-                      'fields': ['neighbourhood', 'neighbourhood_a']
+                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'borough value',
-                      'fields': ['borough', 'borough_a']
+                      'fields': ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'locality value',
-                      'fields': ['locality', 'locality_a', 'localadmin', 'localadmin_a']
+                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -155,31 +155,31 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'neighbourhood value',
-                      'fields': ['neighbourhood', 'neighbourhood_a']
+                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'borough value',
-                      'fields': ['borough', 'borough_a']
+                      'fields': ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'locality value',
-                      'fields': ['locality', 'locality_a', 'localadmin', 'localadmin_a']
+                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -194,31 +194,31 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'neighbourhood value',
-                      'fields': ['neighbourhood', 'neighbourhood_a']
+                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'borough value',
-                      'fields': ['borough', 'borough_a']
+                      'fields': ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'locality value',
-                      'fields': ['locality', 'locality_a', 'localadmin', 'localadmin_a']
+                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -233,25 +233,25 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'borough value',
-                      'fields': ['borough', 'borough_a']
+                      'fields': ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'locality value',
-                      'fields': ['locality', 'locality_a', 'localadmin', 'localadmin_a']
+                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -266,19 +266,19 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'locality value',
-                      'fields': ['locality', 'locality_a']
+                      'fields': ['parent.locality', 'parent.locality_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -293,13 +293,13 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -314,7 +314,7 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -371,31 +371,31 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'neighbourhood value',
-                      'fields': ['neighbourhood', 'neighbourhood_a']
+                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'borough value',
-                      'fields': ['borough', 'borough_a']
+                      'fields': ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'locality value',
-                      'fields': ['locality', 'locality_a', 'localadmin', 'localadmin_a']
+                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -410,31 +410,31 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'neighbourhood value',
-                      'fields': ['neighbourhood', 'neighbourhood_a']
+                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'borough value',
-                      'fields': ['borough', 'borough_a']
+                      'fields': ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'locality value',
-                      'fields': ['locality', 'locality_a', 'localadmin', 'localadmin_a']
+                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -449,25 +449,25 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'borough value',
-                      'fields': ['borough', 'borough_a']
+                      'fields': ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'locality value',
-                      'fields': ['locality', 'locality_a', 'localadmin', 'localadmin_a']
+                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -482,19 +482,19 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'locality value',
-                      'fields': ['locality', 'locality_a']
+                      'fields': ['parent.locality', 'parent.locality_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -509,13 +509,13 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'region value',
-                      'fields': ['region', 'region_a']
+                      'fields': ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -530,7 +530,7 @@ module.exports.tests.base_render = function(test, common) {
                   {
                     multi_match: {
                       'query': 'country value',
-                      'fields': ['country', 'country_a']
+                      'fields': ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
