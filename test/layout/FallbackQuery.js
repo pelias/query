@@ -51,8 +51,9 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'neighbourhood value',
-                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
+                      query: 'neighbourhood value',
+                      type: 'phrase',
+                      fields: ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   }
                 ]
@@ -99,38 +100,44 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'query value',
-                      'fields': ['phrase.default']
+                      query: 'query value',
+                      type: 'phrase',
+                      fields: ['phrase.default']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'neighbourhood value',
-                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
+                      query: 'neighbourhood value',
+                      type: 'phrase',
+                      fields: ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'borough value',
-                      'fields': ['parent.borough', 'parent.borough_a']
+                      query: 'borough value',
+                      type: 'phrase',
+                      fields: ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'locality value',
-                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
+                      query: 'locality value',
+                      type: 'phrase',
+                      fields: ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -154,32 +161,37 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'neighbourhood value',
-                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
+                      query: 'neighbourhood value',
+                      type: 'phrase',
+                      fields: ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'borough value',
-                      'fields': ['parent.borough', 'parent.borough_a']
+                      query: 'borough value',
+                      type: 'phrase',
+                      fields: ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'locality value',
-                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
+                      query: 'locality value',
+                      type: 'phrase',
+                      fields: ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -193,32 +205,37 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'neighbourhood value',
-                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
+                      query: 'neighbourhood value',
+                      type: 'phrase',
+                      fields: ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'borough value',
-                      'fields': ['parent.borough', 'parent.borough_a']
+                      query: 'borough value',
+                      type: 'phrase',
+                      fields: ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'locality value',
-                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
+                      query: 'locality value',
+                      type: 'phrase',
+                      fields: ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -232,26 +249,30 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'borough value',
-                      'fields': ['parent.borough', 'parent.borough_a']
+                      query: 'borough value',
+                      type: 'phrase',
+                      fields: ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'locality value',
-                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
+                      query: 'locality value',
+                      type: 'phrase',
+                      fields: ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -265,20 +286,23 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'locality value',
-                      'fields': ['parent.locality', 'parent.locality_a']
+                      query: 'locality value',
+                      type: 'phrase',
+                      fields: ['parent.locality', 'parent.locality_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -292,14 +316,16 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -313,8 +339,9 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -370,32 +397,37 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'neighbourhood value',
-                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
+                      query: 'neighbourhood value',
+                      type: 'phrase',
+                      fields: ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'borough value',
-                      'fields': ['parent.borough', 'parent.borough_a']
+                      query: 'borough value',
+                      type: 'phrase',
+                      fields: ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'locality value',
-                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
+                      query: 'locality value',
+                      type: 'phrase',
+                      fields: ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -409,32 +441,37 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'neighbourhood value',
-                      'fields': ['parent.neighbourhood', 'parent.neighbourhood_a']
+                      query: 'neighbourhood value',
+                      type: 'phrase',
+                      fields: ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'borough value',
-                      'fields': ['parent.borough', 'parent.borough_a']
+                      query: 'borough value',
+                      type: 'phrase',
+                      fields: ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'locality value',
-                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
+                      query: 'locality value',
+                      type: 'phrase',
+                      fields: ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -448,26 +485,30 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'borough value',
-                      'fields': ['parent.borough', 'parent.borough_a']
+                      query: 'borough value',
+                      type: 'phrase',
+                      fields: ['parent.borough', 'parent.borough_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'locality value',
-                      'fields': ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
+                      query: 'locality value',
+                      type: 'phrase',
+                      fields: ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -481,20 +522,23 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'locality value',
-                      'fields': ['parent.locality', 'parent.locality_a']
+                      query: 'locality value',
+                      type: 'phrase',
+                      fields: ['parent.locality', 'parent.locality_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -508,14 +552,16 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'region value',
-                      'fields': ['parent.region', 'parent.region_a']
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
                     }
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]
@@ -529,8 +575,9 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
-                      'query': 'country value',
-                      'fields': ['parent.country', 'parent.country_a']
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
                     }
                   }
                 ]

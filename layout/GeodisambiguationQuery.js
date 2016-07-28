@@ -55,6 +55,7 @@ function addCoarseLayer(layer, coarse_value, fields) {
         {
           multi_match: {
             query: coarse_value,
+            type: 'phrase',
             fields: ['parent.' + layer, 'parent.' + layer + '_a']
           }
         }

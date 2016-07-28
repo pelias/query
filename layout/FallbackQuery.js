@@ -46,8 +46,9 @@ function addPrimary(value, layer, fields, likely_to_have_abbreviation) {
         },
         {
           multi_match: {
-            'query': value,
-            'fields': fields
+            query: value,
+            type: 'phrase',
+            fields: fields
           }
         }
       ]
@@ -83,8 +84,9 @@ function addPrimary(value, layer, fields, likely_to_have_abbreviation) {
 function addSecondary(value, fields) {
   return {
       multi_match: {
-        'query': value,
-        'fields': fields
+        query: value,
+        type: 'phrase',
+        fields: fields
       }
   };
 
