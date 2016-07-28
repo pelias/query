@@ -40,6 +40,7 @@ function addPrimary(value, layer, fields, likely_to_have_abbreviation) {
   // multi_match
   var o = {
     bool: {
+      _name: 'fallback.' + layer,
       must: [
         {
           multi_match: {
@@ -130,6 +131,7 @@ function addQuery(vs) {
 function addHouseNumberAndStreet(vs) {
   var o = {
     bool: {
+      _name: 'fallback.address',
       must: [
         {
           match_phrase: {

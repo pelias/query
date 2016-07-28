@@ -45,6 +45,7 @@ module.exports.tests.base_render = function(test, common) {
           should: [
             {
               bool: {
+                _name: 'fallback.neighbourhood',
                 must: [
                   {
                     multi_match: {
@@ -96,6 +97,7 @@ module.exports.tests.base_render = function(test, common) {
           should: [
             {
               bool: {
+                _name: 'fallback.venue',
                 must: [
                   {
                     multi_match: {
@@ -149,6 +151,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.address',
                 must: [
                   {
                     match_phrase: {
@@ -205,6 +208,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.neighbourhood',
                 must: [
                   {
                     multi_match: {
@@ -251,6 +255,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.borough',
                 must: [
                   {
                     multi_match: {
@@ -290,6 +295,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.locality',
                 must: [
                   {
                     multi_match: {
@@ -322,6 +328,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.region',
                 must: [
                   {
                     multi_match: {
@@ -347,6 +354,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.country',
                 must: [
                   {
                     multi_match: {
@@ -397,6 +405,7 @@ module.exports.tests.base_render = function(test, common) {
           should: [
             {
               bool: {
+                _name: 'fallback.address',
                 must: [
                   {
                     match_phrase: {
@@ -453,6 +462,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.neighbourhood',
                 must: [
                   {
                     multi_match: {
@@ -499,6 +509,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.borough',
                 must: [
                   {
                     multi_match: {
@@ -538,6 +549,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.locality',
                 must: [
                   {
                     multi_match: {
@@ -570,6 +582,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.region',
                 must: [
                   {
                     multi_match: {
@@ -595,6 +608,7 @@ module.exports.tests.base_render = function(test, common) {
             },
             {
               bool: {
+                _name: 'fallback.country',
                 must: [
                   {
                     multi_match: {
