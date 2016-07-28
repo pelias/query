@@ -50,16 +50,18 @@ function addCoarseLayer(layer, coarse_value, fields) {
     bool: {
       must: [
         {
-          term: { layer: layer }
-        },
-        {
           multi_match: {
             query: coarse_value,
             type: 'phrase',
             fields: ['parent.' + layer, 'parent.' + layer + '_a']
           }
         }
-      ]
+      ],
+      filter: {
+        term: {
+          layer: layer
+        }
+      }
     }
   };
 

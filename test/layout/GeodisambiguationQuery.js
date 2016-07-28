@@ -248,9 +248,19 @@ function individualLayer(layer, value, fields) {
   return {
     bool: {
       must: [
-        { term: { layer: layer } },
-        { multi_match: { query: value, type: 'phrase', fields: fields }}
-      ]
+        {
+          multi_match: {
+            query: value,
+            type: 'phrase',
+            fields: fields
+          }
+        }
+      ],
+      filter: {
+        term: {
+          layer: layer
+        }
+      }
     }
   };
 
