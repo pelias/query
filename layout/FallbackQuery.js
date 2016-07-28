@@ -42,16 +42,18 @@ function addPrimary(value, layer, fields, likely_to_have_abbreviation) {
     bool: {
       must: [
         {
-          term: { layer: layer }
-        },
-        {
           multi_match: {
             query: value,
             type: 'phrase',
             fields: fields
           }
         }
-      ]
+      ],
+      filter: {
+        term: {
+          layer: layer
+        }
+      }
     }
   };
 
@@ -130,9 +132,6 @@ function addHouseNumberAndStreet(vs) {
     bool: {
       must: [
         {
-          term: { layer: 'address' }
-        },
-        {
           match_phrase: {
             'address_parts.number': vs.var('input:housenumber').toString()
           }
@@ -142,7 +141,12 @@ function addHouseNumberAndStreet(vs) {
             'address_parts.street': vs.var('input:street').toString()
           }
         }
-      ]
+      ],
+      filter: {
+        term: {
+          layer: 'address'
+        }
+      }
     }
   };
 

@@ -47,16 +47,18 @@ module.exports.tests.base_render = function(test, common) {
               bool: {
                 must: [
                   {
-                    term: { layer: 'neighbourhood' }
-                  },
-                  {
                     multi_match: {
                       query: 'neighbourhood value',
                       type: 'phrase',
                       fields: ['parent.neighbourhood', 'parent.neighbourhood_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'neighbourhood'
+                  }
+                }
               }
             }
           ]
@@ -95,9 +97,6 @@ module.exports.tests.base_render = function(test, common) {
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'venue' }
-                  },
                   {
                     multi_match: {
                       query: 'query value',
@@ -140,15 +139,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'venue'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'address' }
-                  },
                   {
                     match_phrase: {
                       'address_parts.number': 'house number value'
@@ -194,15 +195,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'address'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'neighbourhood' }
-                  },
                   {
                     multi_match: {
                       query: 'neighbourhood value',
@@ -238,15 +241,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'neighbourhood'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'borough' }
-                  },
                   {
                     multi_match: {
                       query: 'borough value',
@@ -275,15 +280,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'borough'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'locality' }
-                  },
                   {
                     multi_match: {
                       query: 'locality value',
@@ -305,15 +312,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'locality'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'region' }
-                  },
                   {
                     multi_match: {
                       query: 'region value',
@@ -328,15 +337,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'region'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'country' }
-                  },
                   {
                     multi_match: {
                       query: 'country value',
@@ -344,7 +355,12 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'country'
+                  }
+                }
               }
             }
           ]
@@ -383,9 +399,6 @@ module.exports.tests.base_render = function(test, common) {
               bool: {
                 must: [
                   {
-                    term: { layer: 'address' }
-                  },
-                  {
                     match_phrase: {
                       'address_parts.number': 'house number value'
                     }
@@ -430,15 +443,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'address'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'neighbourhood' }
-                  },
                   {
                     multi_match: {
                       query: 'neighbourhood value',
@@ -474,15 +489,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'neighbourhood'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'borough' }
-                  },
                   {
                     multi_match: {
                       query: 'borough value',
@@ -511,15 +528,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'borough'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'locality' }
-                  },
                   {
                     multi_match: {
                       query: 'locality value',
@@ -541,15 +560,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'locality'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'region' }
-                  },
                   {
                     multi_match: {
                       query: 'region value',
@@ -564,15 +585,17 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'region'
+                  }
+                }
               }
             },
             {
               bool: {
                 must: [
-                  {
-                    term: { layer: 'country' }
-                  },
                   {
                     multi_match: {
                       query: 'country value',
@@ -580,7 +603,12 @@ module.exports.tests.base_render = function(test, common) {
                       fields: ['parent.country', 'parent.country_a']
                     }
                   }
-                ]
+                ],
+                filter: {
+                  term: {
+                    layer: 'country'
+                  }
+                }
               }
             }
           ]
