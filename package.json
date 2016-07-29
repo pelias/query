@@ -1,5 +1,6 @@
 {
   "name": "pelias-query",
+  "version": "0.0.0-semantic-release",
   "description": "An Elasticsearch query builder for Pelias",
   "main": "index.js",
   "version": "0.0.0-semantic-release",
