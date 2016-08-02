@@ -1,4 +1,12 @@
+>This repository is part of the [Pelias](https://github.com/pelias/pelias)
+>project. Pelias is an open-source, open-data geocoder built by
+>[Mapzen](https://www.mapzen.com/) that also powers [Mapzen Search](https://mapzen.com/projects/search). Our
+>official user documentation is [here](https://mapzen.com/documentation/search/).
+
+# Pelias Query
 Elasticsearch geospatial and linguistic matching queries used by Pelias.
+
+[![Build Status](https://travis-ci.org/pelias/query.png?branch=master)](https://travis-ci.org/pelias/query)
 
 ## Installation
 
@@ -509,9 +517,3 @@ Pretty please; provide unit tests and script fixtures in the `test` directory.
 ```bash
 $ npm test
 ```
-
-### Continuous Integration
-
-Travis tests every release against node versions `0.10` and `0.12`
-
-[![Build Status](https://travis-ci.org/pelias/query.png?branch=master)](https://travis-ci.org/pelias/query)

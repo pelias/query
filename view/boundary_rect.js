@@ -7,7 +7,6 @@ module.exports = function( vs ){
       !vs.isset('boundary:rect:bottom') ||
       !vs.isset('boundary:rect:left') ||
       !vs.isset('boundary:rect:type') ||
-      !vs.isset('boundary:rect:_cache') ||
       !vs.isset('centroid:field') ){
     return null;
   }
@@ -15,8 +14,7 @@ module.exports = function( vs ){
   // base view
   var view = {
     geo_bounding_box: {
-      type: vs.var('boundary:rect:type'),
-      _cache: vs.var('boundary:rect:_cache')
+      type: vs.var('boundary:rect:type')
     }
   };
 

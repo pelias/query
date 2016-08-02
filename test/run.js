@@ -3,6 +3,8 @@ var tape = require('tape');
 var common = {};
 
 var tests = [
+  require('./layout/GeodisambiguationQuery.js'),
+  require('./layout/FallbackQuery.js'),
   require('./layout/FilteredBooleanQuery.js'),
   require('./lib/Variable.js'),
   require('./lib/VariableStore.js'),
@@ -13,6 +15,7 @@ var tests = [
   require('./view/boundary_country.js'),
   require('./view/boundary_rect.js'),
   require('./view/focus.js'),
+  require('./view/layers.js'),
   require('./view/localregions.js'),
   require('./view/multi_match.js'),
   require('./view/ngrams.js'),
