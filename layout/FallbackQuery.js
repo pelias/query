@@ -121,7 +121,8 @@ function addQuery(vs) {
   }
 
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -174,7 +175,8 @@ function addHouseNumberAndStreet(vs) {
   }
 
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -203,7 +205,8 @@ function addNeighbourhood(vs) {
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -227,7 +230,8 @@ function addBorough(vs) {
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -245,7 +249,8 @@ function addLocality(vs) {
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -258,7 +263,8 @@ function addRegion(vs) {
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -267,7 +273,7 @@ function addRegion(vs) {
 
 function addCountry(vs) {
   var o = addPrimary(vs.var('input:country').toString(),
-            'country', ['parent.country', 'parent.country_a'], true);
+            'country', ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a'], true);
 
   return o;
 
