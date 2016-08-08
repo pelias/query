@@ -36,6 +36,8 @@
 // - country
 //
 
+var _ = require('lodash');
+
 function Layout(){
   this._score = [];
 }
@@ -69,23 +71,17 @@ function addCoarseLayer(layer, coarse_value, fields) {
 
 }
 
+// helper method that which field to use based on availability
+// use the most granular field that has a value
 function getCoarseValue(vs) {
-  if (vs.isset('input:neighbourhood')) {
-    return vs.var('input:neighbourhood').toString();
-  }
-  if (vs.isset('input:borough')) {
-    return vs.var('input:borough').toString();
-  }
-  if (vs.isset('input:locality')) {
-    return vs.var('input:locality').toString();
-  }
-  if (vs.isset('input:county')) {
-    return vs.var('input:county').toString();
-  }
-  if (vs.isset('input:region')) {
-    return vs.var('input:region').toString();
-  }
-  return vs.var('input:country').toString();
+  var primacy = ['neighbourhood', 'borough', 'locality', 'county', 'region', 'country'];
+
+  var mostGranularField = _.find(primacy, function(field) {
+    return vs.isset('input:' + field);
+  }) || 'country';
+
+  return vs.var('input:' + mostGranularField).toString();
+
 }
 
 Layout.prototype.render = function( vs ){
@@ -93,6 +89,7 @@ Layout.prototype.render = function( vs ){
 
   var coarse_value = getCoarseValue(vs);
 
+  // add coarse `should` query for each potential layer
   q.query.bool.should.push(addCoarseLayer('neighbourhood', coarse_value));
   q.query.bool.should.push(addCoarseLayer('borough', coarse_value));
   q.query.bool.should.push(addCoarseLayer('locality', coarse_value));
@@ -101,6 +98,7 @@ Layout.prototype.render = function( vs ){
   q.query.bool.should.push(addCoarseLayer('macrocounty', coarse_value));
   q.query.bool.should.push(addCoarseLayer('region', coarse_value));
   q.query.bool.should.push(addCoarseLayer('macroregion', coarse_value));
+  q.query.bool.should.push(addCoarseLayer('dependency', coarse_value));
   q.query.bool.should.push(addCoarseLayer('country', coarse_value));
 
   return q;
