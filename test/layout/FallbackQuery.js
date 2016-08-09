@@ -146,7 +146,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -210,7 +210,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -264,7 +264,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -311,7 +311,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -351,7 +351,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -410,7 +410,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -429,7 +429,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -526,7 +526,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -580,7 +580,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -627,7 +627,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -667,7 +667,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -726,7 +726,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
@@ -745,7 +745,7 @@ module.exports.tests.base_render = function(test, common) {
                     multi_match: {
                       query: 'country value',
                       type: 'phrase',
-                      fields: ['parent.country', 'parent.country_a']
+                      fields: ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']
                     }
                   }
                 ],
