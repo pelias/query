@@ -86,6 +86,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:neighbourhood', 'neighbourhood value');
     vs.var('input:borough', 'borough value');
     vs.var('input:locality', 'locality value');
+    vs.var('input:county', 'county value');
     vs.var('input:region', 'region value');
     vs.var('input:country', 'country value');
 
@@ -125,6 +126,13 @@ module.exports.tests.base_render = function(test, common) {
                       query: 'locality value',
                       type: 'phrase',
                       fields: ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
+                    }
+                  },
+                  {
+                    multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
                     }
                   },
                   {
@@ -186,6 +194,13 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
+                    }
+                  },
+                  {
+                    multi_match: {
                       query: 'region value',
                       type: 'phrase',
                       fields: ['parent.region', 'parent.region_a']
@@ -233,6 +248,13 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
+                    }
+                  },
+                  {
+                    multi_match: {
                       query: 'region value',
                       type: 'phrase',
                       fields: ['parent.region', 'parent.region_a']
@@ -273,6 +295,13 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
+                    }
+                  },
+                  {
+                    multi_match: {
                       query: 'region value',
                       type: 'phrase',
                       fields: ['parent.region', 'parent.region_a']
@@ -306,6 +335,13 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
+                    }
+                  },
+                  {
+                    multi_match: {
                       query: 'region value',
                       type: 'phrase',
                       fields: ['parent.region', 'parent.region_a']
@@ -322,6 +358,39 @@ module.exports.tests.base_render = function(test, common) {
                 filter: {
                   term: {
                     layer: 'locality'
+                  }
+                }
+              }
+            },
+            {
+              bool: {
+                _name: 'fallback.county',
+                must: [
+                  {
+                    multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
+                    }
+                  },
+                  {
+                    multi_match: {
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
+                    }
+                  },
+                  {
+                    multi_match: {
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
+                    }
+                  }
+                ],
+                filter: {
+                  term: {
+                    layer: 'county'
                   }
                 }
               }
@@ -394,6 +463,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:neighbourhood', 'neighbourhood value');
     vs.var('input:borough', 'borough value');
     vs.var('input:locality', 'locality value');
+    vs.var('input:county', 'county value');
     vs.var('input:region', 'region value');
     vs.var('input:country', 'country value');
 
@@ -436,6 +506,13 @@ module.exports.tests.base_render = function(test, common) {
                       query: 'locality value',
                       type: 'phrase',
                       fields: ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']
+                    }
+                  },
+                  {
+                    multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
                     }
                   },
                   {
@@ -487,6 +564,13 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
+                    }
+                  },
+                  {
+                    multi_match: {
                       query: 'region value',
                       type: 'phrase',
                       fields: ['parent.region', 'parent.region_a']
@@ -527,6 +611,13 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
+                    }
+                  },
+                  {
+                    multi_match: {
                       query: 'region value',
                       type: 'phrase',
                       fields: ['parent.region', 'parent.region_a']
@@ -560,6 +651,13 @@ module.exports.tests.base_render = function(test, common) {
                   },
                   {
                     multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
+                    }
+                  },
+                  {
+                    multi_match: {
                       query: 'region value',
                       type: 'phrase',
                       fields: ['parent.region', 'parent.region_a']
@@ -576,6 +674,39 @@ module.exports.tests.base_render = function(test, common) {
                 filter: {
                   term: {
                     layer: 'locality'
+                  }
+                }
+              }
+            },
+            {
+              bool: {
+                _name: 'fallback.county',
+                must: [
+                  {
+                    multi_match: {
+                      query: 'county value',
+                      type: 'phrase',
+                      fields: ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']
+                    }
+                  },
+                  {
+                    multi_match: {
+                      query: 'region value',
+                      type: 'phrase',
+                      fields: ['parent.region', 'parent.region_a']
+                    }
+                  },
+                  {
+                    multi_match: {
+                      query: 'country value',
+                      type: 'phrase',
+                      fields: ['parent.country', 'parent.country_a']
+                    }
+                  }
+                ],
+                filter: {
+                  term: {
+                    layer: 'county'
                   }
                 }
               }
