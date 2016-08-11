@@ -140,6 +140,8 @@ input:localadmin: "hackney"
 input:locality: "hackney"
 input:neighbourhood: "hackney"
 
+input:categories: "food,education"
+
 boundary:circle:lat: 1
 boundary:circle:lon: 2
 boundary:circle:radius: "50km"

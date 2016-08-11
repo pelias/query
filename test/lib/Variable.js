@@ -57,7 +57,10 @@ module.exports.tests.set = function(test, common) {
     t.equal(v.$, 1.1, 'float');
 
     v.set(false);
-    t.equal(v.$, false, 'bolean');
+    t.equal(v.$, false, 'boolean');
+
+    v.set([1, 2, 3]);
+    t.isEquivalent(v.$, [1, 2, 3], 'array');
 
     v.set(['a', 'b']);
     t.deepEqual(v.$, ['a', 'b'], 'array');
@@ -103,6 +106,12 @@ module.exports.tests.toString = function(test, common) {
     t.equal(''+v, '1.1', 'coercion');
     t.end();
   });
+  test('toString: array', function(t) {
+    var v = new Variable();
+    v.set([1, 2, 3]);
+    t.equal(''+v.toString(), '1,2,3', 'array');
+    t.end();
+  });
 };
 
 module.exports.tests.toJSON = function(test, common) {
@@ -116,6 +125,12 @@ module.exports.tests.toJSON = function(test, common) {
     var v = new Variable();
     v.set(1.1);
     t.equal( JSON.stringify({ test: v }), '{"test":1.1}', 'stringify');
+    t.end();
+  });
+  test('toJSON: array', function(t) {
+    var v = new Variable();
+    v.set([1, 2, 3]);
+    t.equal(JSON.stringify({ test: v }), '{"test":[1,2,3]}', 'array');
     t.end();
   });
 };

@@ -115,13 +115,20 @@ function addQuery(vs) {
       ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']));
   }
 
+  // add county if specified
+  if (vs.isset('input:county')) {
+    o.bool.must.push(addSecondary(vs.var('input:county').toString(),
+      ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']));
+  }
+
   // add region if specified
   if (vs.isset('input:region')) {
     o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['parent.region', 'parent.region_a']));
   }
 
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -168,13 +175,20 @@ function addHouseNumberAndStreet(vs) {
       ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']));
   }
 
+  // add county if specified
+  if (vs.isset('input:county')) {
+    o.bool.must.push(addSecondary(vs.var('input:county').toString(),
+      ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']));
+  }
+
   // add region if specified
   if (vs.isset('input:region')) {
     o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['parent.region', 'parent.region_a']));
   }
 
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -196,6 +210,12 @@ function addNeighbourhood(vs) {
       ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']));
   }
 
+  // add county if specified
+  if (vs.isset('input:county')) {
+    o.bool.must.push(addSecondary(vs.var('input:county').toString(),
+      ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']));
+  }
+
   // add region if specified
   if (vs.isset('input:region')) {
     o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['parent.region', 'parent.region_a']));
@@ -203,7 +223,8 @@ function addNeighbourhood(vs) {
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -220,6 +241,37 @@ function addBorough(vs) {
       ['parent.locality', 'parent.locality_a', 'parent.localadmin', 'parent.localadmin_a']));
   }
 
+  // add county if specified
+  if (vs.isset('input:county')) {
+    o.bool.must.push(addSecondary(vs.var('input:county').toString(),
+      ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']));
+  }
+
+  // add region if specified
+  if (vs.isset('input:region')) {
+    o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['parent.region', 'parent.region_a']));
+  }
+
+  // add country if specified
+  if (vs.isset('input:country')) {
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
+  }
+
+  return o;
+
+}
+
+function addLocality(vs) {
+  var o = addPrimary(vs.var('input:locality').toString(),
+            'locality', ['parent.locality', 'parent.locality_a'], false);
+
+  // add county if specified
+  if (vs.isset('input:county')) {
+    o.bool.must.push(addSecondary(vs.var('input:county').toString(),
+      ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a']));
+  }
+
   // add region if specified
   if (vs.isset('input:region')) {
     o.bool.must.push(addSecondary(vs.var('input:region').toString(), ['parent.region', 'parent.region_a']));
@@ -234,9 +286,9 @@ function addBorough(vs) {
 
 }
 
-function addLocality(vs) {
-  var o = addPrimary(vs.var('input:locality').toString(),
-            'locality', ['parent.locality', 'parent.locality_a'], false);
+function addCounty(vs) {
+  var o = addPrimary(vs.var('input:county').toString(),
+            'county', ['parent.county', 'parent.county_a', 'parent.macrocounty', 'parent.macrocounty_a'], false);
 
   // add region if specified
   if (vs.isset('input:region')) {
@@ -245,7 +297,8 @@ function addLocality(vs) {
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -258,7 +311,8 @@ function addRegion(vs) {
 
   // add country if specified
   if (vs.isset('input:country')) {
-    o.bool.must.push(addSecondary(vs.var('input:country').toString(), ['parent.country', 'parent.country_a']));
+    o.bool.must.push(addSecondary(vs.var('input:country').toString(),
+      ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a']));
   }
 
   return o;
@@ -267,7 +321,7 @@ function addRegion(vs) {
 
 function addCountry(vs) {
   var o = addPrimary(vs.var('input:country').toString(),
-            'country', ['parent.country', 'parent.country_a'], true);
+            'country', ['parent.country', 'parent.country_a', 'parent.dependency', 'parent.dependency_a'], true);
 
   return o;
 
@@ -290,6 +344,9 @@ Layout.prototype.render = function( vs ){
   }
   if (vs.isset('input:locality')) {
     q.query.bool.should.push(addLocality(vs));
+  }
+  if (vs.isset('input:county')) {
+    q.query.bool.should.push(addCounty(vs));
   }
   if (vs.isset('input:region')) {
     q.query.bool.should.push(addRegion(vs));
