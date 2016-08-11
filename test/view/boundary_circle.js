@@ -8,7 +8,6 @@ function getBaseVariableStore(toExclude) {
   vs.var('boundary:circle:radius', 'radius value');
   vs.var('boundary:circle:distance_type', 'distance_type value');
   vs.var('boundary:circle:optimize_bbox', 'optimize_bbox value');
-  vs.var('boundary:circle:_cache', 'cache value');
   vs.var('centroid:field', 'field value');
 
   if (toExclude) {
@@ -56,7 +55,6 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
         distance: { $: 'radius value' },
         distance_type: { $: 'distance_type value' },
         optimize_bbox: { $: 'optimize_bbox value' },
-        _cache: { $: 'cache value' },
         'field value': {
           lat: { $: 'lat value' },
           lon: { $: 'lon value' }

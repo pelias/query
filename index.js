@@ -3,7 +3,9 @@ module.exports.Vars = require('./lib/VariableStore');
 module.exports.Variable = require('./lib/Variable');
 
 module.exports.layout = {
-  FilteredBooleanQuery: require('./layout/FilteredBooleanQuery')
+  FilteredBooleanQuery: require('./layout/FilteredBooleanQuery'),
+  FallbackQuery: require('./layout/FallbackQuery'),
+  GeodisambiguationQuery: require('./layout/GeodisambiguationQuery')
 };
 
 module.exports.view = {
@@ -22,7 +24,8 @@ module.exports.view = {
   boundary_country: require('./view/boundary_country'),
   sort_distance: require('./view/sort_distance'),
   sort_numeric_script: require('./view/sort_numeric_script'),
-  sources: require('./view/sources')
+  sources: require('./view/sources'),
+  layers: require('./view/layers')
 };
 
 module.exports.defaults = require('./defaults');

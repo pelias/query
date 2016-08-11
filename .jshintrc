@@ -8,6 +8,7 @@
   "latedef": false,
   "newcap": true,
   "noarg": true,
+  "nocomma": true,
   "noempty": true,
   "nonbsp": true,
   "nonew": true,
