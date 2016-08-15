@@ -420,6 +420,46 @@ module.exports.tests.scores = function(test, common) {
 
 };
 
+module.exports.tests.filter = function(test, common) {
+  test('all filter views returning truthy values should be added in order to sort', function(t) {
+    // the views assert that the VariableStore was passed, otherwise there's no
+    // guarantee that it was actually passed
+    var filter_views_called = 0;
+
+    var query = new GeodisambiguationQuery();
+
+    [
+      { 'filter field 1': 'filter value 1' },
+      false, '', 0, null, undefined, NaN,
+      { 'filter field 2': 'filter value 2' },
+    ].forEach(function(value) {
+      query.filter(function(vs) {
+        // assert that `vs` was actually passed
+        console.assert(vs !== null);
+        // make a note that the view was actually called
+        filter_views_called++;
+        return value;
+      });
+    });
+
+    var vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+
+    var actual = query.render(vs);
+
+    var expected_filter = [
+      { 'filter field 1': 'filter value 1'},
+      { 'filter field 2': 'filter value 2'}
+    ];
+
+    t.equals(filter_views_called, 8);
+    t.deepEquals(actual.query.bool.filter, expected_filter);
+    t.end();
+
+  });
+};
+
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {
     return tape('address ' + name, testFunction);

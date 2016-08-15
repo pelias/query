@@ -40,10 +40,16 @@ var _ = require('lodash');
 
 function Layout(){
   this._score = [];
+  this._filter = [];
 }
 
 Layout.prototype.score = function( view, operator ){
   this._score.push([ view, operator === 'must' ? 'must': 'should' ]);
+  return this;
+};
+
+Layout.prototype.filter = function( view ){
+  this._filter.push( view );
   return this;
 };
 
@@ -111,6 +117,19 @@ Layout.prototype.render = function( vs ){
           q.query.bool[ operator ] = [];
         }
         q.query.bool[ operator ].push( rendered );
+      }
+    });
+  }
+
+  // handle filter views under 'filter' section (only 'must' is allowed here)
+  if( this._filter.length ){
+    this._filter.forEach( function( view ){
+      var rendered = view( vs );
+      if( rendered ){
+        if( !q.query.bool.hasOwnProperty( 'filter' ) ){
+          q.query.bool.filter = [];
+        }
+        q.query.bool.filter.push( rendered );
       }
     });
   }
