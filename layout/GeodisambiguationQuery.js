@@ -101,6 +101,20 @@ Layout.prototype.render = function( vs ){
   q.query.bool.should.push(addCoarseLayer('dependency', coarse_value));
   q.query.bool.should.push(addCoarseLayer('country', coarse_value));
 
+  // handle scoring views under 'query' section (both 'must' & 'should')
+  if( this._score.length ){
+    this._score.forEach( function( condition ){
+      var view = condition[0], operator = condition[1];
+      var rendered = view( vs );
+      if( rendered ){
+        if( !q.query.bool.hasOwnProperty( operator ) ){
+          q.query.bool[ operator ] = [];
+        }
+        q.query.bool[ operator ].push( rendered );
+      }
+    });
+  }
+
   return q;
 };
 
