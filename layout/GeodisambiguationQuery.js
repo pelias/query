@@ -1,7 +1,7 @@
 // This query is useful for querying a value across a number of different
 // layers when the analysis engine returns exactly 1 thing.
 //
-// For example, libpostal identifies "Luxembourg" to be a country whereas anyone
+// For example, libpostal identifies 'Luxembourg' to be a country whereas anyone
 // who's aware of the technical debt in Europe knows that there is a place named
 // Luxembourg is legitimately all of the following:
 //
@@ -96,43 +96,43 @@ Layout.prototype.render = function( vs ){
   var coarse_value = getCoarseValue(vs);
 
   // add coarse `should` query for each potential layer
-  q.query.bool.should.push(addCoarseLayer('neighbourhood', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('borough', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('locality', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('localadmin', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('county', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('macrocounty', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('region', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('macroregion', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('dependency', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('country', coarse_value));
+  q.query.function_score.query.bool.should.push(addCoarseLayer('neighbourhood', coarse_value));
+  q.query.function_score.query.bool.should.push(addCoarseLayer('borough', coarse_value));
+  q.query.function_score.query.bool.should.push(addCoarseLayer('locality', coarse_value));
+  q.query.function_score.query.bool.should.push(addCoarseLayer('localadmin', coarse_value));
+  q.query.function_score.query.bool.should.push(addCoarseLayer('county', coarse_value));
+  q.query.function_score.query.bool.should.push(addCoarseLayer('macrocounty', coarse_value));
+  q.query.function_score.query.bool.should.push(addCoarseLayer('region', coarse_value));
+  q.query.function_score.query.bool.should.push(addCoarseLayer('macroregion', coarse_value));
+  q.query.function_score.query.bool.should.push(addCoarseLayer('dependency', coarse_value));
+  q.query.function_score.query.bool.should.push(addCoarseLayer('country', coarse_value));
 
   // handle scoring views under 'query' section (both 'must' & 'should')
-  if( this._score.length ){
-    this._score.forEach( function( condition ){
-      var view = condition[0], operator = condition[1];
-      var rendered = view( vs );
-      if( rendered ){
-        if( !q.query.bool.hasOwnProperty( operator ) ){
-          q.query.bool[ operator ] = [];
-        }
-        q.query.bool[ operator ].push( rendered );
-      }
-    });
-  }
+  // if( this._score.length ){
+  //   this._score.forEach( function( condition ){
+  //     var view = condition[0], operator = condition[1];
+  //     var rendered = view( vs );
+  //     if( rendered ){
+  //       if( !q.query.bool.hasOwnProperty( operator ) ){
+  //         q.query.bool[ operator ] = [];
+  //       }
+  //       q.query.bool[ operator ].push( rendered );
+  //     }
+  //   });
+  // }
 
   // handle filter views under 'filter' section (only 'must' is allowed here)
-  if( this._filter.length ){
-    this._filter.forEach( function( view ){
-      var rendered = view( vs );
-      if( rendered ){
-        if( !q.query.bool.hasOwnProperty( 'filter' ) ){
-          q.query.bool.filter = [];
-        }
-        q.query.bool.filter.push( rendered );
-      }
-    });
-  }
+  // if( this._filter.length ){
+  //   this._filter.forEach( function( view ){
+  //     var rendered = view( vs );
+  //     if( rendered ){
+  //       if( !q.query.bool.hasOwnProperty( 'filter' ) ){
+  //         q.query.bool.filter = [];
+  //       }
+  //       q.query.bool.filter.push( rendered );
+  //     }
+  //   });
+  // }
 
   return q;
 };
@@ -140,13 +140,39 @@ Layout.prototype.render = function( vs ){
 Layout.base = function( vs ){
   return {
     query: {
-      bool: {
-        should: []
+      function_score: {
+        query: {
+          bool: {
+            should: []
+          }
+        },
+        max_boost: 20,
+        functions: [
+          {
+            field_value_factor: {
+              modifier: 'log1p',
+              field: 'popularity',
+              missing: 1
+            },
+            weight: 1
+          },
+          {
+            field_value_factor: {
+              modifier: 'log1p',
+              field: 'population',
+              missing: 1
+            },
+            weight: 2
+          }
+        ],
+        score_mode: 'first',
+        boost_mode: 'replace'
       }
     },
     size: vs.var('size'),
-    track_scores: vs.var('track_scores'),
+    track_scores: vs.var('track_scores')
   };
+
 };
 
 module.exports = Layout;
