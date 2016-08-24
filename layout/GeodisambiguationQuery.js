@@ -96,43 +96,43 @@ Layout.prototype.render = function( vs ){
   var coarse_value = getCoarseValue(vs);
 
   // add coarse `should` query for each potential layer
-  q.query.function_score.query.bool.should.push(addCoarseLayer('neighbourhood', coarse_value));
-  q.query.function_score.query.bool.should.push(addCoarseLayer('borough', coarse_value));
-  q.query.function_score.query.bool.should.push(addCoarseLayer('locality', coarse_value));
-  q.query.function_score.query.bool.should.push(addCoarseLayer('localadmin', coarse_value));
-  q.query.function_score.query.bool.should.push(addCoarseLayer('county', coarse_value));
-  q.query.function_score.query.bool.should.push(addCoarseLayer('macrocounty', coarse_value));
-  q.query.function_score.query.bool.should.push(addCoarseLayer('region', coarse_value));
-  q.query.function_score.query.bool.should.push(addCoarseLayer('macroregion', coarse_value));
-  q.query.function_score.query.bool.should.push(addCoarseLayer('dependency', coarse_value));
-  q.query.function_score.query.bool.should.push(addCoarseLayer('country', coarse_value));
+  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('neighbourhood', coarse_value));
+  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('borough', coarse_value));
+  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('locality', coarse_value));
+  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('localadmin', coarse_value));
+  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('county', coarse_value));
+  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('macrocounty', coarse_value));
+  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('region', coarse_value));
+  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('macroregion', coarse_value));
+  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('dependency', coarse_value));
+  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('country', coarse_value));
 
   // handle scoring views under 'query' section (both 'must' & 'should')
-  // if( this._score.length ){
-  //   this._score.forEach( function( condition ){
-  //     var view = condition[0], operator = condition[1];
-  //     var rendered = view( vs );
-  //     if( rendered ){
-  //       if( !q.query.bool.hasOwnProperty( operator ) ){
-  //         q.query.bool[ operator ] = [];
-  //       }
-  //       q.query.bool[ operator ].push( rendered );
-  //     }
-  //   });
-  // }
+  if( this._score.length ){
+    this._score.forEach( function( condition ){
+      var view = condition[0], operator = condition[1];
+      var rendered = view( vs );
+      if( rendered ){
+        if (!q.query.hasOwnProperty('bool')) {
+          q.query.bool = {};
+        }
+        if( !q.query.bool.hasOwnProperty( operator ) ){
+          q.query.bool[ operator ] = [];
+        }
+        q.query.bool[ operator ].push( rendered );
+      }
+    });
+  }
 
   // handle filter views under 'filter' section (only 'must' is allowed here)
-  // if( this._filter.length ){
-  //   this._filter.forEach( function( view ){
-  //     var rendered = view( vs );
-  //     if( rendered ){
-  //       if( !q.query.bool.hasOwnProperty( 'filter' ) ){
-  //         q.query.bool.filter = [];
-  //       }
-  //       q.query.bool.filter.push( rendered );
-  //     }
-  //   });
-  // }
+  if( this._filter.length ){
+    this._filter.forEach( function( view ){
+      var rendered = view( vs );
+      if( rendered ){
+        q.query.function_score.query.filtered.filter.bool.must.push( rendered );
+      }
+    });
+  }
 
   return q;
 };
@@ -142,8 +142,17 @@ Layout.base = function( vs ){
     query: {
       function_score: {
         query: {
-          bool: {
-            should: []
+          filtered: {
+            query: {
+              bool: {
+                should: []
+              }
+            },
+            filter: {
+              bool: {
+                must: []
+              }
+            }
           }
         },
         max_boost: 20,

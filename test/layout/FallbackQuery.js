@@ -13,16 +13,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('track_scores', 'track_scores value');
 
     var actual = query.render(vs);
-
-    var expected = {
-      query: {
-        bool: {
-          should: []
-        }
-      },
-      size: { $: 'size value' },
-      track_scores: { $: 'track_scores value' }
-    };
+    var expected = require('../fixtures/fallbackQuery_nothing_set.json');
 
     t.deepEquals(actual, expected);
     t.end();
@@ -38,36 +29,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:neighbourhood', 'neighbourhood value');
 
     var actual = query.render(vs);
-
-    var expected = {
-      query: {
-        bool: {
-          should: [
-            {
-              bool: {
-                _name: 'fallback.neighbourhood',
-                must: [
-                  {
-                    multi_match: {
-                      query: 'neighbourhood value',
-                      type: 'phrase',
-                      fields: ['parent.neighbourhood', 'parent.neighbourhood_a']
-                    }
-                  }
-                ],
-                filter: {
-                  term: {
-                    layer: 'neighbourhood'
-                  }
-                }
-              }
-            }
-          ]
-        }
-      },
-      size: { $: 'size value' },
-      track_scores: { $: 'track_scores value' }
-    };
+    var expected = require('../fixtures/fallbackQuery_neighbourhood_only.json');
 
     t.deepEquals(actual, expected);
     t.end();
@@ -158,23 +120,17 @@ module.exports.tests.scores = function(test, common) {
     var actual = query.render(vs);
 
     var expected = {
-      query: {
-        bool: {
-          should: [
-            { 'score field 2': 'score value 2'},
-            { 'score field 4': 'score value 4'}
-          ],
-          must: [
-            { 'score field 1': 'score value 1'},
-            { 'score field 3': 'score value 3'}
-          ]
-        }
-      },
-      size: { $: 'size value' },
-      track_scores: { $: 'track_scores value' }
+      should: [
+        { 'score field 2': 'score value 2'},
+        { 'score field 4': 'score value 4'}
+      ],
+      must: [
+        { 'score field 1': 'score value 1'},
+        { 'score field 3': 'score value 3'}
+      ]
     };
 
-    t.deepEquals(actual, expected);
+    t.deepEquals(actual.query.bool, expected);
     t.end();
 
   });
@@ -195,18 +151,12 @@ module.exports.tests.scores = function(test, common) {
     var actual = query.render(vs);
 
     var expected = {
-      query: {
-        bool: {
-          should: [
-            { 'score field': 'score value'}
-          ]
-        }
-      },
-      size: { $: 'size value' },
-      track_scores: { $: 'track_scores value' }
+      should: [
+        { 'score field': 'score value'}
+      ]
     };
 
-    t.deepEquals(actual, expected);
+    t.deepEquals(actual.query.bool, expected);
     t.end();
 
   });
@@ -227,18 +177,12 @@ module.exports.tests.scores = function(test, common) {
     var actual = query.render(vs);
 
     var expected = {
-      query: {
-        bool: {
-          should: [
-            { 'score field': 'score value'}
-          ]
-        }
-      },
-      size: { $: 'size value' },
-      track_scores: { $: 'track_scores value' }
+      should: [
+        { 'score field': 'score value'}
+      ]
     };
 
-    t.deepEquals(actual, expected);
+    t.deepEquals(actual.query.bool, expected);
     t.end();
 
   });
@@ -269,19 +213,13 @@ module.exports.tests.scores = function(test, common) {
     var actual = query.render(vs);
 
     var expected = {
-      query: {
-        bool: {
-          should: [
-            { 'score field 1': 'score value 1'},
-            { 'score field 2': 'score value 2'}
-          ]
-        }
-      },
-      size: { $: 'size value' },
-      track_scores: { $: 'track_scores value' }
+      should: [
+        { 'score field 1': 'score value 1'},
+        { 'score field 2': 'score value 2'}
+      ]
     };
 
-    t.deepEquals(actual, expected);
+    t.deepEquals(actual.query.bool, expected);
     t.equals(score_views_called, 8);
     t.end();
 
@@ -323,7 +261,7 @@ module.exports.tests.filter = function(test, common) {
     ];
 
     t.equals(filter_views_called, 8);
-    t.deepEquals(actual.query.bool.filter, expected_filter);
+    t.deepEquals(actual.query.function_score.query.filtered.filter.bool.must, expected_filter);
     t.end();
 
   });

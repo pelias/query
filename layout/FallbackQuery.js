@@ -353,28 +353,28 @@ Layout.prototype.render = function( vs ){
   var q = Layout.base( vs );
 
   if (vs.isset('input:query')) {
-    q.query.bool.should.push(addQuery(vs));
+    q.query.function_score.query.filtered.query.bool.should.push(addQuery(vs));
   }
   if (vs.isset('input:housenumber') && vs.isset('input:street')) {
-    q.query.bool.should.push(addHouseNumberAndStreet(vs));
+    q.query.function_score.query.filtered.query.bool.should.push(addHouseNumberAndStreet(vs));
   }
   if (vs.isset('input:neighbourhood')) {
-    q.query.bool.should.push(addNeighbourhood(vs));
+    q.query.function_score.query.filtered.query.bool.should.push(addNeighbourhood(vs));
   }
   if (vs.isset('input:borough')) {
-    q.query.bool.should.push(addBorough(vs));
+    q.query.function_score.query.filtered.query.bool.should.push(addBorough(vs));
   }
   if (vs.isset('input:locality')) {
-    q.query.bool.should.push(addLocality(vs));
+    q.query.function_score.query.filtered.query.bool.should.push(addLocality(vs));
   }
   if (vs.isset('input:county')) {
-    q.query.bool.should.push(addCounty(vs));
+    q.query.function_score.query.filtered.query.bool.should.push(addCounty(vs));
   }
   if (vs.isset('input:region')) {
-    q.query.bool.should.push(addRegion(vs));
+    q.query.function_score.query.filtered.query.bool.should.push(addRegion(vs));
   }
   if (vs.isset('input:country')) {
-    q.query.bool.should.push(addCountry(vs));
+    q.query.function_score.query.filtered.query.bool.should.push(addCountry(vs));
   }
 
   // handle scoring views under 'query' section (both 'must' & 'should')
@@ -383,6 +383,9 @@ Layout.prototype.render = function( vs ){
       var view = condition[0], operator = condition[1];
       var rendered = view( vs );
       if( rendered ){
+        if (!q.query.hasOwnProperty('bool')) {
+          q.query.bool = {};
+        }
         if( !q.query.bool.hasOwnProperty( operator ) ){
           q.query.bool[ operator ] = [];
         }
@@ -396,10 +399,7 @@ Layout.prototype.render = function( vs ){
     this._filter.forEach( function( view ){
       var rendered = view( vs );
       if( rendered ){
-        if( !q.query.bool.hasOwnProperty( 'filter' ) ){
-          q.query.bool.filter = [];
-        }
-        q.query.bool.filter.push( rendered );
+        q.query.function_score.query.filtered.filter.bool.must.push( rendered );
       }
     });
   }
@@ -410,13 +410,48 @@ Layout.prototype.render = function( vs ){
 Layout.base = function( vs ){
   return {
     query: {
-      bool: {
-        should: []
+      function_score: {
+        query: {
+          filtered: {
+            query: {
+              bool: {
+                should: []
+              }
+            },
+            filter: {
+              bool: {
+                must: []
+              }
+            }
+          }
+        },
+        max_boost: 20,
+        functions: [
+          {
+            field_value_factor: {
+              modifier: 'log1p',
+              field: 'popularity',
+              missing: 1
+            },
+            weight: 1
+          },
+          {
+            field_value_factor: {
+              modifier: 'log1p',
+              field: 'population',
+              missing: 1
+            },
+            weight: 2
+          }
+        ],
+        score_mode: 'first',
+        boost_mode: 'replace'
       }
     },
     size: vs.var('size'),
     track_scores: vs.var('track_scores')
   };
+
 };
 
 module.exports = Layout;
