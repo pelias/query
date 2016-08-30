@@ -420,7 +420,7 @@ Layout.base = function( vs ){
         },
         max_boost: 20,
         functions: [],
-        score_mode: 'first',
+        score_mode: 'avg',
         boost_mode: 'replace'
       }
     },
