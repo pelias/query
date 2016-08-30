@@ -31,8 +31,8 @@ function Layout(){
   this._filter = [];
 }
 
-Layout.prototype.score = function( view, operator ){
-  this._score.push([ view, operator === 'must' ? 'must': 'should' ]);
+Layout.prototype.score = function( view ){
+  this._score.push( view );
   return this;
 };
 
@@ -379,17 +379,10 @@ Layout.prototype.render = function( vs ){
 
   // handle scoring views under 'query' section (both 'must' & 'should')
   if( this._score.length ){
-    this._score.forEach( function( condition ){
-      var view = condition[0], operator = condition[1];
+    this._score.forEach( function( view ){
       var rendered = view( vs );
       if( rendered ){
-        if (!q.query.hasOwnProperty('bool')) {
-          q.query.bool = {};
-        }
-        if( !q.query.bool.hasOwnProperty( operator ) ){
-          q.query.bool[ operator ] = [];
-        }
-        q.query.bool[ operator ].push( rendered );
+        q.query.function_score.functions.push( rendered );
       }
     });
   }
@@ -426,24 +419,7 @@ Layout.base = function( vs ){
           }
         },
         max_boost: 20,
-        functions: [
-          {
-            field_value_factor: {
-              modifier: 'log1p',
-              field: 'popularity',
-              missing: 1
-            },
-            weight: 1
-          },
-          {
-            field_value_factor: {
-              modifier: 'log1p',
-              field: 'population',
-              missing: 1
-            },
-            weight: 2
-          }
-        ],
+        functions: [],
         score_mode: 'first',
         boost_mode: 'replace'
       }

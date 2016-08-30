@@ -279,108 +279,6 @@ function individualLayer(layer, value, fields) {
 }
 
 module.exports.tests.scores = function(test, common) {
-  test('score with operator specified should be honored and in order', function(t) {
-    var score_view1 = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field 1': 'score value 1' };
-    };
-
-    var score_view2 = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field 2': 'score value 2' };
-    };
-
-    var score_view3 = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field 3': 'score value 3' };
-    };
-
-    var score_view4 = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field 4': 'score value 4' };
-    };
-
-    var query = new GeodisambiguationQuery();
-    query.score(score_view1, 'must');
-    query.score(score_view2, 'should');
-    query.score(score_view3, 'must');
-    query.score(score_view4, 'should');
-
-    var vs = new VariableStore();
-    vs.var('size', 'size value');
-    vs.var('track_scores', 'track_scores value');
-
-    var actual = query.render(vs);
-    var actual_shoulds = actual.query.bool.should;
-    var actual_musts = actual.query.bool.must;
-
-    var expected_shoulds = [
-      { 'score field 2': 'score value 2'},
-      { 'score field 4': 'score value 4'}
-    ];
-
-    var expected_musts = [
-      { 'score field 1': 'score value 1'},
-      { 'score field 3': 'score value 3'}
-    ];
-
-    t.deepEquals(actual_shoulds.slice(actual_shoulds.length-2), expected_shoulds);
-    t.deepEquals(actual_musts.slice(actual_musts.length-2), expected_musts);
-
-    t.end();
-
-  });
-
-  test('score without operator specified should be added as \'should\'', function(t) {
-    var score_view = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field': 'score value' };
-    };
-
-    var query = new GeodisambiguationQuery();
-    query.score(score_view);
-
-    var vs = new VariableStore();
-    vs.var('size', 'size value');
-    vs.var('track_scores', 'track_scores value');
-
-    var actual = query.render(vs);
-    var actual_shoulds = actual.query.bool.should;
-
-    var expected_shoulds = [
-      { 'score field': 'score value'}
-    ];
-
-    t.deepEquals(actual_shoulds.slice(actual_shoulds.length-1), expected_shoulds);
-    t.end();
-
-  });
-
-  test('score with non-must or -should operator specified should be added as \'should\'', function(t) {
-    var score_view = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field': 'score value' };
-    };
-
-    var query = new GeodisambiguationQuery();
-    query.score(score_view, 'non must or should value');
-
-    var vs = new VariableStore();
-    vs.var('size', 'size value');
-    vs.var('track_scores', 'track_scores value');
-
-    var actual = query.render(vs);
-    var actual_shoulds = actual.query.bool.should;
-
-    var expected_shoulds = [
-      { 'score field': 'score value'}
-    ];
-
-    t.deepEquals(actual_shoulds.slice(actual_shoulds.length-1), expected_shoulds);
-    t.end();
-
-  });
-
   test('scores rendering to falsy values should not be added', function(t) {
     var score_views_called = 0;
 
@@ -388,7 +286,12 @@ module.exports.tests.scores = function(test, common) {
 
     [
       { 'score field 1': 'score value 1' },
-      false, '', 0, null, undefined, NaN,
+      false,
+      '',
+      0,
+      null,
+      undefined,
+      NaN,
       { 'score field 2': 'score value 2' },
     ].forEach(function(value) {
       query.score(function(vs) {
@@ -405,14 +308,14 @@ module.exports.tests.scores = function(test, common) {
     vs.var('track_scores', 'track_scores value');
 
     var actual = query.render(vs);
-    var actual_shoulds = actual.query.bool.should;
+    var actual_scoring_functions = actual.query.function_score.functions;
 
-    var expected_shoulds = [
+    var expected_scoring_functions = [
       { 'score field 1': 'score value 1'},
       { 'score field 2': 'score value 2'}
     ];
 
-    t.deepEquals(actual_shoulds.slice(actual_shoulds.length-2), expected_shoulds);
+    t.deepEquals(actual_scoring_functions, expected_scoring_functions);
     t.equals(score_views_called, 8);
     t.end();
 
