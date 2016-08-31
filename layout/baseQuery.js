@@ -18,7 +18,7 @@ module.exports = {
       max_boost: 20,
       functions: [],
       score_mode: 'avg',
-      boost_mode: 'replace'
+      boost_mode: 'multiply'
     }
   }
 };
