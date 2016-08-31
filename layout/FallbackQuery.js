@@ -26,6 +26,9 @@
 // only venues matching the query term at that exact housenumber+street would
 // be returned.
 
+var _ = require('lodash');
+var baseQuery = require('./baseQuery');
+
 function Layout(){
   this._score = [];
   this._filter = [];
@@ -352,29 +355,31 @@ function addCountry(vs) {
 Layout.prototype.render = function( vs ){
   var q = Layout.base( vs );
 
+  var funcScoreShould = q.query.function_score.query.filtered.query.bool.should;
+
   if (vs.isset('input:query')) {
-    q.query.function_score.query.filtered.query.bool.should.push(addQuery(vs));
+    funcScoreShould.push(addQuery(vs));
   }
   if (vs.isset('input:housenumber') && vs.isset('input:street')) {
-    q.query.function_score.query.filtered.query.bool.should.push(addHouseNumberAndStreet(vs));
+    funcScoreShould.push(addHouseNumberAndStreet(vs));
   }
   if (vs.isset('input:neighbourhood')) {
-    q.query.function_score.query.filtered.query.bool.should.push(addNeighbourhood(vs));
+    funcScoreShould.push(addNeighbourhood(vs));
   }
   if (vs.isset('input:borough')) {
-    q.query.function_score.query.filtered.query.bool.should.push(addBorough(vs));
+    funcScoreShould.push(addBorough(vs));
   }
   if (vs.isset('input:locality')) {
-    q.query.function_score.query.filtered.query.bool.should.push(addLocality(vs));
+    funcScoreShould.push(addLocality(vs));
   }
   if (vs.isset('input:county')) {
-    q.query.function_score.query.filtered.query.bool.should.push(addCounty(vs));
+    funcScoreShould.push(addCounty(vs));
   }
   if (vs.isset('input:region')) {
-    q.query.function_score.query.filtered.query.bool.should.push(addRegion(vs));
+    funcScoreShould.push(addRegion(vs));
   }
   if (vs.isset('input:country')) {
-    q.query.function_score.query.filtered.query.bool.should.push(addCountry(vs));
+    funcScoreShould.push(addCountry(vs));
   }
 
   // handle scoring views under 'query' section (both 'must' & 'should')
@@ -401,32 +406,12 @@ Layout.prototype.render = function( vs ){
 };
 
 Layout.base = function( vs ){
-  return {
-    query: {
-      function_score: {
-        query: {
-          filtered: {
-            query: {
-              bool: {
-                should: []
-              }
-            },
-            filter: {
-              bool: {
-                must: []
-              }
-            }
-          }
-        },
-        max_boost: 20,
-        functions: [],
-        score_mode: 'avg',
-        boost_mode: 'replace'
-      }
-    },
-    size: vs.var('size'),
-    track_scores: vs.var('track_scores')
-  };
+  var baseQueryCopy = _.cloneDeep(baseQuery);
+
+  baseQueryCopy.size = vs.var('size');
+  baseQueryCopy.track_scores = vs.var('track_scores');
+
+  return baseQueryCopy;
 
 };
 

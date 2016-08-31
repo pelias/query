@@ -37,6 +37,7 @@
 //
 
 var _ = require('lodash');
+var baseQuery = require('./baseQuery');
 
 function Layout(){
   this._score = [];
@@ -92,20 +93,21 @@ function getCoarseValue(vs) {
 
 Layout.prototype.render = function( vs ){
   var q = Layout.base( vs );
+  var funcScoreShould = q.query.function_score.query.filtered.query.bool.should;
 
   var coarse_value = getCoarseValue(vs);
 
   // add coarse `should` query for each potential layer
-  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('neighbourhood', coarse_value));
-  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('borough', coarse_value));
-  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('locality', coarse_value));
-  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('localadmin', coarse_value));
-  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('county', coarse_value));
-  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('macrocounty', coarse_value));
-  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('region', coarse_value));
-  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('macroregion', coarse_value));
-  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('dependency', coarse_value));
-  q.query.function_score.query.filtered.query.bool.should.push(addCoarseLayer('country', coarse_value));
+  funcScoreShould.push(addCoarseLayer('neighbourhood', coarse_value));
+  funcScoreShould.push(addCoarseLayer('borough', coarse_value));
+  funcScoreShould.push(addCoarseLayer('locality', coarse_value));
+  funcScoreShould.push(addCoarseLayer('localadmin', coarse_value));
+  funcScoreShould.push(addCoarseLayer('county', coarse_value));
+  funcScoreShould.push(addCoarseLayer('macrocounty', coarse_value));
+  funcScoreShould.push(addCoarseLayer('region', coarse_value));
+  funcScoreShould.push(addCoarseLayer('macroregion', coarse_value));
+  funcScoreShould.push(addCoarseLayer('dependency', coarse_value));
+  funcScoreShould.push(addCoarseLayer('country', coarse_value));
 
   // handle scoring views under 'query' section (both 'must' & 'should')
   if( this._score.length ){
@@ -131,33 +133,12 @@ Layout.prototype.render = function( vs ){
 };
 
 Layout.base = function( vs ){
-  return {
-    query: {
-      function_score: {
-        query: {
-          filtered: {
-            query: {
-              bool: {
-                should: []
-              }
-            },
-            filter: {
-              bool: {
-                must: []
-              }
-            }
-          }
-        },
-        max_boost: 20,
-        functions: [],
-        score_mode: 'avg',
-        boost_mode: 'replace'
-      }
-    },
-    size: vs.var('size'),
-    track_scores: vs.var('track_scores')
-  };
+  var baseQueryCopy = _.cloneDeep(baseQuery);
 
+  baseQueryCopy.size = vs.var('size');
+  baseQueryCopy.track_scores = vs.var('track_scores');
+
+  return baseQueryCopy;
 };
 
 module.exports = Layout;
