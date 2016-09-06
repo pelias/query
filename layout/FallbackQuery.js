@@ -104,6 +104,18 @@ function addSecondary(value, fields) {
 
 }
 
+// add the postal code if supplied
+function addSecPostCode(vs, o) {
+  // add postcode if specified
+  if (vs.isset('input:postcode')) {
+    o.bool.must.push({
+      match_phrase: {
+        'address_parts.zip': vs.var('input:postcode').toString()
+      }
+    });
+  }
+}
+
 function addSecNeighbourhood(vs, o) {
   // add neighbourhood if specified
   if (vs.isset('input:neighbourhood')) {
@@ -236,6 +248,7 @@ function addHouseNumberAndStreet(vs) {
     }
   };
 
+  addSecPostCode(vs, o);
   addSecNeighbourhood(vs, o);
   addSecBorough(vs, o);
   addSecLocality(vs, o);

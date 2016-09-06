@@ -83,6 +83,26 @@ module.exports.tests.base_render = function(test, common) {
 
   });
 
+  test('input:postcode set should include it at the address layer query', function(t) {
+    var query = new FallbackQuery();
+
+    var vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:housenumber', 'house number value');
+    vs.var('input:street', 'street value');
+    vs.var('input:postcode', 'postcode value');
+
+    var fs = require('fs');
+
+    var actual = query.render(vs);
+    var expected = require('../fixtures/fallbackQuery_address_with_postcode.json');
+
+    t.deepEquals(actual, expected);
+    t.end();
+
+  });
+
 };
 
 module.exports.tests.scores = function(test, common) {
