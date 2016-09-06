@@ -167,7 +167,9 @@ function addSecRegion(vs, o) {
       vs.var('input:region').toString(),
       [
         'parent.region',
-        'parent.region_a'
+        'parent.region_a',
+        'parent.macroregion',
+        'parent.macroregion_a'
       ]
     ));
   }
@@ -298,13 +300,41 @@ function addLocality(vs) {
 
 }
 
+function addLocalAdmin(vs) {
+  var o = addPrimary(vs.var('input:locality').toString(),
+            'localadmin', ['parent.localadmin', 'parent.localadmin_a'], false);
+
+  addSecCounty(vs, o);
+  addSecRegion(vs, o);
+  addSecCountry(vs, o);
+
+  return o;
+
+}
+
 function addCounty(vs) {
   var o = addPrimary(
     vs.var('input:county').toString(),
     'county',
     [
       'parent.county',
-      'parent.county_a',
+      'parent.county_a'
+    ],
+    false
+  );
+
+  addSecRegion(vs, o);
+  addSecCountry(vs, o);
+
+  return o;
+
+}
+
+function addMacroCounty(vs) {
+  var o = addPrimary(
+    vs.var('input:county').toString(),
+    'macrocounty',
+    [
       'parent.macrocounty',
       'parent.macrocounty_a'
     ],
@@ -335,15 +365,45 @@ function addRegion(vs) {
 
 }
 
+function addMacroRegion(vs) {
+  var o = addPrimary(
+    vs.var('input:region').toString(),
+    'macroregion',
+    [
+      'parent.macroregion',
+      'parent.macroregion_a'
+    ],
+    true
+  );
+
+  addSecCountry(vs, o);
+
+  return o;
+
+}
+
+function addDependency(vs) {
+  var o = addPrimary(
+    vs.var('input:country').toString(),
+    'dependency',
+    [
+      'parent.dependency',
+      'parent.dependency_a'
+    ],
+    true
+  );
+
+  return o;
+
+}
+
 function addCountry(vs) {
   var o = addPrimary(
     vs.var('input:country').toString(),
     'country',
     [
       'parent.country',
-      'parent.country_a',
-      'parent.dependency',
-      'parent.dependency_a'
+      'parent.country_a'
     ],
     true
   );
@@ -371,14 +431,18 @@ Layout.prototype.render = function( vs ){
   }
   if (vs.isset('input:locality')) {
     funcScoreShould.push(addLocality(vs));
+    funcScoreShould.push(addLocalAdmin(vs));
   }
   if (vs.isset('input:county')) {
     funcScoreShould.push(addCounty(vs));
+    funcScoreShould.push(addMacroCounty(vs));
   }
   if (vs.isset('input:region')) {
     funcScoreShould.push(addRegion(vs));
+    funcScoreShould.push(addMacroRegion(vs));
   }
   if (vs.isset('input:country')) {
+    funcScoreShould.push(addDependency(vs));
     funcScoreShould.push(addCountry(vs));
   }
 
