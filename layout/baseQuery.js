@@ -20,5 +20,18 @@ module.exports = {
       score_mode: 'avg',
       boost_mode: 'multiply'
     }
-  }
+  },
+  sort: [
+    {
+      population: {
+        order: 'desc'
+      }
+    },
+    {
+      popularity: {
+        order: 'desc'
+      }
+    },
+    '_score'
+  ]
 };
