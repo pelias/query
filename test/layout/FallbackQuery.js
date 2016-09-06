@@ -172,7 +172,7 @@ module.exports.tests.filter = function(test, common) {
 
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {
-    return tape('address ' + name, testFunction);
+    return tape('FallbackQuery ' + name, testFunction);
   }
   for( var testCase in module.exports.tests ){
     module.exports.tests[testCase](test, common);
