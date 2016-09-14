@@ -178,6 +178,7 @@
                         }
                       }
                     ],
+                    "should": [],
                     "filter": {
                       "term": {
                         "layer": "address"

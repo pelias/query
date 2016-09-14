@@ -108,7 +108,7 @@ function addSecondary(value, fields) {
 function addSecPostCode(vs, o) {
   // add postcode if specified
   if (vs.isset('input:postcode')) {
-    o.bool.must.push({
+    o.bool.should.push({
       match_phrase: {
         'address_parts.zip': vs.var('input:postcode').toString()
       }
@@ -240,6 +240,7 @@ function addHouseNumberAndStreet(vs) {
           }
         }
       ],
+      should: [],
       filter: {
         term: {
           layer: 'address'
