@@ -34,6 +34,30 @@
                       }
                     }
                   }
+                },
+                {
+                  "bool": {
+                    "_name": "fallback.street",
+                    "must": [
+                      {
+                        "match_phrase": {
+                          "address_parts.street": "street value"
+                        }
+                      }
+                    ],
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "address_parts.zip": "postcode value"
+                        }
+                      }
+                    ],
+                    "filter": {
+                      "term": {
+                        "layer": "street"
+                      }
+                    }
+                  }
                 }
               ]
             }

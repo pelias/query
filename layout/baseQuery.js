@@ -15,6 +15,7 @@ module.exports = {
           }
         }
       },
+      // move to configuration
       max_boost: 20,
       functions: [],
       score_mode: 'avg',
