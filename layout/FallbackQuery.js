@@ -108,7 +108,7 @@ function addSecondary(value, fields) {
 function addSecPostCode(vs, o) {
   // add postcode if specified
   if (vs.isset('input:postcode')) {
-    o.bool.must.push({
+    o.bool.should.push({
       match_phrase: {
         'address_parts.zip': vs.var('input:postcode').toString()
       }
@@ -240,9 +240,42 @@ function addHouseNumberAndStreet(vs) {
           }
         }
       ],
+      should: [],
       filter: {
         term: {
           layer: 'address'
+        }
+      }
+    }
+  };
+
+  addSecPostCode(vs, o);
+  addSecNeighbourhood(vs, o);
+  addSecBorough(vs, o);
+  addSecLocality(vs, o);
+  addSecCounty(vs, o);
+  addSecRegion(vs, o);
+  addSecCountry(vs, o);
+
+  return o;
+
+}
+
+function addStreet(vs) {
+  var o = {
+    bool: {
+      _name: 'fallback.street',
+      must: [
+        {
+          match_phrase: {
+            'address_parts.street': vs.var('input:street').toString()
+          }
+        }
+      ],
+      should: [],
+      filter: {
+        term: {
+          layer: 'street'
         }
       }
     }
@@ -435,6 +468,9 @@ Layout.prototype.render = function( vs ){
   }
   if (vs.isset('input:housenumber') && vs.isset('input:street')) {
     funcScoreShould.push(addHouseNumberAndStreet(vs));
+  }
+  if (vs.isset('input:street')) {
+    funcScoreShould.push(addStreet(vs));
   }
   if (vs.isset('input:neighbourhood')) {
     funcScoreShould.push(addNeighbourhood(vs));
