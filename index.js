@@ -10,8 +10,11 @@ module.exports.layout = {
 
 module.exports.view = {
   focus: require('./view/focus'),
+  focus_only_function: require('./view/focus_only_function'),
   popularity: require('./view/popularity'),
   population: require('./view/population'),
+  popularity_only_function: require('./view/popularity_only_function'),
+  population_only_function: require('./view/population_only_function'),
   localregions: require('./view/localregions'),
   ngrams: require('./view/ngrams'),
   phrase: require('./view/phrase'),
