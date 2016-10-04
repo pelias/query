@@ -20,26 +20,26 @@ module.exports.tests.base_render = function(test, common) {
 
     var actual = query.render(vs);
 
-    t.equals(actual.query.bool.should.length, 10);
-    t.deepEquals(actual.query.bool.should[0], individualLayer('neighbourhood',
+    t.equals(actual.query.function_score.query.filtered.query.bool.should.length, 10);
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[0], individualLayer('neighbourhood',
         'coarse neighbourhood value', ['parent.neighbourhood', 'parent.neighbourhood_a']));
-    t.deepEquals(actual.query.bool.should[1], individualLayer('borough',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[1], individualLayer('borough',
         'coarse neighbourhood value', ['parent.borough', 'parent.borough_a']));
-    t.deepEquals(actual.query.bool.should[2], individualLayer('locality',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[2], individualLayer('locality',
         'coarse neighbourhood value', ['parent.locality', 'parent.locality_a']));
-    t.deepEquals(actual.query.bool.should[3], individualLayer('localadmin',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[3], individualLayer('localadmin',
         'coarse neighbourhood value', ['parent.localadmin', 'parent.localadmin_a']));
-    t.deepEquals(actual.query.bool.should[4], individualLayer('county',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[4], individualLayer('county',
         'coarse neighbourhood value', ['parent.county', 'parent.county_a']));
-    t.deepEquals(actual.query.bool.should[5], individualLayer('macrocounty',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[5], individualLayer('macrocounty',
         'coarse neighbourhood value', ['parent.macrocounty', 'parent.macrocounty_a']));
-    t.deepEquals(actual.query.bool.should[6], individualLayer('region',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[6], individualLayer('region',
         'coarse neighbourhood value', ['parent.region', 'parent.region_a']));
-    t.deepEquals(actual.query.bool.should[7], individualLayer('macroregion',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[7], individualLayer('macroregion',
         'coarse neighbourhood value', ['parent.macroregion', 'parent.macroregion_a']));
-    t.deepEquals(actual.query.bool.should[8], individualLayer('dependency',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[8], individualLayer('dependency',
         'coarse neighbourhood value', ['parent.dependency', 'parent.dependency_a']));
-    t.deepEquals(actual.query.bool.should[9], individualLayer('country',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[9], individualLayer('country',
         'coarse neighbourhood value', ['parent.country', 'parent.country_a']));
 
     t.deepEquals(actual.size.toString(), 'size value');
@@ -63,26 +63,26 @@ module.exports.tests.base_render = function(test, common) {
 
     var actual = query.render(vs);
 
-    t.equals(actual.query.bool.should.length, 10);
-    t.deepEquals(actual.query.bool.should[0], individualLayer('neighbourhood',
+    t.equals(actual.query.function_score.query.filtered.query.bool.should.length, 10);
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[0], individualLayer('neighbourhood',
         'coarse borough value', ['parent.neighbourhood', 'parent.neighbourhood_a']));
-    t.deepEquals(actual.query.bool.should[1], individualLayer('borough',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[1], individualLayer('borough',
         'coarse borough value', ['parent.borough', 'parent.borough_a']));
-    t.deepEquals(actual.query.bool.should[2], individualLayer('locality',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[2], individualLayer('locality',
         'coarse borough value', ['parent.locality', 'parent.locality_a']));
-    t.deepEquals(actual.query.bool.should[3], individualLayer('localadmin',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[3], individualLayer('localadmin',
         'coarse borough value', ['parent.localadmin', 'parent.localadmin_a']));
-    t.deepEquals(actual.query.bool.should[4], individualLayer('county',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[4], individualLayer('county',
         'coarse borough value', ['parent.county', 'parent.county_a']));
-    t.deepEquals(actual.query.bool.should[5], individualLayer('macrocounty',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[5], individualLayer('macrocounty',
         'coarse borough value', ['parent.macrocounty', 'parent.macrocounty_a']));
-    t.deepEquals(actual.query.bool.should[6], individualLayer('region',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[6], individualLayer('region',
         'coarse borough value', ['parent.region', 'parent.region_a']));
-    t.deepEquals(actual.query.bool.should[7], individualLayer('macroregion',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[7], individualLayer('macroregion',
         'coarse borough value', ['parent.macroregion', 'parent.macroregion_a']));
-    t.deepEquals(actual.query.bool.should[8], individualLayer('dependency',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[8], individualLayer('dependency',
         'coarse borough value', ['parent.dependency', 'parent.dependency_a']));
-    t.deepEquals(actual.query.bool.should[9], individualLayer('country',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[9], individualLayer('country',
         'coarse borough value', ['parent.country', 'parent.country_a']));
 
     t.deepEquals(actual.size.toString(), 'size value');
@@ -105,26 +105,26 @@ module.exports.tests.base_render = function(test, common) {
 
     var actual = query.render(vs);
 
-    t.equals(actual.query.bool.should.length, 10);
-    t.deepEquals(actual.query.bool.should[0], individualLayer('neighbourhood',
+    t.equals(actual.query.function_score.query.filtered.query.bool.should.length, 10);
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[0], individualLayer('neighbourhood',
         'coarse city value', ['parent.neighbourhood', 'parent.neighbourhood_a']));
-    t.deepEquals(actual.query.bool.should[1], individualLayer('borough',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[1], individualLayer('borough',
         'coarse city value', ['parent.borough', 'parent.borough_a']));
-    t.deepEquals(actual.query.bool.should[2], individualLayer('locality',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[2], individualLayer('locality',
         'coarse city value', ['parent.locality', 'parent.locality_a']));
-    t.deepEquals(actual.query.bool.should[3], individualLayer('localadmin',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[3], individualLayer('localadmin',
         'coarse city value', ['parent.localadmin', 'parent.localadmin_a']));
-    t.deepEquals(actual.query.bool.should[4], individualLayer('county',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[4], individualLayer('county',
         'coarse city value', ['parent.county', 'parent.county_a']));
-    t.deepEquals(actual.query.bool.should[5], individualLayer('macrocounty',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[5], individualLayer('macrocounty',
         'coarse city value', ['parent.macrocounty', 'parent.macrocounty_a']));
-    t.deepEquals(actual.query.bool.should[6], individualLayer('region',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[6], individualLayer('region',
         'coarse city value', ['parent.region', 'parent.region_a']));
-    t.deepEquals(actual.query.bool.should[7], individualLayer('macroregion',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[7], individualLayer('macroregion',
         'coarse city value', ['parent.macroregion', 'parent.macroregion_a']));
-    t.deepEquals(actual.query.bool.should[8], individualLayer('dependency',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[8], individualLayer('dependency',
         'coarse city value', ['parent.dependency', 'parent.dependency_a']));
-    t.deepEquals(actual.query.bool.should[9], individualLayer('country',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[9], individualLayer('country',
         'coarse city value', ['parent.country', 'parent.country_a']));
 
     t.deepEquals(actual.size.toString(), 'size value');
@@ -146,26 +146,26 @@ module.exports.tests.base_render = function(test, common) {
 
     var actual = query.render(vs);
 
-    t.equals(actual.query.bool.should.length, 10);
-    t.deepEquals(actual.query.bool.should[0], individualLayer('neighbourhood',
+    t.equals(actual.query.function_score.query.filtered.query.bool.should.length, 10);
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[0], individualLayer('neighbourhood',
         'coarse county value', ['parent.neighbourhood', 'parent.neighbourhood_a']));
-    t.deepEquals(actual.query.bool.should[1], individualLayer('borough',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[1], individualLayer('borough',
         'coarse county value', ['parent.borough', 'parent.borough_a']));
-    t.deepEquals(actual.query.bool.should[2], individualLayer('locality',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[2], individualLayer('locality',
         'coarse county value', ['parent.locality', 'parent.locality_a']));
-    t.deepEquals(actual.query.bool.should[3], individualLayer('localadmin',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[3], individualLayer('localadmin',
         'coarse county value', ['parent.localadmin', 'parent.localadmin_a']));
-    t.deepEquals(actual.query.bool.should[4], individualLayer('county',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[4], individualLayer('county',
         'coarse county value', ['parent.county', 'parent.county_a']));
-    t.deepEquals(actual.query.bool.should[5], individualLayer('macrocounty',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[5], individualLayer('macrocounty',
         'coarse county value', ['parent.macrocounty', 'parent.macrocounty_a']));
-    t.deepEquals(actual.query.bool.should[6], individualLayer('region',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[6], individualLayer('region',
         'coarse county value', ['parent.region', 'parent.region_a']));
-    t.deepEquals(actual.query.bool.should[7], individualLayer('macroregion',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[7], individualLayer('macroregion',
         'coarse county value', ['parent.macroregion', 'parent.macroregion_a']));
-    t.deepEquals(actual.query.bool.should[8], individualLayer('dependency',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[8], individualLayer('dependency',
         'coarse county value', ['parent.dependency', 'parent.dependency_a']));
-    t.deepEquals(actual.query.bool.should[9], individualLayer('country',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[9], individualLayer('country',
         'coarse county value', ['parent.country', 'parent.country_a']));
 
     t.deepEquals(actual.size.toString(), 'size value');
@@ -186,26 +186,26 @@ module.exports.tests.base_render = function(test, common) {
 
     var actual = query.render(vs);
 
-    t.equals(actual.query.bool.should.length, 10);
-    t.deepEquals(actual.query.bool.should[0], individualLayer('neighbourhood',
+    t.equals(actual.query.function_score.query.filtered.query.bool.should.length, 10);
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[0], individualLayer('neighbourhood',
         'coarse region value', ['parent.neighbourhood', 'parent.neighbourhood_a']));
-    t.deepEquals(actual.query.bool.should[1], individualLayer('borough',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[1], individualLayer('borough',
         'coarse region value', ['parent.borough', 'parent.borough_a']));
-    t.deepEquals(actual.query.bool.should[2], individualLayer('locality',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[2], individualLayer('locality',
         'coarse region value', ['parent.locality', 'parent.locality_a']));
-    t.deepEquals(actual.query.bool.should[3], individualLayer('localadmin',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[3], individualLayer('localadmin',
         'coarse region value', ['parent.localadmin', 'parent.localadmin_a']));
-    t.deepEquals(actual.query.bool.should[4], individualLayer('county',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[4], individualLayer('county',
         'coarse region value', ['parent.county', 'parent.county_a']));
-    t.deepEquals(actual.query.bool.should[5], individualLayer('macrocounty',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[5], individualLayer('macrocounty',
         'coarse region value', ['parent.macrocounty', 'parent.macrocounty_a']));
-    t.deepEquals(actual.query.bool.should[6], individualLayer('region',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[6], individualLayer('region',
         'coarse region value', ['parent.region', 'parent.region_a']));
-    t.deepEquals(actual.query.bool.should[7], individualLayer('macroregion',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[7], individualLayer('macroregion',
         'coarse region value', ['parent.macroregion', 'parent.macroregion_a']));
-    t.deepEquals(actual.query.bool.should[8], individualLayer('dependency',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[8], individualLayer('dependency',
         'coarse region value', ['parent.dependency', 'parent.dependency_a']));
-    t.deepEquals(actual.query.bool.should[9], individualLayer('country',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[9], individualLayer('country',
         'coarse region value', ['parent.country', 'parent.country_a']));
 
     t.deepEquals(actual.size.toString(), 'size value');
@@ -225,26 +225,26 @@ module.exports.tests.base_render = function(test, common) {
 
     var actual = query.render(vs);
 
-    t.equals(actual.query.bool.should.length, 10);
-    t.deepEquals(actual.query.bool.should[0], individualLayer('neighbourhood',
+    t.equals(actual.query.function_score.query.filtered.query.bool.should.length, 10);
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[0], individualLayer('neighbourhood',
         'coarse country value', ['parent.neighbourhood', 'parent.neighbourhood_a']));
-    t.deepEquals(actual.query.bool.should[1], individualLayer('borough',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[1], individualLayer('borough',
         'coarse country value', ['parent.borough', 'parent.borough_a']));
-    t.deepEquals(actual.query.bool.should[2], individualLayer('locality',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[2], individualLayer('locality',
         'coarse country value', ['parent.locality', 'parent.locality_a']));
-    t.deepEquals(actual.query.bool.should[3], individualLayer('localadmin',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[3], individualLayer('localadmin',
         'coarse country value', ['parent.localadmin', 'parent.localadmin_a']));
-    t.deepEquals(actual.query.bool.should[4], individualLayer('county',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[4], individualLayer('county',
         'coarse country value', ['parent.county', 'parent.county_a']));
-    t.deepEquals(actual.query.bool.should[5], individualLayer('macrocounty',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[5], individualLayer('macrocounty',
         'coarse country value', ['parent.macrocounty', 'parent.macrocounty_a']));
-    t.deepEquals(actual.query.bool.should[6], individualLayer('region',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[6], individualLayer('region',
         'coarse country value', ['parent.region', 'parent.region_a']));
-    t.deepEquals(actual.query.bool.should[7], individualLayer('macroregion',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[7], individualLayer('macroregion',
         'coarse country value', ['parent.macroregion', 'parent.macroregion_a']));
-    t.deepEquals(actual.query.bool.should[8], individualLayer('dependency',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[8], individualLayer('dependency',
         'coarse country value', ['parent.dependency', 'parent.dependency_a']));
-    t.deepEquals(actual.query.bool.should[9], individualLayer('country',
+    t.deepEquals(actual.query.function_score.query.filtered.query.bool.should[9], individualLayer('country',
         'coarse country value', ['parent.country', 'parent.country_a']));
 
     t.deepEquals(actual.size.toString(), 'size value');
@@ -279,108 +279,6 @@ function individualLayer(layer, value, fields) {
 }
 
 module.exports.tests.scores = function(test, common) {
-  test('score with operator specified should be honored and in order', function(t) {
-    var score_view1 = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field 1': 'score value 1' };
-    };
-
-    var score_view2 = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field 2': 'score value 2' };
-    };
-
-    var score_view3 = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field 3': 'score value 3' };
-    };
-
-    var score_view4 = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field 4': 'score value 4' };
-    };
-
-    var query = new GeodisambiguationQuery();
-    query.score(score_view1, 'must');
-    query.score(score_view2, 'should');
-    query.score(score_view3, 'must');
-    query.score(score_view4, 'should');
-
-    var vs = new VariableStore();
-    vs.var('size', 'size value');
-    vs.var('track_scores', 'track_scores value');
-
-    var actual = query.render(vs);
-    var actual_shoulds = actual.query.bool.should;
-    var actual_musts = actual.query.bool.must;
-
-    var expected_shoulds = [
-      { 'score field 2': 'score value 2'},
-      { 'score field 4': 'score value 4'}
-    ];
-
-    var expected_musts = [
-      { 'score field 1': 'score value 1'},
-      { 'score field 3': 'score value 3'}
-    ];
-
-    t.deepEquals(actual_shoulds.slice(actual_shoulds.length-2), expected_shoulds);
-    t.deepEquals(actual_musts.slice(actual_musts.length-2), expected_musts);
-
-    t.end();
-
-  });
-
-  test('score without operator specified should be added as \'should\'', function(t) {
-    var score_view = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field': 'score value' };
-    };
-
-    var query = new GeodisambiguationQuery();
-    query.score(score_view);
-
-    var vs = new VariableStore();
-    vs.var('size', 'size value');
-    vs.var('track_scores', 'track_scores value');
-
-    var actual = query.render(vs);
-    var actual_shoulds = actual.query.bool.should;
-
-    var expected_shoulds = [
-      { 'score field': 'score value'}
-    ];
-
-    t.deepEquals(actual_shoulds.slice(actual_shoulds.length-1), expected_shoulds);
-    t.end();
-
-  });
-
-  test('score with non-must or -should operator specified should be added as \'should\'', function(t) {
-    var score_view = function(vs) {
-      console.assert(vs !== null);
-      return { 'score field': 'score value' };
-    };
-
-    var query = new GeodisambiguationQuery();
-    query.score(score_view, 'non must or should value');
-
-    var vs = new VariableStore();
-    vs.var('size', 'size value');
-    vs.var('track_scores', 'track_scores value');
-
-    var actual = query.render(vs);
-    var actual_shoulds = actual.query.bool.should;
-
-    var expected_shoulds = [
-      { 'score field': 'score value'}
-    ];
-
-    t.deepEquals(actual_shoulds.slice(actual_shoulds.length-1), expected_shoulds);
-    t.end();
-
-  });
-
   test('scores rendering to falsy values should not be added', function(t) {
     var score_views_called = 0;
 
@@ -388,7 +286,12 @@ module.exports.tests.scores = function(test, common) {
 
     [
       { 'score field 1': 'score value 1' },
-      false, '', 0, null, undefined, NaN,
+      false,
+      '',
+      0,
+      null,
+      undefined,
+      NaN,
       { 'score field 2': 'score value 2' },
     ].forEach(function(value) {
       query.score(function(vs) {
@@ -405,14 +308,14 @@ module.exports.tests.scores = function(test, common) {
     vs.var('track_scores', 'track_scores value');
 
     var actual = query.render(vs);
-    var actual_shoulds = actual.query.bool.should;
+    var actual_scoring_functions = actual.query.function_score.functions;
 
-    var expected_shoulds = [
+    var expected_scoring_functions = [
       { 'score field 1': 'score value 1'},
       { 'score field 2': 'score value 2'}
     ];
 
-    t.deepEquals(actual_shoulds.slice(actual_shoulds.length-2), expected_shoulds);
+    t.deepEquals(actual_scoring_functions, expected_scoring_functions);
     t.equals(score_views_called, 8);
     t.end();
 
@@ -454,7 +357,7 @@ module.exports.tests.filter = function(test, common) {
     ];
 
     t.equals(filter_views_called, 8);
-    t.deepEquals(actual.query.bool.filter, expected_filter);
+    t.deepEquals(actual.query.function_score.query.filtered.filter.bool.must, expected_filter);
     t.end();
 
   });

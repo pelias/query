@@ -1,0 +1,59 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "filtered": {
+          "query": {
+            "bool": {
+              "should": [
+                {
+                  "bool": {
+                    "_name": "fallback.neighbourhood",
+                    "must": [
+                      {
+                        "multi_match": {
+                          "query": "neighbourhood value",
+                          "type": "phrase",
+                          "fields": ["parent.neighbourhood", "parent.neighbourhood_a"]
+                        }
+                      }
+                    ],
+                    "filter": {
+                      "term": {
+                        "layer": "neighbourhood"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "filter": {
+            "bool": {
+              "must": []
+            }
+          }
+        }
+      },
+      "max_boost": 20,
+      "functions": [],
+      "score_mode": "avg",
+      "boost_mode": "multiply"
+    }
+  },
+  "size": { "$": "size value" },
+  "track_scores": { "$": "track_scores value" },
+  "sort": [
+    {
+      "population": {
+        "order": "desc"
+      }
+    },
+    {
+      "popularity": {
+        "order": "desc"
+      }
+    },
+    "_score"
+  ]
+}
