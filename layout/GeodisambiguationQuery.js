@@ -1,7 +1,7 @@
 // This query is useful for querying a value across a number of different
 // layers when the analysis engine returns exactly 1 thing.
 //
-// For example, libpostal identifies "Luxembourg" to be a country whereas anyone
+// For example, libpostal identifies 'Luxembourg' to be a country whereas anyone
 // who's aware of the technical debt in Europe knows that there is a place named
 // Luxembourg is legitimately all of the following:
 //
@@ -37,14 +37,15 @@
 //
 
 var _ = require('lodash');
+var baseQuery = require('./baseQuery');
 
 function Layout(){
   this._score = [];
   this._filter = [];
 }
 
-Layout.prototype.score = function( view, operator ){
-  this._score.push([ view, operator === 'must' ? 'must': 'should' ]);
+Layout.prototype.score = function( view ){
+  this._score.push( view );
   return this;
 };
 
@@ -92,31 +93,28 @@ function getCoarseValue(vs) {
 
 Layout.prototype.render = function( vs ){
   var q = Layout.base( vs );
+  var funcScoreShould = q.query.function_score.query.filtered.query.bool.should;
 
   var coarse_value = getCoarseValue(vs);
 
   // add coarse `should` query for each potential layer
-  q.query.bool.should.push(addCoarseLayer('neighbourhood', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('borough', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('locality', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('localadmin', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('county', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('macrocounty', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('region', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('macroregion', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('dependency', coarse_value));
-  q.query.bool.should.push(addCoarseLayer('country', coarse_value));
+  funcScoreShould.push(addCoarseLayer('neighbourhood', coarse_value));
+  funcScoreShould.push(addCoarseLayer('borough', coarse_value));
+  funcScoreShould.push(addCoarseLayer('locality', coarse_value));
+  funcScoreShould.push(addCoarseLayer('localadmin', coarse_value));
+  funcScoreShould.push(addCoarseLayer('county', coarse_value));
+  funcScoreShould.push(addCoarseLayer('macrocounty', coarse_value));
+  funcScoreShould.push(addCoarseLayer('region', coarse_value));
+  funcScoreShould.push(addCoarseLayer('macroregion', coarse_value));
+  funcScoreShould.push(addCoarseLayer('dependency', coarse_value));
+  funcScoreShould.push(addCoarseLayer('country', coarse_value));
 
   // handle scoring views under 'query' section (both 'must' & 'should')
   if( this._score.length ){
-    this._score.forEach( function( condition ){
-      var view = condition[0], operator = condition[1];
+    this._score.forEach( function( view ){
       var rendered = view( vs );
       if( rendered ){
-        if( !q.query.bool.hasOwnProperty( operator ) ){
-          q.query.bool[ operator ] = [];
-        }
-        q.query.bool[ operator ].push( rendered );
+        q.query.function_score.functions.push( rendered );
       }
     });
   }
@@ -126,10 +124,7 @@ Layout.prototype.render = function( vs ){
     this._filter.forEach( function( view ){
       var rendered = view( vs );
       if( rendered ){
-        if( !q.query.bool.hasOwnProperty( 'filter' ) ){
-          q.query.bool.filter = [];
-        }
-        q.query.bool.filter.push( rendered );
+        q.query.function_score.query.filtered.filter.bool.must.push( rendered );
       }
     });
   }
@@ -138,15 +133,12 @@ Layout.prototype.render = function( vs ){
 };
 
 Layout.base = function( vs ){
-  return {
-    query: {
-      bool: {
-        should: []
-      }
-    },
-    size: vs.var('size'),
-    track_scores: vs.var('track_scores'),
-  };
+  var baseQueryCopy = _.cloneDeep(baseQuery);
+
+  baseQueryCopy.size = vs.var('size');
+  baseQueryCopy.track_scores = vs.var('track_scores');
+
+  return baseQueryCopy;
 };
 
 module.exports = Layout;
