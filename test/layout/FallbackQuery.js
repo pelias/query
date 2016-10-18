@@ -51,8 +51,8 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:county', 'county value');
     vs.var('input:region', 'region value');
     vs.var('input:country', 'country value');
-    vs.var('boost:address', 'boost:address value');
-    vs.var('boost:street', 'boost:street value');
+    vs.var('boost:address', 19);
+    vs.var('boost:street', 17);
 
     var actual = query.render(vs);
     var expected = require('../fixtures/fallbackQuery1.json');
@@ -76,8 +76,8 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:county', 'county value');
     vs.var('input:region', 'region value');
     vs.var('input:country', 'country value');
-    vs.var('boost:address', 'boost:address value');
-    vs.var('boost:street', 'boost:street value');
+    vs.var('boost:address', 19);
+    vs.var('boost:street', 17);
 
     var actual = query.render(vs);
     var expected = require('../fixtures/fallbackQuery2.json');
@@ -96,8 +96,8 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:housenumber', 'house number value');
     vs.var('input:street', 'street value');
     vs.var('input:postcode', 'postcode value');
-    vs.var('boost:address', 'boost:address value');
-    vs.var('boost:street', 'boost:street value');
+    vs.var('boost:address', 19);
+    vs.var('boost:street', 17);
 
     var fs = require('fs');
 

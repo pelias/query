@@ -228,7 +228,7 @@ function addHouseNumberAndStreet(vs) {
   var o = {
     bool: {
       _name: 'fallback.address',
-      boost: vs.var('boost:address').toString(),
+      boost: vs.var('boost:address'),
       must: [
         {
           match_phrase: {
@@ -266,7 +266,7 @@ function addStreet(vs) {
   var o = {
     bool: {
       _name: 'fallback.street',
-      boost: vs.var('boost:street').toString(),
+      boost: vs.var('boost:street'),
       must: [
         {
           match_phrase: {
