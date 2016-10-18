@@ -78,16 +78,6 @@
   "size": { "$": "size value" },
   "track_scores": { "$": "track_scores value" },
   "sort": [
-    {
-      "population": {
-        "order": "desc"
-      }
-    },
-    {
-      "popularity": {
-        "order": "desc"
-      }
-    },
     "_score"
   ]
 }
