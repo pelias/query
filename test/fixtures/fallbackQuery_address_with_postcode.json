@@ -9,6 +9,7 @@
                 {
                   "bool": {
                     "_name": "fallback.address",
+                    "boost": 10,
                     "must": [
                       {
                         "match_phrase": {
@@ -38,6 +39,7 @@
                 {
                   "bool": {
                     "_name": "fallback.street",
+                    "boost": 5,
                     "must": [
                       {
                         "match_phrase": {
