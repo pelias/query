@@ -98,6 +98,7 @@
                 {
                   "bool": {
                     "_name": "fallback.address",
+                    "boost": { "$": 19 },
                     "must": [
                       {
                         "match_phrase": {
@@ -189,6 +190,7 @@
                 {
                   "bool": {
                     "_name": "fallback.street",
+                    "boost": { "$": 17 },
                     "must": [
                       {
                         "match_phrase": {
@@ -761,16 +763,6 @@
   "size": { "$": "size value" },
   "track_scores": { "$": "track_scores value" },
   "sort": [
-    {
-      "population": {
-        "order": "desc"
-      }
-    },
-    {
-      "popularity": {
-        "order": "desc"
-      }
-    },
     "_score"
   ]
 }

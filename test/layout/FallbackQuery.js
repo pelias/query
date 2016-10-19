@@ -51,6 +51,8 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:county', 'county value');
     vs.var('input:region', 'region value');
     vs.var('input:country', 'country value');
+    vs.var('boost:address', 19);
+    vs.var('boost:street', 17);
 
     var actual = query.render(vs);
     var expected = require('../fixtures/fallbackQuery1.json');
@@ -74,6 +76,8 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:county', 'county value');
     vs.var('input:region', 'region value');
     vs.var('input:country', 'country value');
+    vs.var('boost:address', 19);
+    vs.var('boost:street', 17);
 
     var actual = query.render(vs);
     var expected = require('../fixtures/fallbackQuery2.json');
@@ -92,6 +96,8 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:housenumber', 'house number value');
     vs.var('input:street', 'street value');
     vs.var('input:postcode', 'postcode value');
+    vs.var('boost:address', 19);
+    vs.var('boost:street', 17);
 
     var fs = require('fs');
 
@@ -99,6 +105,26 @@ module.exports.tests.base_render = function(test, common) {
     var expected = require('../fixtures/fallbackQuery_address_with_postcode.json');
 
     t.deepEquals(actual, expected);
+    t.end();
+
+  });
+
+};
+
+module.exports.tests.boosts = function(test, common) {
+  test('boost:street and boost:address missing from vs should not be include empty string', function(t) {
+    var query = new FallbackQuery();
+
+    var vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:housenumber', 'house number value');
+    vs.var('input:street', 'street value');
+
+    var actual = query.render(vs);
+
+    t.false(actual.query.function_score.query.filtered.query.bool.should[0].bool.hasOwnProperty('boost'));
+    t.false(actual.query.function_score.query.filtered.query.bool.should[1].bool.hasOwnProperty('boost'));
     t.end();
 
   });
