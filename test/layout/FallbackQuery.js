@@ -111,6 +111,26 @@ module.exports.tests.base_render = function(test, common) {
 
 };
 
+module.exports.tests.boosts = function(test, common) {
+  test('boost:street and boost:address missing from vs should not be include empty string', function(t) {
+    var query = new FallbackQuery();
+
+    var vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:housenumber', 'house number value');
+    vs.var('input:street', 'street value');
+
+    var actual = query.render(vs);
+
+    t.false(actual.query.function_score.query.filtered.query.bool.should[0].bool.hasOwnProperty('boost'));
+    t.false(actual.query.function_score.query.filtered.query.bool.should[1].bool.hasOwnProperty('boost'));
+    t.end();
+
+  });
+
+};
+
 module.exports.tests.scores = function(test, common) {
   test('scores rendering to falsy values should not be added', function(t) {
     var score_views_called = 0;
