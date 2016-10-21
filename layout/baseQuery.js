@@ -23,16 +23,6 @@ module.exports = {
     }
   },
   sort: [
-    {
-      population: {
-        order: 'desc'
-      }
-    },
-    {
-      popularity: {
-        order: 'desc'
-      }
-    },
     '_score'
   ]
 };

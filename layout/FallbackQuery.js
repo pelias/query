@@ -249,6 +249,10 @@ function addHouseNumberAndStreet(vs) {
     }
   };
 
+  if (vs.isset('boost:address')) {
+    o.bool.boost = vs.var('boost:address');
+  }
+
   addSecPostCode(vs, o);
   addSecNeighbourhood(vs, o);
   addSecBorough(vs, o);
@@ -280,6 +284,10 @@ function addStreet(vs) {
       }
     }
   };
+
+  if (vs.isset('boost:street')) {
+    o.bool.boost = vs.var('boost:street');
+  }
 
   addSecPostCode(vs, o);
   addSecNeighbourhood(vs, o);
