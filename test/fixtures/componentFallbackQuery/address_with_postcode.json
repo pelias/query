@@ -9,13 +9,7 @@
                 {
                   "bool": {
                     "_name": "fallback.address",
-                    "must": [
-                      {
-                        "match_phrase": {
-                          "name.default": "address value"
-                        }
-                      }
-                    ],
+                    "must": [],
                     "should": [
                       {
                         "match_phrase": {
@@ -24,8 +18,22 @@
                       }
                     ],
                     "filter": {
-                      "term": {
-                        "layer": "address"
+                      "bool": {
+                        "must": [
+                          {
+                            "term": {
+                              "layer": "address"
+                            }
+                          },
+                          {
+                            "query_string": {
+                              "default_field": "name.default",
+                              "default_operator": "AND",
+                              "analyzer": "peliasQueryFullToken",
+                              "query": "address value"
+                            }
+                          }
+                        ]
                       }
                     },
                     "boost": 100
@@ -53,7 +61,7 @@
                         "layer": "street"
                       }
                     },
-                    "boost": 2000
+                    "boost": 10000
                   }
                 }
               ]

@@ -53,7 +53,7 @@ module.exports.tests.base_render = function(test, common) {
     // vs.var('boost:street', 17);
 
     var actual = query.render(vs);
-    var expected = require('../fixtures/componentFallbackQuery_address.json');
+    var expected = require('../fixtures/componentFallbackQuery/address.json');
 
     t.deepEquals(actual, expected);
     t.end();
@@ -74,7 +74,7 @@ module.exports.tests.base_render = function(test, common) {
     var fs = require('fs');
 
     var actual = query.render(vs);
-    var expected = require('../fixtures/componentFallbackQuery_address_with_postcode.json');
+    var expected = require('../fixtures/componentFallbackQuery/address_with_postcode.json');
 
     // var fs = require('fs');
     // fs.writeFileSync('componentFallbackQuery_address_with_postcode.json', JSON.stringify(actual, null, 2));

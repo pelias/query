@@ -196,17 +196,26 @@ function addAddress(vs) {
   var o = {
     bool: {
       _name: 'fallback.address',
-      must: [
-        {
-          match_phrase: {
-            'name.default': vs.var('input:address').toString()
-          }
-        }
-      ],
+      must: [],
       should: [],
       filter: {
-        term: {
-          layer: 'address'
+        bool: {
+          must: [
+            {
+              term: {
+                layer: 'address'
+              }
+            },
+            {
+              query_string: {
+                default_field: 'name.default',
+                default_operator: 'AND',
+                analyzer: 'peliasQueryFullToken',
+                query: vs.var('input:address').toString()
+              }
+            }
+          ]
+
         }
       }
     }
@@ -252,7 +261,7 @@ function addStreet(vs) {
   };
 
   // THIS VALUE IS OPEN TO DEBATE AND CONFIGURATION
-  o.bool.boost = 2000;
+  o.bool.boost = 10000;
 
   // if (vs.isset('boost:address')) {
   //   o.bool.boost = vs.var('boost:address');
