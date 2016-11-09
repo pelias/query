@@ -320,6 +320,18 @@ function addBorough(vs) {
 
 }
 
+function addLocalityAsBorough(vs) {
+  var o = addPrimary(vs.var('input:locality').toString(),
+            'borough', ['parent.borough', 'parent.borough_a'], false);
+
+  addSecCounty(vs, o);
+  addSecRegion(vs, o);
+  addSecCountry(vs, o);
+
+  return o;
+
+}
+
 function addLocality(vs) {
   var o = addPrimary(vs.var('input:locality').toString(),
             'locality', ['parent.locality', 'parent.locality_a'], false);
@@ -460,6 +472,9 @@ Layout.prototype.render = function( vs ){
     funcScoreShould.push(addBorough(vs));
   }
   if (vs.isset('input:locality')) {
+    if (!vs.isset('input:borough')) {
+      funcScoreShould.push(addLocalityAsBorough(vs));
+    }
     funcScoreShould.push(addLocality(vs));
     funcScoreShould.push(addLocalAdmin(vs));
   }

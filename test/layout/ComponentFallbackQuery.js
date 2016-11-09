@@ -49,8 +49,6 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:county', 'county value');
     vs.var('input:region', 'region value');
     vs.var('input:country', 'country value');
-    // vs.var('boost:address', 19);
-    // vs.var('boost:street', 17);
 
     var actual = query.render(vs);
     var expected = require('../fixtures/componentFallbackQuery/address.json');
@@ -68,13 +66,30 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('track_scores', 'track_scores value');
     vs.var('input:address', 'address value');
     vs.var('input:postcode', 'postcode value');
-    vs.var('boost:address', 19);
-    vs.var('boost:street', 17);
 
     var fs = require('fs');
 
     var actual = query.render(vs);
     var expected = require('../fixtures/componentFallbackQuery/address_with_postcode.json');
+
+    t.deepEquals(actual, expected);
+    t.end();
+
+  });
+
+  test('vs with locality but not borough should add borough check', function(t) {
+    var query = new ComponentFallbackQuery();
+
+    var vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:locality', 'locality value');
+    vs.var('input:region', 'region value');
+
+    var fs = require('fs');
+
+    var actual = query.render(vs);
+    var expected = require('../fixtures/componentFallbackQuery/locality_as_borough.json');
 
     // var fs = require('fs');
     // fs.writeFileSync('componentFallbackQuery_address_with_postcode.json', JSON.stringify(actual, null, 2));
