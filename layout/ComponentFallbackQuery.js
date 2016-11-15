@@ -31,7 +31,7 @@ Layout.prototype.filter = function( view ){
   return this;
 };
 
-function addPrimary(value, layer, fields, likely_to_have_abbreviation) {
+function addPrimary(value, layer, fields) {
   // base primary query should match on layer and one of the admin fields via
   // multi_match
   var o = {
