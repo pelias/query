@@ -1,0 +1,88 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "filtered": {
+          "query": {
+            "bool": {
+              "should": [
+                {
+                  "bool": {
+                    "_name": "fallback.address",
+                    "must": [],
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "address_parts.zip": "postcode value"
+                        }
+                      }
+                    ],
+                    "filter": {
+                      "bool": {
+                        "must": [
+                          {
+                            "term": {
+                              "layer": "address"
+                            }
+                          },
+                          {
+                            "query_string": {
+                              "default_field": "name.default",
+                              "default_operator": "AND",
+                              "analyzer": "peliasQueryFullToken",
+                              "query": "address value"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "boost": 50
+                  }
+                },
+                {
+                  "bool": {
+                    "_name": "fallback.street",
+                    "must": [
+                      {
+                        "match_phrase": {
+                          "address_parts.street": "address value"
+                        }
+                      }
+                    ],
+                    "should": [
+                      {
+                        "match_phrase": {
+                          "address_parts.zip": "postcode value"
+                        }
+                      }
+                    ],
+                    "filter": {
+                      "term": {
+                        "layer": "street"
+                      }
+                    },
+                    "boost": 100
+                  }
+                }
+              ]
+            }
+          },
+          "filter": {
+            "bool": {
+              "must": []
+            }
+          }
+        }
+      },
+      "max_boost": 20,
+      "functions": [],
+      "score_mode": "avg",
+      "boost_mode": "multiply"
+    }
+  },
+  "size": { "$": "size value" },
+  "track_scores": { "$": "track_scores value" },
+  "sort": [
+    "_score"
+  ]
+}
