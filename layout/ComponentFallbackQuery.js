@@ -222,11 +222,8 @@ function addAddress(vs) {
   };
 
   // THIS VALUE IS OPEN TO DEBATE AND CONFIGURATION
-  o.bool.boost = 100;
-
-  // if (vs.isset('boost:street')) {
-  //   o.bool.boost = vs.var('boost:street');
-  // }
+  // it will probably go away once we get libpostal parsing the street field
+  o.bool.boost = 50;
 
   addSecPostCode(vs, o);
   addSecNeighbourhood(vs, o);
@@ -261,11 +258,8 @@ function addStreet(vs) {
   };
 
   // THIS VALUE IS OPEN TO DEBATE AND CONFIGURATION
-  o.bool.boost = 10000;
-
-  // if (vs.isset('boost:address')) {
-  //   o.bool.boost = vs.var('boost:address');
-  // }
+  // it will probably go away once we get libpostal parsing the street field
+  o.bool.boost = 100;
 
   addSecPostCode(vs, o);
   addSecNeighbourhood(vs, o);
