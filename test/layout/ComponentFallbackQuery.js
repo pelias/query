@@ -42,7 +42,8 @@ module.exports.tests.base_render = function(test, common) {
     var vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
-    vs.var('input:address', 'address value');
+    vs.var('input:housenumber', 'house number value');
+    vs.var('input:street', 'street value');
     vs.var('input:neighbourhood', 'neighbourhood value');
     vs.var('input:borough', 'borough value');
     vs.var('input:locality', 'locality value');
@@ -64,7 +65,8 @@ module.exports.tests.base_render = function(test, common) {
     var vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
-    vs.var('input:address', 'address value');
+    vs.var('input:housenumber', 'house number value');
+    vs.var('input:street', 'street value');
     vs.var('input:postcode', 'postcode value');
 
     var fs = require('fs');

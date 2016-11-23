@@ -9,7 +9,18 @@
                 {
                   "bool": {
                     "_name": "fallback.address",
-                    "must": [],
+                    "must": [
+                      {
+                        "match_phrase": {
+                          "address_parts.number": "house number value"
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "address_parts.street": "street value"
+                        }
+                      }
+                    ],
                     "should": [
                       {
                         "match_phrase": {
@@ -18,22 +29,8 @@
                       }
                     ],
                     "filter": {
-                      "bool": {
-                        "must": [
-                          {
-                            "term": {
-                              "layer": "address"
-                            }
-                          },
-                          {
-                            "query_string": {
-                              "default_field": "name.default",
-                              "default_operator": "AND",
-                              "analyzer": "peliasQueryFullToken",
-                              "query": "address value"
-                            }
-                          }
-                        ]
+                      "term": {
+                        "layer": "address"
                       }
                     },
                     "boost": 50
@@ -45,7 +42,7 @@
                     "must": [
                       {
                         "match_phrase": {
-                          "address_parts.street": "address value"
+                          "address_parts.street": "street value"
                         }
                       }
                     ],
