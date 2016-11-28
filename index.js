@@ -10,6 +10,7 @@ module.exports.layout = {
 };
 
 module.exports.view = {
+  boost_values: require('./view/boost_values'),
   focus: require('./view/focus'),
   focus_only_function: require('./view/focus_only_function'),
   popularity: require('./view/popularity'),
