@@ -1,17 +1,9 @@
 // This query is used for component geocodes, where the individual fields have
-// been specified by the user and therefore doesn't need to be parsed.  The main
-// difference between this and FallbackQuery is that component geocoding contains
-// the entire address in one field (`input:address`) whereas libpostal parses
-// out the house number and street as separate field (`input:housenumber` and
-// `input:street`).  Because there is no reasonable way (at this time) to parse
-// out house number and street from address, both the `address` and `street`
-// layers must be queried for.  It functions much like FallbackQuery but with a
-// few notable exceptions:
+// been specified by the user and therefore doesn't need to be parsed.  It functions
+// much like FallbackQuery but with (currently) one notable exceptions:
 //
-// - `address` is searched for in `name.default`
-// - `fallback.street` is scored much higher than `fallback.address` because
-//   otherwise `address` queries rank much higher
-//
+// - if locality is available but borough isn't, query borough layer with locality value
+// - boosts are hardcoded
 
 var _ = require('lodash');
 var baseQuery = require('./baseQuery');
@@ -192,30 +184,26 @@ function addQuery(vs) {
 
 }
 
-function addAddress(vs) {
+function addHouseNumberAndStreet(vs) {
   var o = {
     bool: {
       _name: 'fallback.address',
-      must: [],
+      must: [
+        {
+          match_phrase: {
+            'address_parts.number': vs.var('input:housenumber').toString()
+          }
+        },
+        {
+          match_phrase: {
+            'address_parts.street': vs.var('input:street').toString()
+          }
+        }
+      ],
       should: [],
       filter: {
-        bool: {
-          must: [
-            {
-              term: {
-                layer: 'address'
-              }
-            },
-            {
-              query_string: {
-                default_field: 'name.default',
-                default_operator: 'AND',
-                analyzer: 'peliasQueryFullToken',
-                query: vs.var('input:address').toString()
-              }
-            }
-          ]
-
+        term: {
+          layer: 'address'
         }
       }
     }
@@ -244,7 +232,7 @@ function addStreet(vs) {
       must: [
         {
           match_phrase: {
-            'address_parts.street': vs.var('input:address').toString()
+            'address_parts.street': vs.var('input:street').toString()
           }
         }
       ],
@@ -455,8 +443,10 @@ Layout.prototype.render = function( vs ){
 
   var funcScoreShould = q.query.function_score.query.filtered.query.bool.should;
 
-  if (vs.isset('input:address')) {
-    funcScoreShould.push(addAddress(vs));
+  if (vs.isset('input:housenumber') && vs.isset('input:street')) {
+    funcScoreShould.push(addHouseNumberAndStreet(vs));
+  }
+  if (vs.isset('input:street')) {
     funcScoreShould.push(addStreet(vs));
   }
   if (vs.isset('input:neighbourhood')) {
