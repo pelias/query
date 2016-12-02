@@ -9,6 +9,7 @@
                 {
                   "bool": {
                     "_name": "fallback.address",
+                    "boost": { "$": 19 },
                     "must": [
                       {
                         "match_phrase": {
@@ -94,13 +95,13 @@
                       "term": {
                         "layer": "address"
                       }
-                    },
-                    "boost": 50
+                    }
                   }
                 },
                 {
                   "bool": {
                     "_name": "fallback.street",
+                    "boost": { "$": 17 },
                     "must": [
                       {
                         "match_phrase": {
@@ -181,8 +182,7 @@
                       "term": {
                         "layer": "street"
                       }
-                    },
-                    "boost": 100
+                    }
                   }
                 },
                 {
