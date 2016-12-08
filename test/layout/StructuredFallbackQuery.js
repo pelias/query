@@ -61,6 +61,32 @@ module.exports.tests.base_render = function(test, common) {
 
   });
 
+  test('VariableStore with query and address fields should add query w/o address first', function(t) {
+    var query = new StructuredFallbackQuery();
+
+    var vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:query', 'query value');
+    vs.var('input:housenumber', 'house number value');
+    vs.var('input:street', 'street value');
+    vs.var('input:neighbourhood', 'neighbourhood value');
+    vs.var('input:borough', 'borough value');
+    vs.var('input:locality', 'locality value');
+    vs.var('input:county', 'county value');
+    vs.var('input:region', 'region value');
+    vs.var('input:country', 'country value');
+    vs.var('boost:address', 19);
+    vs.var('boost:street', 17);
+
+    var actual = query.render(vs);
+    var expected = require('../fixtures/structuredFallbackQuery/query.json');
+
+    t.deepEquals(actual, expected);
+    t.end();
+
+  });
+
   test('input:postcode set should include it at the address layer query', function(t) {
     var query = new StructuredFallbackQuery();
 

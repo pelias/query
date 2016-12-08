@@ -443,6 +443,9 @@ Layout.prototype.render = function( vs ){
 
   var funcScoreShould = q.query.function_score.query.filtered.query.bool.should;
 
+  if (vs.isset('input:query')) {
+    funcScoreShould.push(addQuery(vs));
+  }
   if (vs.isset('input:housenumber') && vs.isset('input:street')) {
     funcScoreShould.push(addHouseNumberAndStreet(vs));
   }
