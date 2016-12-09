@@ -168,7 +168,8 @@ function addQuery(vs) {
     vs.var('input:query').toString(),
     'venue',
     [
-      'phrase.default'
+      'phrase.default',
+      'category'
     ],
     false
   );
