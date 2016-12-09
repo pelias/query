@@ -1,30 +1,9 @@
-// This query is useful for specifying all the combinations of inputs starting
-// from most granular to least granular.  For example, given the input:
-// `30 w 26th street, new york, ny, usa`
-// the following pseudo-query would be generated:
+// This query is used for component geocodes, where the individual fields have
+// been specified by the user and therefore doesn't need to be parsed.  It functions
+// much like FallbackQuery but with (currently) one notable exceptions:
 //
-// - (housenumber=30 && street=w 26th street && city=new york && state=ny && country=usa) ||
-// - (city=new york && state=ny && country=usa) ||
-// - (state=ny && country=usa) ||
-// - (country=usa)
-//
-// That is, it specifies as much as possible from the analyzed form, then falling
-// back in decreasing granularity.
-//
-// In the event of an input like `Socorro, Pennsylvania, Canada` where there is
-// no city named Socorro in Pennsylvania and there is no region named Pennsylvania
-// in Canada, the single result would be for country=Canada
-//
-// In the case that a full street+city+state+country is correct and found, all
-// OR'd queries will return results so only the most specific result should be
-// retained
-//
-// If the analyzed input contains both a query and housenumber+street, then
-// the constructured query searches for the query term in the context of the coarse
-// inputs, then falls back to the housenumber+street.  It's important to not
-// search for the query term and housenumber+street at the same time because
-// only venues matching the query term at that exact housenumber+street would
-// be returned.
+// - if locality is available but borough isn't, query borough layer with locality value
+// - boosts are hardcoded
 
 var _ = require('lodash');
 var baseQuery = require('./baseQuery');
@@ -44,7 +23,7 @@ Layout.prototype.filter = function( view ){
   return this;
 };
 
-function addPrimary(value, layer, fields, likely_to_have_abbreviation) {
+function addPrimary(value, layer, fields) {
   // base primary query should match on layer and one of the admin fields via
   // multi_match
   var o = {
@@ -66,25 +45,6 @@ function addPrimary(value, layer, fields, likely_to_have_abbreviation) {
       }
     }
   };
-
-  // When the value is likely to have abbreviations, as in the case of regions
-  //  and countries, don't add the must match on phrase.default.  For example,
-  //  when the input 'Socorro, PA' falls back to just 'PA' (because there's no
-  //  place in PA called Socorro), forcing a phrase match on 'PA' would fail
-  //  since the indexed value is 'Pennsylvania', not 'PA'.  Having this conditional
-  //  here allows primary matches in regions and countries, where there is less
-  //  danger of analysis ambiguity, to only have to match on region/region_a or
-  //  country/country_a.  Commented out to show intent.
-  //
-  // if (!likely_to_have_abbreviation) {
-  //   o.bool.must.push(
-  //     {
-  //       match_phrase: {
-  //         'phrase.default': value
-  //       }
-  //     }
-  //   );
-  // }
 
   return o;
 
@@ -342,6 +302,18 @@ function addBorough(vs) {
 
 }
 
+function addLocalityAsBorough(vs) {
+  var o = addPrimary(vs.var('input:locality').toString(),
+            'borough', ['parent.borough', 'parent.borough_a'], false);
+
+  addSecCounty(vs, o);
+  addSecRegion(vs, o);
+  addSecCountry(vs, o);
+
+  return o;
+
+}
+
 function addLocality(vs) {
   var o = addPrimary(vs.var('input:locality').toString(),
             'locality', ['parent.locality', 'parent.locality_a'], false);
@@ -471,9 +443,6 @@ Layout.prototype.render = function( vs ){
 
   var funcScoreShould = q.query.function_score.query.filtered.query.bool.should;
 
-  if (vs.isset('input:query')) {
-    funcScoreShould.push(addQuery(vs));
-  }
   if (vs.isset('input:housenumber') && vs.isset('input:street')) {
     funcScoreShould.push(addHouseNumberAndStreet(vs));
   }
@@ -487,6 +456,9 @@ Layout.prototype.render = function( vs ){
     funcScoreShould.push(addBorough(vs));
   }
   if (vs.isset('input:locality')) {
+    if (!vs.isset('input:borough')) {
+      funcScoreShould.push(addLocalityAsBorough(vs));
+    }
     funcScoreShould.push(addLocality(vs));
     funcScoreShould.push(addLocalAdmin(vs));
   }

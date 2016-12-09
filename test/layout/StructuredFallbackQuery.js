@@ -1,4 +1,4 @@
-var FallbackQuery = require('../../layout/FallbackQuery');
+var StructuredFallbackQuery = require('../../layout/StructuredFallbackQuery');
 var VariableStore = require('../../lib/VariableStore');
 var diff = require('deep-diff').diff;
 
@@ -6,7 +6,7 @@ module.exports.tests = {};
 
 module.exports.tests.base_render = function(test, common) {
   test('instance with nothing set should render to base request', function(t) {
-    var query = new FallbackQuery();
+    var query = new StructuredFallbackQuery();
 
     var vs = new VariableStore();
     vs.var('size', 'size value');
@@ -21,7 +21,7 @@ module.exports.tests.base_render = function(test, common) {
   });
 
   test('VariableStore with neighbourhood-only should only include neighbourhood parts and no fallbacks', function(t) {
-    var query = new FallbackQuery();
+    var query = new StructuredFallbackQuery();
 
     var vs = new VariableStore();
     vs.var('size', 'size value');
@@ -36,34 +36,8 @@ module.exports.tests.base_render = function(test, common) {
 
   });
 
-  test('VariableStore with query AND street should only add query', function(t) {
-    var query = new FallbackQuery();
-
-    var vs = new VariableStore();
-    vs.var('size', 'size value');
-    vs.var('track_scores', 'track_scores value');
-    vs.var('input:query', 'query value');
-    vs.var('input:housenumber', 'house number value');
-    vs.var('input:street', 'street value');
-    vs.var('input:neighbourhood', 'neighbourhood value');
-    vs.var('input:borough', 'borough value');
-    vs.var('input:locality', 'locality value');
-    vs.var('input:county', 'county value');
-    vs.var('input:region', 'region value');
-    vs.var('input:country', 'country value');
-    vs.var('boost:address', 19);
-    vs.var('boost:street', 17);
-
-    var actual = query.render(vs);
-    var expected = require('../fixtures/fallbackQuery1.json');
-
-    t.deepEquals(actual, expected);
-    t.end();
-
-  });
-
-  test('VariableStore with number+street and less granular fields should include all others', function(t) {
-    var query = new FallbackQuery();
+  test('VariableStore with address and less granular fields should include all others', function(t) {
+    var query = new StructuredFallbackQuery();
 
     var vs = new VariableStore();
     vs.var('size', 'size value');
@@ -80,7 +54,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('boost:street', 17);
 
     var actual = query.render(vs);
-    var expected = require('../fixtures/fallbackQuery2.json');
+    var expected = require('../fixtures/structuredFallbackQuery/address.json');
 
     t.deepEquals(actual, expected);
     t.end();
@@ -88,7 +62,7 @@ module.exports.tests.base_render = function(test, common) {
   });
 
   test('input:postcode set should include it at the address layer query', function(t) {
-    var query = new FallbackQuery();
+    var query = new StructuredFallbackQuery();
 
     var vs = new VariableStore();
     vs.var('size', 'size value');
@@ -99,10 +73,25 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('boost:address', 19);
     vs.var('boost:street', 17);
 
-    var fs = require('fs');
+    var actual = query.render(vs);
+    var expected = require('../fixtures/structuredFallbackQuery/address_with_postcode.json');
+
+    t.deepEquals(actual, expected);
+    t.end();
+
+  });
+
+  test('vs with locality but not borough should add borough check', function(t) {
+    var query = new StructuredFallbackQuery();
+
+    var vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:locality', 'locality value');
+    vs.var('input:region', 'region value');
 
     var actual = query.render(vs);
-    var expected = require('../fixtures/fallbackQuery_address_with_postcode.json');
+    var expected = require('../fixtures/structuredFallbackQuery/locality_as_borough.json');
 
     t.deepEquals(actual, expected);
     t.end();
@@ -113,7 +102,7 @@ module.exports.tests.base_render = function(test, common) {
 
 module.exports.tests.boosts = function(test, common) {
   test('boost:street and boost:address missing from vs should not be include empty string', function(t) {
-    var query = new FallbackQuery();
+    var query = new StructuredFallbackQuery();
 
     var vs = new VariableStore();
     vs.var('size', 'size value');
@@ -135,7 +124,7 @@ module.exports.tests.scores = function(test, common) {
   test('scores rendering to falsy values should not be added', function(t) {
     var score_views_called = 0;
 
-    var query = new FallbackQuery();
+    var query = new StructuredFallbackQuery();
 
     [
       { 'score field 1': 'score value 1' },
@@ -182,7 +171,7 @@ module.exports.tests.filter = function(test, common) {
     // guarantee that it was actually passed
     var filter_views_called = 0;
 
-    var query = new FallbackQuery();
+    var query = new StructuredFallbackQuery();
 
     [
       { 'filter field 1': 'filter value 1' },
@@ -218,7 +207,7 @@ module.exports.tests.filter = function(test, common) {
 
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {
-    return tape('FallbackQuery ' + name, testFunction);
+    return tape('StructuredFallbackQuery ' + name, testFunction);
   }
   for( var testCase in module.exports.tests ){
     module.exports.tests[testCase](test, common);
