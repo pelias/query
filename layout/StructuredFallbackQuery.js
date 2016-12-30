@@ -168,7 +168,8 @@ function addQuery(vs) {
     vs.var('input:query').toString(),
     'venue',
     [
-      'phrase.default'
+      'phrase.default',
+      'category'
     ],
     false
   );
@@ -443,10 +444,13 @@ Layout.prototype.render = function( vs ){
 
   var funcScoreShould = q.query.function_score.query.filtered.query.bool.should;
 
-  if (vs.isset('input:housenumber') && vs.isset('input:street')) {
-    funcScoreShould.push(addHouseNumberAndStreet(vs));
+  if (vs.isset('input:query')) {
+    funcScoreShould.push(addQuery(vs));
   }
   if (vs.isset('input:street')) {
+    if (vs.isset('input:housenumber')) {
+      funcScoreShould.push(addHouseNumberAndStreet(vs));
+    }
     funcScoreShould.push(addStreet(vs));
   }
   if (vs.isset('input:neighbourhood')) {
