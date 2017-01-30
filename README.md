@@ -4,6 +4,8 @@
 >official user documentation is [here](https://mapzen.com/documentation/search/).
 
 # Pelias Query
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/pelias/query.svg)](https://greenkeeper.io/)
 Elasticsearch geospatial and linguistic matching queries used by Pelias.
 
 [![Build Status](https://travis-ci.org/pelias/query.png?branch=master)](https://travis-ci.org/pelias/query)
