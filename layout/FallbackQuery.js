@@ -208,7 +208,7 @@ function addQuery(vs) {
     vs.var('input:query').toString(),
     'venue',
     [
-      'phrase.default'
+      'phrase.default', 'alt_names'
     ],
     false
   );
@@ -307,7 +307,8 @@ function addNeighbourhood(vs) {
     'neighbourhood',
     [
       'parent.neighbourhood',
-      'parent.neighbourhood_a'
+      'parent.neighbourhood_a',
+      'alt_names'
     ],
     false
   );
@@ -328,7 +329,8 @@ function addBorough(vs) {
     'borough',
     [
       'parent.borough',
-      'parent.borough_a'
+      'parent.borough_a',
+      'alt_names'
     ],
     false
   );
@@ -344,7 +346,7 @@ function addBorough(vs) {
 
 function addLocality(vs) {
   var o = addPrimary(vs.var('input:locality').toString(),
-            'locality', ['parent.locality', 'parent.locality_a'], false);
+            'locality', ['alt_names', 'parent.locality', 'parent.locality_a'], false);
 
   addSecCounty(vs, o);
   addSecRegion(vs, o);
@@ -356,7 +358,7 @@ function addLocality(vs) {
 
 function addLocalAdmin(vs) {
   var o = addPrimary(vs.var('input:locality').toString(),
-            'localadmin', ['parent.localadmin', 'parent.localadmin_a'], false);
+            'localadmin', ['parent.localadmin', 'parent.localadmin_a', 'alt_names'], false);
 
   addSecCounty(vs, o);
   addSecRegion(vs, o);
@@ -372,7 +374,8 @@ function addCounty(vs) {
     'county',
     [
       'parent.county',
-      'parent.county_a'
+      'parent.county_a',
+      'alt_names'
     ],
     false
   );
@@ -390,7 +393,8 @@ function addMacroCounty(vs) {
     'macrocounty',
     [
       'parent.macrocounty',
-      'parent.macrocounty_a'
+      'parent.macrocounty_a',
+      'alt_names'
     ],
     false
   );
@@ -408,7 +412,8 @@ function addRegion(vs) {
     'region',
     [
       'parent.region',
-      'parent.region_a'
+      'parent.region_a',
+      'alt_names'
     ],
     true
   );
