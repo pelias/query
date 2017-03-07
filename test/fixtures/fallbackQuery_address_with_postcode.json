@@ -38,6 +38,25 @@
                 },
                 {
                   "bool": {
+                    "_name": "fallback.postalcode",
+                    "must": [
+                      {
+                        "multi_match": {
+                          "query": "postcode value",
+                          "type": "phrase",
+                          "fields": ["parent.postalcode"]
+                        }
+                      }
+                    ],
+                    "filter": {
+                      "term": {
+                        "layer": "postalcode"
+                      }
+                    }
+                  }
+                },
+                {
+                  "bool": {
                     "_name": "fallback.street",
                     "boost": { "$": 17 },
                     "must": [
