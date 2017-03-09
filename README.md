@@ -4,9 +4,8 @@
 >official user documentation is [here](https://mapzen.com/documentation/search/).
 
 # Pelias Query
-Elasticsearch geospatial and linguistic matching queries used by Pelias.
 
-[![Build Status](https://travis-ci.org/pelias/query.png?branch=master)](https://travis-ci.org/pelias/query)
+Elasticsearch geospatial and linguistic matching queries used by Pelias.
 
 ## Installation
 
@@ -519,3 +518,15 @@ Pretty please; provide unit tests and script fixtures in the `test` directory.
 ```bash
 $ npm test
 ```
+
+### Continuous Integration
+
+Travis tests every release against Node.js versions `4` and `6`.
+
+[![Build Status](https://travis-ci.org/pelias/query.png?branch=master)](https://travis-ci.org/pelias/query)
+
+### Versioning
+
+We rely on semantic-release and Greenkeeper to maintain our module and dependency versions.
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/pelias/query.svg)](https://greenkeeper.io/)

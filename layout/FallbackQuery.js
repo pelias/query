@@ -466,6 +466,28 @@ function addCountry(vs) {
 
 }
 
+function addPostCode(vs) {
+  var o = addPrimary(
+    vs.var('input:postcode').toString(),
+    'postalcode',
+    [
+      'parent.postalcode'
+    ],
+    false
+  );
+
+  // same position in hierarchy as borough according to WOF
+  // https://github.com/whosonfirst/whosonfirst-placetypes#here-is-a-pretty-picture
+  addSecLocality(vs, o);
+  addSecCounty(vs, o);
+  addSecRegion(vs, o);
+  addSecCountry(vs, o);
+
+  return o;
+
+}
+
+
 Layout.prototype.render = function( vs ){
   var q = Layout.base( vs );
 
@@ -476,6 +498,9 @@ Layout.prototype.render = function( vs ){
   }
   if (vs.isset('input:housenumber') && vs.isset('input:street')) {
     funcScoreShould.push(addHouseNumberAndStreet(vs));
+  }
+  if (vs.isset('input:postcode')) {
+    funcScoreShould.push(addPostCode(vs));
   }
   if (vs.isset('input:street')) {
     funcScoreShould.push(addStreet(vs));
