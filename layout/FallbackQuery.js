@@ -119,7 +119,7 @@ function addSecPostCode(vs, o) {
 function addSecOptionalLocality(vs, o) {
   // add postcode if specified
   if (vs.isset('input:locality')) {
-    o.bool.should.push({
+    o.bool.must_not.push({
       match_phrase: {
         'parent.locality': vs.var('input:locality').toString()
       }
@@ -292,6 +292,7 @@ function addHouseNumberAndStreetPartial(vs) {
           }
         }
       ],
+      must_not: [],
       should: [],
       filter: {
         term: {
@@ -364,6 +365,7 @@ function addStreetPartial(vs) {
           }
         }
       ],
+      must_not: [],
       should: [],
       filter: {
         term: {
