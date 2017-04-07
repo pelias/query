@@ -2,92 +2,83 @@
   "query": {
     "function_score": {
       "query": {
-        "filtered": {
-          "query": {
-            "bool": {
-              "should": [
-                {
-                  "bool": {
-                    "_name": "fallback.address",
-                    "boost": { "$": 19 },
-                    "must": [
-                      {
-                        "match_phrase": {
-                          "address_parts.number": "house number value"
-                        }
-                      },
-                      {
-                        "match_phrase": {
-                          "address_parts.street": "street value"
-                        }
-                      }
-                    ],
-                    "should": [
-                      {
-                        "match_phrase": {
-                          "address_parts.zip": "postcode value"
-                        }
-                      }
-                    ],
-                    "filter": {
-                      "term": {
-                        "layer": "address"
-                      }
+        "bool": {
+          "should": [
+            {
+              "bool": {
+                "_name": "fallback.address",
+                "boost": { "$": 19 },
+                "must": [
+                  {
+                    "match_phrase": {
+                      "address_parts.number": "house number value"
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "address_parts.street": "street value"
                     }
                   }
-                },
-                {
-                  "bool": {
-                    "_name": "fallback.postalcode",
-                    "must": [
-                      {
-                        "multi_match": {
-                          "query": "postcode value",
-                          "type": "phrase",
-                          "fields": ["parent.postalcode"]
-                        }
-                      }
-                    ],
-                    "filter": {
-                      "term": {
-                        "layer": "postalcode"
-                      }
+                ],
+                "should": [
+                  {
+                    "match_phrase": {
+                      "address_parts.zip": "postcode value"
                     }
                   }
-                },
-                {
-                  "bool": {
-                    "_name": "fallback.street",
-                    "boost": { "$": 17 },
-                    "must": [
-                      {
-                        "match_phrase": {
-                          "address_parts.street": "street value"
-                        }
-                      }
-                    ],
-                    "should": [
-                      {
-                        "match_phrase": {
-                          "address_parts.zip": "postcode value"
-                        }
-                      }
-                    ],
-                    "filter": {
-                      "term": {
-                        "layer": "street"
-                      }
-                    }
+                ],
+                "filter": {
+                  "term": {
+                    "layer": "address"
                   }
                 }
-              ]
+              }
+            },
+            {
+              "bool": {
+                "_name": "fallback.postalcode",
+                "must": [
+                  {
+                    "multi_match": {
+                      "query": "postcode value",
+                      "type": "phrase",
+                      "fields": ["parent.postalcode"]
+                    }
+                  }
+                ],
+                "filter": {
+                  "term": {
+                    "layer": "postalcode"
+                  }
+                }
+              }
+            },
+            {
+              "bool": {
+                "_name": "fallback.street",
+                "boost": { "$": 17 },
+                "must": [
+                  {
+                    "match_phrase": {
+                      "address_parts.street": "street value"
+                    }
+                  }
+                ],
+                "should": [
+                  {
+                    "match_phrase": {
+                      "address_parts.zip": "postcode value"
+                    }
+                  }
+                ],
+                "filter": {
+                  "term": {
+                    "layer": "street"
+                  }
+                }
+              }
             }
-          },
-          "filter": {
-            "bool": {
-              "must": []
-            }
-          }
+          ]
         }
       },
       "max_boost": 20,

@@ -491,7 +491,7 @@ function addPostCode(vs) {
 Layout.prototype.render = function( vs ){
   var q = Layout.base( vs );
 
-  var funcScoreShould = q.query.function_score.query.filtered.query.bool.should;
+  var funcScoreShould = q.query.function_score.query.bool.should;
 
   if (vs.isset('input:query')) {
     funcScoreShould.push(addQuery(vs));
@@ -543,7 +543,14 @@ Layout.prototype.render = function( vs ){
     this._filter.forEach( function( view ){
       var rendered = view( vs );
       if( rendered ){
-        q.query.function_score.query.filtered.filter.bool.must.push( rendered );
+        if( !q.query.function_score.query.bool.hasOwnProperty( 'filter' ) ){
+          q.query.function_score.query.bool.filter = {
+            bool: {
+              must: []
+            }
+          };
+        }
+        q.query.function_score.query.bool.filter.bool.must.push( rendered );
       }
     });
   }
