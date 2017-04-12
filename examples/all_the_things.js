@@ -24,7 +24,7 @@ q.score( query.view.boundary_country, 'must' )
 
 // scoring boost
 q.score( query.view.phrase )
- .score( query.view.focus );
+ .score( query.view.focus( query.view.phrase ) );
 
 // address components
 q.score( query.view.address('housenumber') )
