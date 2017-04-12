@@ -2,37 +2,28 @@
   "query": {
     "function_score": {
       "query": {
-        "filtered": {
-          "query": {
-            "bool": {
-              "should": [
-                {
-                  "bool": {
-                    "_name": "fallback.neighbourhood",
-                    "must": [
-                      {
-                        "multi_match": {
-                          "query": "neighbourhood value",
-                          "type": "phrase",
-                          "fields": ["parent.neighbourhood", "parent.neighbourhood_a"]
-                        }
-                      }
-                    ],
-                    "filter": {
-                      "term": {
-                        "layer": "neighbourhood"
-                      }
+        "bool": {
+          "should": [
+            {
+              "bool": {
+                "_name": "fallback.neighbourhood",
+                "must": [
+                  {
+                    "multi_match": {
+                      "query": "neighbourhood value",
+                      "type": "phrase",
+                      "fields": ["parent.neighbourhood", "parent.neighbourhood_a"]
                     }
                   }
+                ],
+                "filter": {
+                  "term": {
+                    "layer": "neighbourhood"
+                  }
                 }
-              ]
+              }
             }
-          },
-          "filter": {
-            "bool": {
-              "must": []
-            }
-          }
+          ]
         }
       },
       "max_boost": 20,

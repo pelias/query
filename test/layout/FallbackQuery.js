@@ -123,8 +123,8 @@ module.exports.tests.boosts = function(test, common) {
 
     var actual = query.render(vs);
 
-    t.false(actual.query.function_score.query.filtered.query.bool.should[0].bool.hasOwnProperty('boost'));
-    t.false(actual.query.function_score.query.filtered.query.bool.should[1].bool.hasOwnProperty('boost'));
+    t.false(actual.query.function_score.query.bool.should[0].bool.hasOwnProperty('boost'));
+    t.false(actual.query.function_score.query.bool.should[1].bool.hasOwnProperty('boost'));
     t.end();
 
   });
@@ -210,7 +210,7 @@ module.exports.tests.filter = function(test, common) {
     ];
 
     t.equals(filter_views_called, 8);
-    t.deepEquals(actual.query.function_score.query.filtered.filter.bool.must, expected_filter);
+    t.deepEquals(actual.query.function_score.query.bool.filter.bool.must, expected_filter);
     t.end();
 
   });

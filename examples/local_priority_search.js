@@ -17,7 +17,7 @@ var query = require('../index'),
 **/
 var q = new query.layout.FilteredBooleanQuery()
   .score( query.view.phrase )
-  .score( query.view.focus );
+  .score( query.view.focus( query.view.phrase ) );
 
 /**
   configure implementation-specific settings:

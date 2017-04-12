@@ -336,28 +336,20 @@ results in a query such as:
 ```javascript
 {
   "query": {
-    "filtered": {
-      "query": {
-        "bool": {}
-      },
-      "filter": {
-        "bool": {
-          "should": [
-            {
-              "geo_distance": {
-                "distance": "5km",
-                "distance_type": "plane",
-                "optimize_bbox": "indexed",
-                "_cache": true,
-                "center_point": {
-                  "lat": 51.5,
-                  "lon": -0.06
-                }
-              }
+    "bool": {
+      "filter": [
+        {
+          "geo_distance": {
+            "distance": "5km",
+            "distance_type": "plane",
+            "optimize_bbox": "indexed",
+            "center_point": {
+              "lat": 51.5,
+              "lon": -0.06
             }
-          ]
+          }
         }
-      }
+      ]
     }
   },
   "size": 1,
@@ -402,7 +394,7 @@ var focus = { lat: 51.5, lon: -0.06 };
 **/
 var q = new query.layout.FilteredBooleanQuery()
   .score( query.view.phrase )
-  .score( query.view.focus );
+  .score( query.view.focus(query.view.phrase) );
 
 /**
   configure implementation-specific settings (or simply use the defaults):
@@ -436,11 +428,22 @@ results in a query such as:
 ```javascript
 {
   "query": {
-    "filtered": {
-      "query": {
-        "bool": {
-          "should": [
-            {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "phrase.default": {
+              "analyzer": "standard",
+              "type": "phrase",
+              "boost": 1,
+              "slop": 2,
+              "query": "union square"
+            }
+          }
+        },
+        {
+          "function_score": {
+            "query": {
               "match": {
                 "phrase.default": {
                   "analyzer": "standard",
@@ -451,44 +454,27 @@ results in a query such as:
                 }
               }
             },
-            {
-              "function_score": {
-                "query": {
-                  "match": {
-                    "phrase.default": {
-                      "analyzer": "standard",
-                      "type": "phrase",
-                      "boost": 1,
-                      "slop": 2,
-                      "query": "union square"
-                    }
+            "functions": [
+              {
+                "weight": 2,
+                "gauss": {
+                  "center_point": {
+                    "origin": {
+                      "lat": 51.5,
+                      "lon": -0.06
+                    },
+                    "offset": "10km",
+                    "scale": "100km",
+                    "decay": 0.4
                   }
-                },
-                "functions": [
-                  {
-                    "gauss": {
-                      "center_point": {
-                        "origin": {
-                          "lat": 51.5,
-                          "lon": -0.06
-                        },
-                        "offset": "10km",
-                        "scale": "100km",
-                        "decay": 0.4
-                      }
-                    }
-                  }
-                ],
-                "score_mode": "avg",
-                "boost_mode": "replace"
+                }
               }
-            }
-          ]
+            ],
+            "score_mode": "avg",
+            "boost_mode": "replace"
+          }
         }
-      },
-      "filter": {
-        "bool": {}
-      }
+      ]
     }
   },
   "size": 10,

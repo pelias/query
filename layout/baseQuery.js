@@ -2,17 +2,8 @@ module.exports = {
   query: {
     function_score: {
       query: {
-        filtered: {
-          query: {
-            bool: {
-              should: []
-            }
-          },
-          filter: {
-            bool: {
-              must: []
-            }
-          }
+        bool: {
+          should: []
         }
       },
       // move to configuration
