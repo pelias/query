@@ -116,6 +116,17 @@ function addSecPostCode(vs, o) {
   }
 }
 
+function addSecOptionalLocality(vs, o) {
+  // add postcode if specified
+  if (vs.isset('input:locality')) {
+    o.bool.must_not.push({
+      match_phrase: {
+        'parent.locality': vs.var('input:locality').toString()
+      }
+    });
+  }
+}
+
 function addSecNeighbourhood(vs, o) {
   // add neighbourhood if specified
   if (vs.isset('input:neighbourhood')) {
@@ -265,6 +276,48 @@ function addHouseNumberAndStreet(vs) {
 
 }
 
+function addHouseNumberAndStreetPartial(vs) {
+  var o = {
+    bool: {
+      _name: 'fallback.address_partial',
+      must: [
+        {
+          match_phrase: {
+            'address_parts.number': vs.var('input:housenumber').toString()
+          }
+        },
+        {
+          match_phrase: {
+            'address_parts.street': vs.var('input:street').toString()
+          }
+        }
+      ],
+      must_not: [],
+      should: [],
+      filter: {
+        term: {
+          layer: 'address'
+        }
+      }
+    }
+  };
+
+  if (vs.isset('boost:address')) {
+    o.bool.boost = vs.var('boost:address');
+  }
+
+  addSecPostCode(vs, o);
+  addSecNeighbourhood(vs, o);
+  addSecBorough(vs, o);
+  addSecOptionalLocality(vs, o);
+  addSecCounty(vs, o);
+  addSecRegion(vs, o);
+  addSecCountry(vs, o);
+
+  return o;
+
+}
+
 function addStreet(vs) {
   var o = {
     bool: {
@@ -293,6 +346,43 @@ function addStreet(vs) {
   addSecNeighbourhood(vs, o);
   addSecBorough(vs, o);
   addSecLocality(vs, o);
+  addSecCounty(vs, o);
+  addSecRegion(vs, o);
+  addSecCountry(vs, o);
+
+  return o;
+
+}
+
+function addStreetPartial(vs) {
+  var o = {
+    bool: {
+      _name: 'fallback.street_partial',
+      must: [
+        {
+          match_phrase: {
+            'address_parts.street': vs.var('input:street').toString()
+          }
+        }
+      ],
+      must_not: [],
+      should: [],
+      filter: {
+        term: {
+          layer: 'street'
+        }
+      }
+    }
+  };
+
+  if (vs.isset('boost:street')) {
+    o.bool.boost = vs.var('boost:street');
+  }
+
+  addSecPostCode(vs, o);
+  addSecNeighbourhood(vs, o);
+  addSecBorough(vs, o);
+  addSecOptionalLocality(vs, o);
   addSecCounty(vs, o);
   addSecRegion(vs, o);
   addSecCountry(vs, o);
@@ -498,12 +588,14 @@ Layout.prototype.render = function( vs ){
   }
   if (vs.isset('input:housenumber') && vs.isset('input:street')) {
     funcScoreShould.push(addHouseNumberAndStreet(vs));
+    funcScoreShould.push(addHouseNumberAndStreetPartial(vs));
   }
   if (vs.isset('input:postcode')) {
     funcScoreShould.push(addPostCode(vs));
   }
   if (vs.isset('input:street')) {
     funcScoreShould.push(addStreet(vs));
+    funcScoreShould.push(addStreetPartial(vs));
   }
   if (vs.isset('input:neighbourhood')) {
     funcScoreShould.push(addNeighbourhood(vs));
