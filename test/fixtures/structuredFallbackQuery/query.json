@@ -43,10 +43,14 @@
                       "query": "locality value",
                       "type": "phrase",
                       "fields": [
+                        "parent.borough",
+                        "parent.borough_a",
                         "parent.locality",
                         "parent.locality_a",
                         "parent.localadmin",
-                        "parent.localadmin_a"
+                        "parent.localadmin_a",
+                        "parent.county",
+                        "parent.county_a"
                       ]
                     }
                   },
@@ -134,10 +138,14 @@
                       "query": "locality value",
                       "type": "phrase",
                       "fields": [
+                        "parent.borough",
+                        "parent.borough_a",
                         "parent.locality",
                         "parent.locality_a",
                         "parent.localadmin",
-                        "parent.localadmin_a"
+                        "parent.localadmin_a",
+                        "parent.county",
+                        "parent.county_a"
                       ]
                     }
                   },
@@ -221,10 +229,14 @@
                       "query": "locality value",
                       "type": "phrase",
                       "fields": [
+                        "parent.borough",
+                        "parent.borough_a",
                         "parent.locality",
                         "parent.locality_a",
                         "parent.localadmin",
-                        "parent.localadmin_a"
+                        "parent.localadmin_a",
+                        "parent.county",
+                        "parent.county_a"
                       ]
                     }
                   },
@@ -302,10 +314,14 @@
                       "query": "locality value",
                       "type": "phrase",
                       "fields": [
+                        "parent.borough",
+                        "parent.borough_a",
                         "parent.locality",
                         "parent.locality_a",
                         "parent.localadmin",
-                        "parent.localadmin_a"
+                        "parent.localadmin_a",
+                        "parent.county",
+                        "parent.county_a"
                       ]
                     }
                   },
@@ -372,10 +388,14 @@
                       "query": "locality value",
                       "type": "phrase",
                       "fields": [
+                        "parent.borough",
+                        "parent.borough_a",
                         "parent.locality",
                         "parent.locality_a",
                         "parent.localadmin",
-                        "parent.localadmin_a"
+                        "parent.localadmin_a",
+                        "parent.county",
+                        "parent.county_a"
                       ]
                     }
                   },

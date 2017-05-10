@@ -148,10 +148,14 @@ function addSecLocality(vs, o) {
     o.bool.must.push(addSecondary(
       vs.var('input:locality').toString(),
       [
+        'parent.borough',
+        'parent.borough_a',
         'parent.locality',
         'parent.locality_a',
         'parent.localadmin',
-        'parent.localadmin_a'
+        'parent.localadmin_a',
+        'parent.county',
+        'parent.county_a'
       ]
     ));
   }
