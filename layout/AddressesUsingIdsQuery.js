@@ -12,12 +12,12 @@ function getBaseQuery(housenumber, street) {
                 must: [
                   {
                     match_phrase: {
-                      'address_parts.number': housenumber
+                      'address_parts.number': housenumber.toString()
                     }
                   },
                   {
                     match_phrase: {
-                      'address_parts.street': street
+                      'address_parts.street': street.toString()
                     }
                   }
                 ],
@@ -63,7 +63,7 @@ Layout.prototype.filter = function( view ){
 };
 
 Layout.prototype.render = function( vs ){
-  const q = getBaseQuery(vs.var('input:housenumber').toString(), vs.var('input:street').toString());
+  const q = getBaseQuery(vs.var('input:housenumber'), vs.var('input:street'));
   q.size = vs.var('size');
   q.track_scores = vs.var('track_scores');
 
