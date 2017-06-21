@@ -1,0 +1,54 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "filtered": {
+          "query": {
+            "bool": {
+              "_name": "fallback.address",
+              "must": [
+                {
+                  "match_phrase": {
+                    "address_parts.number": "housenumber value"
+                  }
+                },
+                {
+                  "match_phrase": {
+                    "address_parts.street": "street value"
+                  }
+                }
+              ],
+              "boost": 10
+            }
+          },
+          "filter": {
+            "bool": {
+              "must": [
+                {
+                  "term": {
+                    "layer": "address"
+                  }
+                }
+              ],
+              "should": [
+                {
+                  "terms": {
+                    "parent.layer1_id": [1, 2, 3]
+                  }
+                },
+                {
+                  "terms": {
+                    "parent.layer4_id": [4]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "functions": []
+    }
+  },
+  "size": { "$": "size value" },
+  "track_scores": { "$": "track_scores value" }
+}
