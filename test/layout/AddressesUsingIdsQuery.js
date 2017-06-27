@@ -15,7 +15,7 @@ module.exports.tests.base_render = (test, common) => {
     vs.var('input:street', 'street value');
 
     const actual = query.render(vs);
-    const expected = require('../fixtures/AddressesUsingIdsQuery/no_layers.json');
+    const expected = require('../fixtures/addressesUsingIdsQuery/no_layers.json');
 
     // console.error(JSON.stringify(actual));
     // console.error(JSON.stringify(expected));
@@ -41,7 +41,7 @@ module.exports.tests.base_render = (test, common) => {
     }));
 
     const actual = query.render(vs);
-    const expected = require('../fixtures/AddressesUsingIdsQuery/with_layers.json');
+    const expected = require('../fixtures/addressesUsingIdsQuery/with_layers.json');
 
     // console.error(JSON.stringify(actual));
     // console.error(JSON.stringify(expected));
@@ -79,7 +79,7 @@ module.exports.tests.render_with_scores = (test, common) => {
     vs.var('input:street', 'street value');
 
     const actual = query.render(vs);
-    const expected = require('../fixtures/AddressesUsingIdsQuery/with_scores.json');
+    const expected = require('../fixtures/addressesUsingIdsQuery/with_scores.json');
 
     // console.error(JSON.stringify(actual));
     // console.error(JSON.stringify(expected));
@@ -117,7 +117,7 @@ module.exports.tests.render_with_filters = (test, common) => {
     vs.var('input:street', 'street value');
 
     const actual = query.render(vs);
-    const expected = require('../fixtures/AddressesUsingIdsQuery/with_filters.json');
+    const expected = require('../fixtures/addressesUsingIdsQuery/with_filters.json');
 
     // console.error(JSON.stringify(actual));
     // console.error(JSON.stringify(expected));
