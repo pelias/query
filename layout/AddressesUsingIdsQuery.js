@@ -67,15 +67,6 @@ Layout.prototype.render = function( vs ){
   q.size = vs.var('size');
   q.track_scores = vs.var('track_scores');
 
-  // add the base filter that just looks for address layer results
-  this._filter.push(() => {
-    return {
-      term: {
-        layer: 'address'
-      }
-    };
-  });
-
   // if there are layer->id mappings, add the layers with non-empty ids
   if (vs.isset('input:layers')) {
     const layers_to_ids = JSON.parse(vs.var('input:layers'));
@@ -104,6 +95,12 @@ Layout.prototype.render = function( vs ){
       return view(vs);
     }
   ));
+
+  q.query.function_score.query.filtered.filter.bool.must.push({
+    term: {
+      layer: 'address'
+    }
+  });
 
   return q;
 };
