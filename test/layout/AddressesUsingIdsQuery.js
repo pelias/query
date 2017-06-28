@@ -25,6 +25,25 @@ module.exports.tests.base_render = (test, common) => {
 
   });
 
+  test('VariableStore without housenumber should not add must for address', (t) => {
+    const query = new AddressesUsingIdsQuery();
+
+    const vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:street', 'street value');
+
+    const actual = query.render(vs);
+    const expected = require('../fixtures/addressesUsingIdsQuery/no_housenumber.json');
+
+    // console.error(JSON.stringify(actual));
+    // console.error(JSON.stringify(expected));
+
+    t.deepEquals(actual, expected);
+    t.end();
+
+  });
+
   test('VariableStore with admins should only use non-empty id arrays', (t) => {
     const query = new AddressesUsingIdsQuery();
 

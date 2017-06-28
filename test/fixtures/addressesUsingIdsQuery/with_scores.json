@@ -5,31 +5,52 @@
         "filtered": {
           "query": {
             "bool": {
-              "_name": "fallback.address",
-              "must": [
+              "should": [
                 {
-                  "match_phrase": {
-                    "address_parts.number": "housenumber value"
+                  "bool": {
+                    "_name": "fallback.address",
+                    "must": [
+                      {
+                        "match_phrase": {
+                          "address_parts.number": "housenumber value"
+                        }
+                      },
+                      {
+                        "match_phrase": {
+                          "address_parts.street": "street value"
+                        }
+                      }
+                    ],
+                    "filter": {
+                      "term": {
+                        "layer": "address"
+                      }
+                    }
                   }
                 },
                 {
-                  "match_phrase": {
-                    "address_parts.street": "street value"
+                  "bool": {
+                    "_name": "fallback.street",
+                    "must": [
+                      {
+                        "match_phrase": {
+                          "address_parts.street": "street value"
+                        }
+                      }
+                    ],
+                    "filter": {
+                      "term": {
+                        "layer": "street"
+                      }
+                    }
                   }
                 }
-              ],
-              "boost": 10
+              ]
             }
           },
           "filter": {
             "bool": {
-              "must": [
-                {
-                  "term": {
-                    "layer": "address"
-                  }
-                }
-              ]
+              "must": []
             }
           }
         }

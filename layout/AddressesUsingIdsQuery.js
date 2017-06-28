@@ -1,40 +1,24 @@
 const _ = require('lodash');
 
-function getBaseQuery(housenumber, street) {
-  return {
-    query: {
-      function_score: {
-        query: {
-          filtered: {
-            query: {
-              bool: {
-                _name: 'fallback.address',
-                must: [
-                  {
-                    match_phrase: {
-                      'address_parts.number': housenumber.toString()
-                    }
-                  },
-                  {
-                    match_phrase: {
-                      'address_parts.street': street.toString()
-                    }
-                  }
-                ],
-                boost: 10
-              }
-            },
-            filter: {
-              bool: { }
+const baseQuery = {
+  query: {
+    function_score: {
+      query: {
+        filtered: {
+          query: {
+            bool: {
+              should: []
             }
+          },
+          filter: {
+            bool: { }
           }
-        },
-        functions: []
-      }
+        }
+      },
+      functions: []
     }
-  };
-
-}
+  }
+};
 
 function createShould(layer, ids) {
   const should = {
@@ -44,6 +28,53 @@ function createShould(layer, ids) {
   should.terms[`parent.${layer}_id`] = ids;
 
   return should;
+
+}
+
+function createAddressShould(housenumber, street) {
+  return {
+    bool: {
+      _name: 'fallback.address',
+      must: [
+        {
+          match_phrase: {
+            'address_parts.number': housenumber.toString()
+          }
+        },
+        {
+          match_phrase: {
+            'address_parts.street': street.toString()
+          }
+        }
+      ],
+      filter: {
+        term: {
+          layer: 'address'
+        }
+      }
+    }
+  };
+
+}
+
+function createStreetShould(street) {
+  return {
+    bool: {
+      _name: 'fallback.street',
+      must: [
+        {
+          match_phrase: {
+            'address_parts.street': street.toString()
+          }
+        }
+      ],
+      filter: {
+        term: {
+          layer: 'street'
+        }
+      }
+    }
+  };
 
 }
 
@@ -63,7 +94,16 @@ Layout.prototype.filter = function( view ){
 };
 
 Layout.prototype.render = function( vs ){
-  const q = getBaseQuery(vs.var('input:housenumber'), vs.var('input:street'));
+  const q = _.cloneDeep(baseQuery);
+
+  if (vs.isset('input:housenumber')) {
+    q.query.function_score.query.filtered.query.bool.should.push(
+      createAddressShould(vs.var('input:housenumber'), vs.var('input:street')));
+  }
+
+  q.query.function_score.query.filtered.query.bool.should.push(
+    createStreetShould(vs.var('input:street')));
+
   q.size = vs.var('size');
   q.track_scores = vs.var('track_scores');
 
@@ -95,12 +135,6 @@ Layout.prototype.render = function( vs ){
       return view(vs);
     }
   ));
-
-  q.query.function_score.query.filtered.filter.bool.must.push({
-    term: {
-      layer: 'address'
-    }
-  });
 
   return q;
 };

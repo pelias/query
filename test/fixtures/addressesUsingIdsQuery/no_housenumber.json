@@ -8,28 +8,6 @@
               "should": [
                 {
                   "bool": {
-                    "_name": "fallback.address",
-                    "must": [
-                      {
-                        "match_phrase": {
-                          "address_parts.number": "housenumber value"
-                        }
-                      },
-                      {
-                        "match_phrase": {
-                          "address_parts.street": "street value"
-                        }
-                      }
-                    ],
-                    "filter": {
-                      "term": {
-                        "layer": "address"
-                      }
-                    }
-                  }
-                },
-                {
-                  "bool": {
                     "_name": "fallback.street",
                     "must": [
                       {
