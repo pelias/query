@@ -24,14 +24,8 @@ const baseQuery = {
 };
 
 function createShould(layer, ids) {
-  const should = {
-    terms: {}
-  };
-
-  should.terms[`parent.${layer}_id`] = ids;
-
-  return should;
-
+  // create an object initialize with terms.'parent.locality_id' (or whatever)
+  return _.set({}, ['terms', `parent.${layer}_id`], ids);
 }
 
 function createAddressShould(housenumber, street) {
@@ -118,18 +112,12 @@ class AddressesUsingIdsQuery extends Query {
     }
 
     // add all scores
-    q.query.function_score.functions = _.compact(
-      this._score.map((view) => {
-        return view(vs);
-      }
-    ));
+    q.query.function_score.functions =
+      _.compact(this._score.map(view => view(vs)));
 
     // add all filters
-    q.query.function_score.query.filtered.filter.bool.must = _.compact(
-      this._filter.map((view) => {
-        return view(vs);
-      }
-    ));
+    q.query.function_score.query.filtered.filter.bool.must =
+      _.compact(this._filter.map(view => view(vs)));
 
     return q;
   }
