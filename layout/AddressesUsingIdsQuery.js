@@ -7,14 +7,13 @@ const baseQuery = {
   query: {
     function_score: {
       query: {
-        filtered: {
-          query: {
-            bool: {
-              should: []
-            }
-          },
+        bool: {
+          minimum_number_should_match: 1,
+          should: [],
           filter: {
-            bool: { }
+            bool: {
+              minimum_number_should_match: 1
+            }
           }
         }
       },
@@ -85,12 +84,12 @@ class AddressesUsingIdsQuery extends Query {
 
     // add housenumber/street if both are available
     if (vs.isset('input:housenumber')) {
-      q.query.function_score.query.filtered.query.bool.should.push(
+      q.query.function_score.query.bool.should.push(
         createAddressShould(vs.var('input:housenumber'), vs.var('input:street')));
     }
 
     // always add street (otherwise this wouldn't be happening)
-    q.query.function_score.query.filtered.query.bool.should.push(
+    q.query.function_score.query.bool.should.push(
       createStreetShould(vs.var('input:street')));
 
     q.size = vs.var('size');
@@ -100,14 +99,14 @@ class AddressesUsingIdsQuery extends Query {
     if (vs.isset('input:layers')) {
       const layers_to_ids = JSON.parse(vs.var('input:layers'));
 
-      const shoulds = _.keys(layers_to_ids).reduce((acc, layer) => {
+      const id_filters = _.keys(layers_to_ids).reduce((acc, layer) => {
         if (!_.isEmpty(layers_to_ids[layer])) {
           acc.push(createShould(layer, layers_to_ids[layer]));
         }
         return acc;
       }, []);
 
-      q.query.function_score.query.filtered.filter.bool.should = shoulds;
+      q.query.function_score.query.bool.filter.bool.should = id_filters;
 
     }
 
@@ -116,7 +115,7 @@ class AddressesUsingIdsQuery extends Query {
       _.compact(this._score.map(view => view(vs)));
 
     // add all filters
-    q.query.function_score.query.filtered.filter.bool.must =
+    q.query.function_score.query.bool.filter.bool.must =
       _.compact(this._filter.map(view => view(vs)));
 
     return q;

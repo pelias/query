@@ -17,8 +17,8 @@ module.exports.tests.base_render = (test, common) => {
     const actual = query.render(vs);
     const expected = require('../fixtures/addressesUsingIdsQuery/no_layers.json');
 
-    // console.error(JSON.stringify(actual));
-    // console.error(JSON.stringify(expected));
+    // console.error(JSON.stringify(actual, null, 2));
+    // console.error(JSON.stringify(expected, null, 2));
 
     t.deepEquals(actual, expected);
     t.end();
@@ -62,8 +62,8 @@ module.exports.tests.base_render = (test, common) => {
     const actual = query.render(vs);
     const expected = require('../fixtures/addressesUsingIdsQuery/with_layers.json');
 
-    // console.error(JSON.stringify(actual));
-    // console.error(JSON.stringify(expected));
+    // console.error(JSON.stringify(actual, null, 2));
+    // console.error(JSON.stringify(expected, null, 2));
 
     t.deepEquals(actual, expected);
     t.end();
@@ -79,15 +79,15 @@ module.exports.tests.render_with_scores = (test, common) => {
 
     const query = new AddressesUsingIdsQuery();
     query.score((vs) => {
-      t.ok(vs);
+      t.pass('score was called');
       return { 'score field 1': 'score value 1' };
     });
     query.score((vs) => {
-      t.ok(vs);
+      t.pass('score was called');
       return false;
     });
     query.score((vs) => {
-      t.ok(vs);
+      t.pass('score was called');
       return { 'score field 2': 'score value 2' };
     });
 
@@ -117,15 +117,15 @@ module.exports.tests.render_with_filters = (test, common) => {
 
     const query = new AddressesUsingIdsQuery();
     query.filter((vs) => {
-      t.ok(vs);
+      t.pass('filter was called');
       return { 'filter field 1': 'filter value 1' };
     });
     query.filter((vs) => {
-      t.ok(vs);
+      t.pass('filter was called');
       return false;
     });
     query.filter((vs) => {
-      t.ok(vs);
+      t.pass('filter was called');
       return { 'filter field 2': 'filter value 2' };
     });
 
