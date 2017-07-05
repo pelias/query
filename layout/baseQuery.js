@@ -3,6 +3,7 @@ module.exports = {
     function_score: {
       query: {
         bool: {
+          minimum_should_match: 1,
           should: []
         }
       },
