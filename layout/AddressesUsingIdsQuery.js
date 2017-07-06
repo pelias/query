@@ -27,19 +27,19 @@ function createShould(layer, ids) {
   return _.set({}, ['terms', `parent.${layer}_id`], ids);
 }
 
-function createAddressShould(housenumber, street) {
-  return {
+function createAddressShould(vs) {
+  const should = {
     bool: {
       _name: 'fallback.address',
       must: [
         {
           match_phrase: {
-            'address_parts.number': housenumber.toString()
+            'address_parts.number': vs.var('input:housenumber').toString()
           }
         },
         {
           match_phrase: {
-            'address_parts.street': street.toString()
+            'address_parts.street': vs.var('input:street').toString()
           }
         }
       ],
@@ -51,16 +51,22 @@ function createAddressShould(housenumber, street) {
     }
   };
 
+  if (vs.isset('boost:address')) {
+    should.bool.boost = vs.var('boost:address').toString();
+  }
+
+  return should;
+
 }
 
-function createStreetShould(street) {
-  return {
+function createStreetShould(vs) {
+  const should = {
     bool: {
       _name: 'fallback.street',
       must: [
         {
           match_phrase: {
-            'address_parts.street': street.toString()
+            'address_parts.street': vs.var('input:street').toString()
           }
         }
       ],
@@ -71,6 +77,12 @@ function createStreetShould(street) {
       }
     }
   };
+
+  if (vs.isset('boost:street')) {
+    should.bool.boost = vs.var('boost:street').toString();
+  }
+
+  return should;
 
 }
 
@@ -85,12 +97,12 @@ class AddressesUsingIdsQuery extends Query {
     // add housenumber/street if both are available
     if (vs.isset('input:housenumber')) {
       q.query.function_score.query.bool.should.push(
-        createAddressShould(vs.var('input:housenumber'), vs.var('input:street')));
+        createAddressShould(vs));
     }
 
     // always add street (otherwise this wouldn't be happening)
     q.query.function_score.query.bool.should.push(
-      createStreetShould(vs.var('input:street')));
+      createStreetShould(vs));
 
     q.size = vs.var('size');
     q.track_scores = vs.var('track_scores');

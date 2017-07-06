@@ -25,6 +25,28 @@ module.exports.tests.base_render = (test, common) => {
 
   });
 
+  test('defined address and street boosts should be set in query', (t) => {
+    const query = new AddressesUsingIdsQuery();
+
+    const vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:housenumber', 'housenumber value');
+    vs.var('input:street', 'street value');
+    vs.var('boost:address', 17);
+    vs.var('boost:street', 19);
+
+    const actual = query.render(vs);
+    const expected = require('../fixtures/addressesUsingIdsQuery/no_layers_with_boosts.json');
+
+    // console.error(JSON.stringify(actual, null, 2));
+    // console.error(JSON.stringify(expected, null, 2));
+
+    t.deepEquals(actual, expected);
+    t.end();
+
+  });
+
   test('VariableStore without housenumber should not add must for address', (t) => {
     const query = new AddressesUsingIdsQuery();
 
