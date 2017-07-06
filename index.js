@@ -5,7 +5,6 @@ module.exports.Variable = require('./lib/Variable');
 module.exports.layout = {
   FilteredBooleanQuery: require('./layout/FilteredBooleanQuery'),
   FallbackQuery: require('./layout/FallbackQuery'),
-  GeodisambiguationQuery: require('./layout/GeodisambiguationQuery'),
   StructuredFallbackQuery: require('./layout/StructuredFallbackQuery'),
   AddressesUsingIdsQuery: require('./layout/AddressesUsingIdsQuery')
 };

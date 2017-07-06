@@ -4,7 +4,6 @@ var common = {};
 
 var tests = [
   require('./layout/AddressesUsingIdsQuery.js'),
-  require('./layout/GeodisambiguationQuery.js'),
   require('./layout/FallbackQuery.js'),
   require('./layout/FilteredBooleanQuery.js'),
   require('./layout/StructuredFallbackQuery.js'),
