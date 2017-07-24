@@ -3,30 +3,6 @@
 const _ = require('lodash');
 const Query = require('./Query');
 
-const baseQuery = {
-  query: {
-    function_score: {
-      query: {
-        bool: {
-          minimum_number_should_match: 1,
-          should: [],
-          filter: {
-            bool: {
-              minimum_number_should_match: 1
-            }
-          }
-        }
-      },
-      functions: []
-    }
-  }
-};
-
-function createShould(layer, ids) {
-  // create an object initialize with terms.'parent.locality_id' (or whatever)
-  return _.set({}, ['terms', `parent.${layer}_id`], ids);
-}
-
 function createAddressShould(vs) {
   const should = {
     bool: {
@@ -86,51 +62,89 @@ function createStreetShould(vs) {
 
 }
 
+function createLayerIdsShould(layer, ids) {
+  // create an object initialize with terms.'parent.locality_id' (or whatever)
+  // must use array syntax for 2nd parameter as _.set interprets '.' as new object
+  return _.set({}, ['terms', `parent.${layer}_id`], ids);
+}
+
 class AddressesUsingIdsQuery extends Query {
   constructor() {
     super();
   }
 
   render(vs) {
-    const q = _.cloneDeep(baseQuery);
+    // establish a base query with 'street' should condition and size/track_scores
+    const base = {
+      query: {
+        function_score: {
+          query: {
+            bool: {
+              minimum_number_should_match: 1,
+              should: [
+                createStreetShould(vs)
+              ]
+            }
+          }
+        }
+      },
+      size: vs.var('size'),
+      track_scores: vs.var('track_scores')
+    };
 
     // add housenumber/street if both are available
     if (vs.isset('input:housenumber')) {
-      q.query.function_score.query.bool.should.push(
-        createAddressShould(vs));
+      base.query.function_score.query.bool.should.push( createAddressShould(vs) );
     }
-
-    // always add street (otherwise this wouldn't be happening)
-    q.query.function_score.query.bool.should.push(
-      createStreetShould(vs));
-
-    q.size = vs.var('size');
-    q.track_scores = vs.var('track_scores');
 
     // if there are layer->id mappings, add the layers with non-empty ids
     if (vs.isset('input:layers')) {
       const layers_to_ids = JSON.parse(vs.var('input:layers'));
 
-      const id_filters = _.keys(layers_to_ids).reduce((acc, layer) => {
+      // add the layers-to-ids 'should' conditions
+      // if layers_to_ids is:
+      // {
+      //   locality: [1, 2],
+      //   localadmin: [],
+      //   region: [3, 4]
+      // }
+      // then this adds the results of:
+      // - createShould('locality', [1, 2])
+      // - createShould('region', [3, 4])
+      // to an array
+      const id_filters = Object.keys(layers_to_ids).reduce((acc, layer) => {
         if (!_.isEmpty(layers_to_ids[layer])) {
-          acc.push(createShould(layer, layers_to_ids[layer]));
+          acc.push(createLayerIdsShould(layer, layers_to_ids[layer]));
         }
         return acc;
       }, []);
 
-      q.query.function_score.query.bool.filter.bool.should = id_filters;
+      // add filter.bool.minimum_number_should_match and filter.bool.should,
+      //  creating intermediate objects as it goes
+      _.set(base.query.function_score.query.bool, 'filter.bool', {
+        minimum_number_should_match: 1,
+        should: id_filters
+      });
 
     }
 
-    // add all scores
-    q.query.function_score.functions =
-      _.compact(this._score.map(view => view(vs)));
+    // add any scores (_.compact removes falsey values from arrays)
+    if (!_.isEmpty(this._score)) {
+      base.query.function_score.functions = _.compact(this._score.map(view => view(vs)));
+    }
 
-    // add all filters
-    q.query.function_score.query.bool.filter.bool.must =
-      _.compact(this._filter.map(view => view(vs)));
+    // add any filters
+    if (!_.isEmpty(this._filter)) {
+      // add filter.bool.must, creating intermediate objects if they don't exist
+      //  using _.set does away with the need to check for object existence
+      // _.compact removes falsey values from arrays
+      _.set(base.query.function_score.query.bool, 'filter.bool', {
+        must: _.compact(this._filter.map(view => view(vs)))
+      });
 
-    return q;
+    }
+
+    return base;
   }
 
 }

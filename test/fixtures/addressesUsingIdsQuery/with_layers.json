@@ -7,6 +7,23 @@
           "should": [
             {
               "bool": {
+                "_name": "fallback.street",
+                "must": [
+                  {
+                    "match_phrase": {
+                      "address_parts.street": "street value"
+                    }
+                  }
+                ],
+                "filter": {
+                  "term": {
+                    "layer": "street"
+                  }
+                }
+              }
+            },
+            {
+              "bool": {
                 "_name": "fallback.address",
                 "must": [
                   {
@@ -26,23 +43,6 @@
                   }
                 }
               }
-            },
-            {
-              "bool": {
-                "_name": "fallback.street",
-                "must": [
-                  {
-                    "match_phrase": {
-                      "address_parts.street": "street value"
-                    }
-                  }
-                ],
-                "filter": {
-                  "term": {
-                    "layer": "street"
-                  }
-                }
-              }
             }
           ],
           "filter": {
@@ -59,13 +59,11 @@
                     "parent.layer4_id": [4]
                   }
                 }
-              ],
-              "must": []
+              ]
             }
           }
         }
-      },
-      "functions": []
+      }
     }
   },
   "size": "size value" ,

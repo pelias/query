@@ -22,16 +22,9 @@
                 }
               }
             }
-          ],
-          "filter": {
-            "bool": {
-              "minimum_number_should_match": 1,
-              "must": []
-            }
-          }
+          ]
         }
-      },
-      "functions": []
+      }
     }
   },
   "size": "size value" ,
