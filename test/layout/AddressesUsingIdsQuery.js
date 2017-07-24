@@ -20,7 +20,8 @@ module.exports.tests.base_render = (test, common) => {
     // console.error(JSON.stringify(actual, null, 2));
     // console.error(JSON.stringify(expected, null, 2));
 
-    t.deepEquals(actual, expected);
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
     t.end();
 
   });
@@ -42,7 +43,8 @@ module.exports.tests.base_render = (test, common) => {
     // console.error(JSON.stringify(actual, null, 2));
     // console.error(JSON.stringify(expected, null, 2));
 
-    t.deepEquals(actual, expected);
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
     t.end();
 
   });
@@ -61,7 +63,8 @@ module.exports.tests.base_render = (test, common) => {
     // console.error(JSON.stringify(actual));
     // console.error(JSON.stringify(expected));
 
-    t.deepEquals(actual, expected);
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
     t.end();
 
   });
@@ -87,7 +90,8 @@ module.exports.tests.base_render = (test, common) => {
     // console.error(JSON.stringify(actual, null, 2));
     // console.error(JSON.stringify(expected, null, 2));
 
-    t.deepEquals(actual, expected);
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
     t.end();
 
   });
@@ -125,7 +129,8 @@ module.exports.tests.render_with_scores = (test, common) => {
     // console.error(JSON.stringify(actual));
     // console.error(JSON.stringify(expected));
 
-    t.deepEquals(actual, expected);
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
     t.end();
 
   });
@@ -163,7 +168,8 @@ module.exports.tests.render_with_filters = (test, common) => {
     // console.error(JSON.stringify(actual));
     // console.error(JSON.stringify(expected));
 
-    t.deepEquals(actual, expected);
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
     t.end();
 
   });

@@ -68,6 +68,6 @@
       "functions": []
     }
   },
-  "size": { "$": "size value" },
-  "track_scores": { "$": "track_scores value" }
+  "size": "size value" ,
+  "track_scores": "track_scores value"
 }

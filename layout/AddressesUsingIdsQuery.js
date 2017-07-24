@@ -34,12 +34,12 @@ function createAddressShould(vs) {
       must: [
         {
           match_phrase: {
-            'address_parts.number': vs.var('input:housenumber').toString()
+            'address_parts.number': vs.var('input:housenumber')
           }
         },
         {
           match_phrase: {
-            'address_parts.street': vs.var('input:street').toString()
+            'address_parts.street': vs.var('input:street')
           }
         }
       ],
@@ -52,7 +52,7 @@ function createAddressShould(vs) {
   };
 
   if (vs.isset('boost:address')) {
-    should.bool.boost = vs.var('boost:address').toString();
+    should.bool.boost = vs.var('boost:address');
   }
 
   return should;
@@ -66,7 +66,7 @@ function createStreetShould(vs) {
       must: [
         {
           match_phrase: {
-            'address_parts.street': vs.var('input:street').toString()
+            'address_parts.street': vs.var('input:street')
           }
         }
       ],
@@ -79,7 +79,7 @@ function createStreetShould(vs) {
   };
 
   if (vs.isset('boost:street')) {
-    should.bool.boost = vs.var('boost:street').toString();
+    should.bool.boost = vs.var('boost:street');
   }
 
   return should;
