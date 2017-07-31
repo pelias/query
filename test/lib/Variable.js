@@ -31,9 +31,6 @@ module.exports.tests.set = function(test, common) {
       v.set('');
     });
     t.throws(function(){
-      v.set({ foo: 'bar' });
-    });
-    t.throws(function(){
       v.set( null );
     });
     t.end();
@@ -64,6 +61,12 @@ module.exports.tests.set = function(test, common) {
 
     v.set(['a', 'b']);
     t.deepEqual(v.$, ['a', 'b'], 'array');
+
+    v.set({ });
+    t.deepEqual(v.$, { }, 'object');
+
+    v.set({ a: 1, b: 2 });
+    t.deepEqual(v.$, { a: 1, b: 2 }, 'object');
 
     t.end();
   });
@@ -131,6 +134,12 @@ module.exports.tests.toJSON = function(test, common) {
     var v = new Variable();
     v.set([1, 2, 3]);
     t.equal(JSON.stringify({ test: v }), '{"test":[1,2,3]}', 'array');
+    t.end();
+  });
+  test('toJSON: object', (t) => {
+    const v = new Variable();
+    v.set({ a: 1, b: 2 });
+    t.equal(JSON.stringify({ test: v }), '{"test":{"a":1,"b":2}}', 'object');
     t.end();
   });
 };

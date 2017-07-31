@@ -1,0 +1,32 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "minimum_number_should_match": 1,
+          "should": [
+            {
+              "bool": {
+                "_name": "fallback.street",
+                "must": [
+                  {
+                    "match_phrase": {
+                      "address_parts.street": "street value"
+                    }
+                  }
+                ],
+                "filter": {
+                  "term": {
+                    "layer": "street"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "size": "size value" ,
+  "track_scores": "track_scores value"
+}

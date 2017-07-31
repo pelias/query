@@ -3,7 +3,7 @@ var tape = require('tape');
 var common = {};
 
 var tests = [
-  require('./layout/GeodisambiguationQuery.js'),
+  require('./layout/AddressesUsingIdsQuery.js'),
   require('./layout/FallbackQuery.js'),
   require('./layout/FilteredBooleanQuery.js'),
   require('./layout/StructuredFallbackQuery.js'),

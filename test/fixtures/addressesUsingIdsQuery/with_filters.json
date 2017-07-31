@@ -1,0 +1,66 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "minimum_number_should_match": 1,
+          "should": [
+            {
+              "bool": {
+                "_name": "fallback.street",
+                "must": [
+                  {
+                    "match_phrase": {
+                      "address_parts.street": "street value"
+                    }
+                  }
+                ],
+                "filter": {
+                  "term": {
+                    "layer": "street"
+                  }
+                }
+              }
+            },
+            {
+              "bool": {
+                "_name": "fallback.address",
+                "must": [
+                  {
+                    "match_phrase": {
+                      "address_parts.number": "housenumber value"
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "address_parts.street": "street value"
+                    }
+                  }
+                ],
+                "filter": {
+                  "term": {
+                    "layer": "address"
+                  }
+                }
+              }
+            }
+          ],
+          "filter": {
+            "bool": {
+              "must": [
+                {
+                  "filter field 1": "filter value 1"
+                },
+                {
+                  "filter field 2": "filter value 2"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "size": "size value" ,
+  "track_scores": "track_scores value"
+}
