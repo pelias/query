@@ -77,12 +77,12 @@ module.exports.tests.base_render = (test, common) => {
     vs.var('track_scores', 'track_scores value');
     vs.var('input:housenumber', 'housenumber value');
     vs.var('input:street', 'street value');
-    vs.var('input:layers', JSON.stringify({
-      'layer1': [1, 2, 3],
-      'layer2': [],
-      'layer3': undefined,
-      'layer4': [4]
-    }));
+    vs.var('input:layers', {
+      layer1: [1, 2, 3],
+      layer2: [],
+      layer3: undefined,
+      layer4: [4]
+    });
 
     const actual = query.render(vs);
     const expected = require('../fixtures/addressesUsingIdsQuery/with_layers.json');

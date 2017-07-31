@@ -99,7 +99,8 @@ class AddressesUsingIdsQuery extends Query {
 
     // if there are layer->id mappings, add the layers with non-empty ids
     if (vs.isset('input:layers')) {
-      const layers_to_ids = JSON.parse(vs.var('input:layers'));
+      // using $ due to reference object and not scalar object
+      const layers_to_ids = vs.var('input:layers').$;
 
       // add the layers-to-ids 'should' conditions
       // if layers_to_ids is:
