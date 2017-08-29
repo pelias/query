@@ -174,6 +174,37 @@ module.exports.tests.render_with_filters = (test, common) => {
 
   });
 
+  test('non-id filters should be added alongside id filters', (t) => {
+    // ensures that filter functions are called
+    t.plan(2);
+
+    const query = new AddressesUsingIdsQuery();
+    query.filter((vs) => {
+      t.pass('filter was called');
+      return { 'filter field 1': 'filter value 1' };
+    });
+
+    const vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:housenumber', 'housenumber value');
+    vs.var('input:street', 'street value');
+    vs.var('input:layers', {
+      layer1: [1, 2, 3],
+    });
+
+    const actual = query.render(vs);
+    const expected = require('../fixtures/addressesUsingIdsQuery/with_layers_and_filters.json');
+
+    // console.error(JSON.stringify(actual));
+    // console.error(JSON.stringify(expected));
+
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
+    t.end();
+
+  });
+
 };
 
 module.exports.all = (tape, common) => {

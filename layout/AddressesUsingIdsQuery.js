@@ -139,9 +139,10 @@ class AddressesUsingIdsQuery extends Query {
       // add filter.bool.must, creating intermediate objects if they don't exist
       //  using _.set does away with the need to check for object existence
       // _.compact removes falsey values from arrays
-      _.set(base.query.function_score.query.bool, 'filter.bool', {
-        must: _.compact(this._filter.map(view => view(vs)))
-      });
+      _.set(
+        base.query.function_score.query.bool,
+        'filter.bool.must',
+        _.compact(this._filter.map(view => view(vs))));
 
     }
 
