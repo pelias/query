@@ -7,6 +7,7 @@ var tests = [
   require('./layout/FallbackQuery.js'),
   require('./layout/FilteredBooleanQuery.js'),
   require('./layout/StructuredFallbackQuery.js'),
+  require('./layout/VenuesQuery.js'),
   require('./lib/Variable.js'),
   require('./lib/VariableStore.js'),
   require('./view/address.js'),
