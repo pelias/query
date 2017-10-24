@@ -18,7 +18,10 @@ class VenuesQuery extends Query {
               must: [
                 {
                   match_phrase: {
-                    'name.default': vs.var('input:query')
+                    'name.default': {
+                      query: vs.var('input:query'),
+                      analyzer: 'standard'
+                    }
                   }
                 }
               ],

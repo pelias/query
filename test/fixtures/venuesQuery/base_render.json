@@ -6,7 +6,10 @@
           "must": [
             {
               "match_phrase": {
-                "name.default": "query value"
+                "name.default": {
+                    "query": "query value",
+                    "analyzer": "standard"
+                }
               }
             }
           ],
