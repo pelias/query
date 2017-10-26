@@ -19,5 +19,9 @@ module.exports = function( vs ){
     query: vs.var('input:name')
   };
 
+  if (vs.isset('ngram:fuzziness')) {
+    view.match[ vs.var('ngram:field') ].fuzziness = vs.var('ngram:fuzziness');
+  }
+
   return view;
 };

@@ -22,5 +22,9 @@ module.exports = function( vs ){
     query: vs.var('input:name')
   };
 
+  if (vs.isset('phrase:fuzziness')) {
+    view.match[ vs.var('phrase:field') ].fuzziness = vs.var('phrase:fuzziness');
+  }
+
   return view;
 };
