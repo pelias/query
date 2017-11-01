@@ -53,7 +53,7 @@
   "admin:country:boost": 1,
 
   "admin:region:analyzer": "peliasAdmin",
-  "admin:region:field": "paretn.region",
+  "admin:region:field": "parent.region",
   "admin:region:boost": 1,
 
   "admin:region_a:analyzer": "peliasAdmin",
