@@ -1,0 +1,37 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "match_phrase": {
+                "name.default": {
+                    "query": "query value",
+                    "analyzer": "standard"
+                }
+              }
+            }
+          ],
+          "filter": {
+            "bool": {
+              "must": [
+                {
+                  "term": {
+                    "layer": "venue"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "functions": [
+        { "score field 1": "score value 1" },
+        { "score field 2": "score value 2" }
+      ]
+    }
+  },
+  "size": "size value" ,
+  "track_scores": "track_scores value"
+}

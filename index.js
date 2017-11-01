@@ -6,7 +6,8 @@ module.exports.layout = {
   FilteredBooleanQuery: require('./layout/FilteredBooleanQuery'),
   FallbackQuery: require('./layout/FallbackQuery'),
   StructuredFallbackQuery: require('./layout/StructuredFallbackQuery'),
-  AddressesUsingIdsQuery: require('./layout/AddressesUsingIdsQuery')
+  AddressesUsingIdsQuery: require('./layout/AddressesUsingIdsQuery'),
+  VenuesQuery: require('./layout/VenuesQuery')
 };
 
 module.exports.view = {
