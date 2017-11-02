@@ -43,6 +43,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
     vs.var('input:query', 'query value');
+    vs.var('input:unit', 'unit value');
     vs.var('input:housenumber', 'house number value');
     vs.var('input:street', 'street value');
     vs.var('input:neighbourhood', 'neighbourhood value');
