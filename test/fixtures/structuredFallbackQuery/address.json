@@ -12,6 +12,11 @@
                 "must": [
                   {
                     "match_phrase": {
+                      "address_parts.unit": "unit value"
+                    }
+                  },
+                  {
+                    "match_phrase": {
                       "address_parts.number": "house number value"
                     }
                   },

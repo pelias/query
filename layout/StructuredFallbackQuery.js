@@ -185,6 +185,52 @@ function addQuery(vs) {
 
 }
 
+function addUnitAndHouseNumberAndStreet(vs) {
+  var o = {
+    bool: {
+      _name: 'fallback.address',
+      must: [
+        {
+          match_phrase: {
+            'address_parts.unit': vs.var('input:unit').toString()
+          }
+        },
+        {
+          match_phrase: {
+            'address_parts.number': vs.var('input:housenumber').toString()
+          }
+        },
+        {
+          match_phrase: {
+            'address_parts.street': vs.var('input:street').toString()
+          }
+        }
+      ],
+      should: [],
+      filter: {
+        term: {
+          layer: 'address'
+        }
+      }
+    }
+  };
+
+  if (vs.isset('boost:address')) {
+    o.bool.boost = vs.var('boost:address');
+  }
+
+  addSecPostCode(vs, o);
+  addSecNeighbourhood(vs, o);
+  addSecBorough(vs, o);
+  addSecLocality(vs, o);
+  addSecCounty(vs, o);
+  addSecRegion(vs, o);
+  addSecCountry(vs, o);
+
+  return o;
+
+}
+
 function addHouseNumberAndStreet(vs) {
   var o = {
     bool: {
@@ -470,7 +516,9 @@ Layout.prototype.render = function( vs ){
     funcScoreShould.push(addQuery(vs));
   }
   if (vs.isset('input:street')) {
-    if (vs.isset('input:housenumber')) {
+    if (vs.isset('input:unit') && vs.isset('input:housenumber')) {
+      funcScoreShould.push(addUnitAndHouseNumberAndStreet(vs));
+    } else if (vs.isset('input:housenumber')) {
       funcScoreShould.push(addHouseNumberAndStreet(vs));
     }
     funcScoreShould.push(addStreet(vs));
