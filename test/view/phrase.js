@@ -66,6 +66,33 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
 
 };
 
+module.exports.tests.fuzziness_variable = function(test, common) {
+  test('fuzziness variable should be presented in query', function(t) {
+    var store = getBaseVariableStore();
+    store.var('phrase:fuzziness', 'fuzziness value');
+
+    var actual = phrase(store);
+
+    var expected = {
+      match: {
+        'field value': {
+          analyzer: { $: 'analyzer value' },
+          type: 'phrase',
+          boost: { $: 'boost value' },
+          slop: { $: 'slop value' },
+          query: { $: 'name value' },
+          fuzziness: { $: 'fuzziness value' }
+        }
+      }
+    };
+
+    t.deepEquals(actual, expected, 'should have returned object with fuzziness field');
+    t.end();
+
+  });
+};
+
+
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {
     return tape('phrase ' + name, testFunction);
