@@ -11,6 +11,7 @@ module.exports.tests.base_render = (test, common) => {
     const vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
+    vs.var('input:unit', 'unit value');
     vs.var('input:housenumber', 'housenumber value');
     vs.var('input:street', 'street value');
 
@@ -32,6 +33,7 @@ module.exports.tests.base_render = (test, common) => {
     const vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
+    vs.var('input:unit', 'unit value');
     vs.var('input:housenumber', 'housenumber value');
     vs.var('input:street', 'street value');
     vs.var('boost:address', 17);
@@ -75,6 +77,7 @@ module.exports.tests.base_render = (test, common) => {
     const vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
+    vs.var('input:unit', 'unit value');
     vs.var('input:housenumber', 'housenumber value');
     vs.var('input:street', 'street value');
     vs.var('input:layers', {
@@ -120,6 +123,7 @@ module.exports.tests.render_with_scores = (test, common) => {
     const vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
+    vs.var('input:unit', 'unit value');
     vs.var('input:housenumber', 'housenumber value');
     vs.var('input:street', 'street value');
 
@@ -159,6 +163,7 @@ module.exports.tests.render_with_filters = (test, common) => {
     const vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
+    vs.var('input:unit', 'unit value');
     vs.var('input:housenumber', 'housenumber value');
     vs.var('input:street', 'street value');
 
@@ -187,6 +192,7 @@ module.exports.tests.render_with_filters = (test, common) => {
     const vs = new VariableStore();
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
+    vs.var('input:unit', 'unit value');
     vs.var('input:housenumber', 'housenumber value');
     vs.var('input:street', 'street value');
     vs.var('input:layers', {

@@ -27,7 +27,8 @@ q.score( query.view.phrase )
  .score( query.view.focus( query.view.phrase ) );
 
 // address components
-q.score( query.view.address('housenumber') )
+q.score( query.view.address('unit') )
+ .score( query.view.address('housenumber') )
  .score( query.view.address('street') )
  .score( query.view.address('postcode') );
 

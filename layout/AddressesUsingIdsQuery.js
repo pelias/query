@@ -10,6 +10,11 @@ function createAddressShould(vs) {
       must: [
         {
           match_phrase: {
+            'address_parts.unit': vs.var('input:unit')
+          }
+        },
+        {
+          match_phrase: {
             'address_parts.number': vs.var('input:housenumber')
           }
         },
