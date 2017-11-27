@@ -10,7 +10,7 @@
                 "_name": "fallback.street",
                 "must": [
                   {
-                    "match_phrase": {
+                    "match_phrase_prefix": {
                       "address_parts.street": "street value"
                     }
                   }

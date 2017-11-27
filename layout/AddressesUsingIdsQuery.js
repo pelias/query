@@ -9,17 +9,17 @@ function createAddressShould(vs) {
       _name: 'fallback.address',
       must: [
         {
-          match_phrase: {
+          match_phrase_prefix: {
             'address_parts.unit': vs.var('input:unit')
           }
         },
         {
-          match_phrase: {
+          match_phrase_prefix: {
             'address_parts.number': vs.var('input:housenumber')
           }
         },
         {
-          match_phrase: {
+          match_phrase_prefix: {
             'address_parts.street': vs.var('input:street')
           }
         }
@@ -46,7 +46,7 @@ function createStreetShould(vs) {
       _name: 'fallback.street',
       must: [
         {
-          match_phrase: {
+          match_phrase_prefix: {
             'address_parts.street': vs.var('input:street')
           }
         }
