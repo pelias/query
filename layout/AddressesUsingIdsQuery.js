@@ -10,6 +10,37 @@ function createAddressShould(vs) {
       must: [
         {
           match_phrase: {
+            'address_parts.number': vs.var('input:housenumber')
+          }
+        },
+        {
+          match_phrase: {
+            'address_parts.street': vs.var('input:street')
+          }
+        }
+      ],
+      filter: {
+        term: {
+          layer: 'address'
+        }
+      }
+    }
+  };
+
+  if (vs.isset('boost:address')) {
+    should.bool.boost = vs.var('boost:address');
+  }
+
+  return should;
+}
+
+function createUnitAndAddressShould(vs) {
+  const should = {
+    bool: {
+      _name: 'fallback.address',
+      must: [
+        {
+          match_phrase: {
             'address_parts.unit': vs.var('input:unit')
           }
         },
@@ -37,7 +68,6 @@ function createAddressShould(vs) {
   }
 
   return should;
-
 }
 
 function createStreetShould(vs) {
@@ -97,9 +127,12 @@ class AddressesUsingIdsQuery extends Query {
       track_scores: vs.var('track_scores')
     };
 
-    // add housenumber/street if both are available
-    if (vs.isset('input:housenumber')) {
-      base.query.function_score.query.bool.should.push( createAddressShould(vs) );
+    // add unit/housenumber/street if available
+    if (vs.isset('input:housenumber') && vs.isset('input:unit')) {
+      base.query.function_score.query.bool.should.push(createUnitAndAddressShould(vs));
+    }
+    else if (vs.isset('input:housenumber')) {
+      base.query.function_score.query.bool.should.push(createAddressShould(vs));
     }
 
     // if there are layer->id mappings, add the layers with non-empty ids
