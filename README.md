@@ -507,7 +507,7 @@ $ npm test
 
 ### Continuous Integration
 
-Travis tests every release against Node.js versions `4` and `6`.
+Travis tests every release against All supported Node.js versions.
 
 [![Build Status](https://travis-ci.org/pelias/query.png?branch=master)](https://travis-ci.org/pelias/query)
 
