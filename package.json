@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "jshint .",
-    "units": "node test/run.js | tap-spec",
+    "units": "./bin/units",
     "test": "npm run units",
     "validate": "npm ls",
     "travis": "npm test"
