@@ -8,6 +8,7 @@ function getBaseVariableStore(toExclude) {
   vs.var('phrase:field', 'field value');
   vs.var('phrase:boost', 'boost value');
   vs.var('phrase:slop', 'slop value');
+  vs.var('phrase:cutoff_frequency', 'cutoff_frequency value');
 
   if (toExclude) {
     vs.unset(toExclude);
@@ -54,6 +55,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           type: 'phrase',
           boost: { $: 'boost value' },
           slop: { $: 'slop value' },
+          cutoff_frequency: { $: 'cutoff_frequency value' },
           query: { $: 'name value' }
         }
       }
@@ -81,6 +83,7 @@ module.exports.tests.fuzziness_variable = function(test, common) {
           boost: { $: 'boost value' },
           slop: { $: 'slop value' },
           query: { $: 'name value' },
+          cutoff_frequency: { $: 'cutoff_frequency value' },
           fuzziness: { $: 'fuzziness value' }
         }
       }

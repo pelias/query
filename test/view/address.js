@@ -7,6 +7,7 @@ function getBaseVariableStore(toExclude) {
   vs.var('address:asdf:analyzer', 'analyzer value');
   vs.var('address:asdf:field', 'field value');
   vs.var('address:asdf:boost', 'boost value');
+  vs.var('address:cutoff_frequency', 'cutoff_frequency value');
 
   if (toExclude) {
     vs.unset(toExclude);
@@ -34,6 +35,7 @@ module.exports.tests.no_property = function(test, common) {
     vs.var('address::analyzer', 'analyzer value');
     vs.var('address::field', 'field value');
     vs.var('address::boost', 'boost value');
+    vs.var('address:cutoff_frequency', 'cutoff_frequency value');
 
     var falseyPropertyAddress = require('../../view/address')('');
     var actual = address(vs);
@@ -49,6 +51,7 @@ module.exports.tests.no_property = function(test, common) {
     vs.var('address:0:analyzer', 'analyzer value');
     vs.var('address:0:field', 'field value');
     vs.var('address:0:boost', 'boost value');
+    vs.var('address:cutoff_frequency', 'cutoff_frequency value');
 
     var falseyPropertyAddress = require('../../view/address')(0);
     var actual = address(vs);
@@ -97,6 +100,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
     vs.var('address:asdf:analyzer', 'analyzer value');
     vs.var('address:asdf:field', 'field value');
     vs.var('address:asdf:boost', 'boost value');
+    vs.var('address:cutoff_frequency', 'cutoff_frequency value');
 
     var actual = address(vs);
 
@@ -108,6 +112,9 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           },
           boost: {
             $: 'boost value'
+          },
+          cutoff_frequency: {
+            $: 'cutoff_frequency value'
           },
           query: {
             $: 'input value'

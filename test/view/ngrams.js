@@ -7,6 +7,7 @@ function getBaseVariableStore(toExclude) {
   vs.var('ngram:analyzer', 'analyzer value');
   vs.var('ngram:field', 'field value');
   vs.var('ngram:boost', 'boost value');
+  vs.var('ngram:cutoff_frequency', 'cutoff_frequency value');
 
   if (toExclude) {
     vs.unset(toExclude);
@@ -51,6 +52,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
         'field value': {
           analyzer: { $: 'analyzer value' },
           boost: { $: 'boost value' },
+          cutoff_frequency: { $: 'cutoff_frequency value' },
           query: { $: 'name value' }
         }
       }
@@ -76,6 +78,7 @@ module.exports.tests.fuzziness_variable = function(test, common) {
           analyzer: { $: 'analyzer value' },
           boost: { $: 'boost value' },
           query: { $: 'name value' },
+          cutoff_frequency: { $: 'cutoff_frequency value' },
           fuzziness: { $: 'fuzziness value' }
         }
       }

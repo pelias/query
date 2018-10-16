@@ -7,6 +7,7 @@ function getBaseVariableStore(toExclude) {
   vs.var('admin:asdf:analyzer', 'analyzer value');
   vs.var('admin:asdf:field', 'field value');
   vs.var('admin:asdf:boost', 'boost value');
+  vs.var('admin:cutoff_frequency', 'cutoff_frequency value');
 
   if (toExclude) {
     vs.unset(toExclude);
@@ -74,6 +75,9 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           },
           boost: {
             $: 'boost value'
+          },
+          cutoff_frequency: {
+            $: 'cutoff_frequency value'
           },
           query: {
             $: 'input value'
