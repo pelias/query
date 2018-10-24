@@ -51,11 +51,23 @@ module.exports.tests.scores = function(test, common) {
       return { 'score field 4': 'score value 4' };
     };
 
+    var score_view5 = function(vs) {
+      console.assert(vs !== null);
+      return { 'score field 5': 'score value 5' };
+    };
+
+    var score_view6 = function(vs) {
+      console.assert(vs !== null);
+      return { 'score field 6': 'score value 6' };
+    };
+
     var query = new FilteredBooleanQuery();
     query.score(score_view1, 'must');
     query.score(score_view2, 'should');
-    query.score(score_view3, 'must');
-    query.score(score_view4, 'should');
+    query.score(score_view3, 'must_not');
+    query.score(score_view4, 'must');
+    query.score(score_view5, 'should');
+    query.score(score_view6, 'must_not');
 
     var vs = new VariableStore();
     vs.var('size', 'size value');
@@ -68,12 +80,16 @@ module.exports.tests.scores = function(test, common) {
         bool: {
           must: [
             { 'score field 1': 'score value 1'},
-            { 'score field 3': 'score value 3'}
+            { 'score field 4': 'score value 4'}
           ],
           should: [
             { 'score field 2': 'score value 2'},
-            { 'score field 4': 'score value 4'}
-          ]
+            { 'score field 5': 'score value 5'}
+          ],
+          must_not: [
+            { 'score field 3': 'score value 3'},
+            { 'score field 6': 'score value 6'}
+          ],
         }
       },
       size: { $: 'size value' },
@@ -119,7 +135,7 @@ module.exports.tests.scores = function(test, common) {
 
   });
 
-  test('score with non-must or -should operator specified should be added as \'should\'', function(t) {
+  test('score with non-must or -must_not or -should operator specified should be added as \'should\'', function(t) {
     var score_view = function(vs) {
       console.assert(vs !== null);
       return { 'score field': 'score value' };
