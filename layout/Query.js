@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 
-class ServiceConfiguration {
+class Query {
   constructor() {
     this._score = [];
     this._filter = [];
@@ -22,4 +22,4 @@ class ServiceConfiguration {
 
 }
 
-module.exports = ServiceConfiguration;
+module.exports = Query;
