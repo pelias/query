@@ -6,7 +6,7 @@ function Layout(){
 }
 
 Layout.prototype.score = function( view, operator ){
-  this._score.push([ view, operator === 'must' ? 'must': 'should' ]);
+  this._score.push([ view, ( operator === 'must' || operator === 'must_not' ) ? operator: 'should' ]);
   return this;
 };
 
@@ -23,7 +23,7 @@ Layout.prototype.sort = function( view ){
 Layout.prototype.render = function( vs ){
   var q = Layout.base( vs );
 
-  // handle scoring views under 'query' section (both 'must' & 'should')
+  // handle scoring views under 'query' section (for 'must', 'must_not' & 'should')
   if( this._score.length ){
     this._score.forEach( function( condition ){
       var view = condition[0], operator = condition[1];
