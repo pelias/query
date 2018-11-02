@@ -12,6 +12,7 @@ module.exports.tests.base_render = (test, common) => {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
     vs.var('input:unit', 'unit value');
+    vs.var('input:postcode', 'postcode value');
     vs.var('input:housenumber', 'housenumber value');
     vs.var('input:street', 'street value');
 
@@ -123,6 +124,41 @@ module.exports.tests.base_render = (test, common) => {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
     vs.var('input:unit', 'unit value');
+    vs.var('input:street', 'street value');
+
+    const actual = query.render(vs);
+    const expected = require('../fixtures/addressesUsingIdsQuery/unit_no_housenumber.json');
+
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
+    t.end();
+
+  });
+
+  test('VariableStore with housenumber and no postcode should not query on postcode, only housenumbers', (t) => {
+    const query = new AddressesUsingIdsQuery();
+
+    const vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:housenumber', 'housenumber value');
+    vs.var('input:street', 'street value');
+
+    const actual = query.render(vs);
+    const expected = require('../fixtures/addressesUsingIdsQuery/housenumber_no_units.json');
+
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
+    t.end();
+
+  });
+  test('VariableStore with postcode and no housenumber should neither query on the postcode nor the housenumber, only the street', (t) => {
+    const query = new AddressesUsingIdsQuery();
+
+    const vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:postcode', 'postcode value');
     vs.var('input:street', 'street value');
 
     const actual = query.render(vs);

@@ -70,6 +70,42 @@ function createUnitAndAddressShould(vs) {
   return should;
 }
 
+function createPostcodeAndAddressShould(vs) {
+  const should = {
+    bool: {
+      _name: 'fallback.address',
+      must: [
+        {
+          match_phrase: {
+            'address_parts.zip': vs.var('input:postcode')
+          }
+        },
+        {
+          match_phrase: {
+            'address_parts.number': vs.var('input:housenumber')
+          }
+        },
+        {
+          match_phrase: {
+            'address_parts.street': vs.var('input:street')
+          }
+        }
+      ],
+      filter: {
+        term: {
+          layer: 'address'
+        }
+      }
+    }
+  };
+
+  if (vs.isset('boost:address')) {
+    should.bool.boost = vs.var('boost:address');
+  }
+
+  return should;
+}
+
 function createStreetShould(vs) {
   const should = {
     bool: {
@@ -127,6 +163,10 @@ class AddressesUsingIdsQuery extends Query {
       track_scores: vs.var('track_scores')
     };
 
+    // add unit/housenumber/street if available
+    if (vs.isset('input:housenumber') && vs.isset('input:postcode')) {
+      base.query.function_score.query.bool.should.push(createPostcodeAndAddressShould(vs));
+    }
     // add unit/housenumber/street if available
     if (vs.isset('input:housenumber') && vs.isset('input:unit')) {
       base.query.function_score.query.bool.should.push(createUnitAndAddressShould(vs));
