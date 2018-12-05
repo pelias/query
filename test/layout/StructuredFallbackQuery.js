@@ -88,6 +88,22 @@ module.exports.tests.base_render = function(test, common) {
 
   });
 
+  test('VariableStore with only housenumber should create housenumber only query', function(t) {
+    var query = new StructuredFallbackQuery();
+
+    var vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('input:housenumber', 'house number value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('boost:address', 19);
+
+    var actual = query.render(vs);
+    var expected = require('../fixtures/structuredFallbackQuery/housenumber.json');
+
+    t.deepEquals(actual, expected);
+    t.end();
+  });
+
   test('input:postcode set should include it at the address layer query', function(t) {
     var query = new StructuredFallbackQuery();
 
