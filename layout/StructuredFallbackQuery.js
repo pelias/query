@@ -231,6 +231,41 @@ function addUnitAndHouseNumberAndStreet(vs) {
 
 }
 
+function addHouseNumber(vs) {
+  var o = {
+    bool: {
+      _name: 'fallback.housenumber',
+      must: [
+        {
+          match_phrase: {
+            'address_parts.number': vs.var('input:housenumber').toString()
+          }
+        }
+      ],
+      should: [],
+      filter: {
+        term: {
+          layer: 'address'
+        }
+      }
+    }
+  };
+
+  if (vs.isset('boost:address')) {
+    o.bool.boost = vs.var('boost:address');
+  }
+
+  addSecPostCode(vs, o);
+  addSecNeighbourhood(vs, o);
+  addSecBorough(vs, o);
+  addSecLocality(vs, o);
+  addSecCounty(vs, o);
+  addSecRegion(vs, o);
+  addSecCountry(vs, o);
+
+  return o;
+}
+
 function addHouseNumberAndStreet(vs) {
   var o = {
     bool: {
@@ -522,7 +557,10 @@ Layout.prototype.render = function( vs ){
       funcScoreShould.push(addHouseNumberAndStreet(vs));
     }
     funcScoreShould.push(addStreet(vs));
+  } else if (vs.isset('input:housenumber')) {
+      funcScoreShould.push(addHouseNumber(vs));
   }
+
   if (vs.isset('input:postcode')) {
     funcScoreShould.push(addPostCode(vs));
   }

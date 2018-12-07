@@ -1,0 +1,41 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "minimum_should_match": 1,
+          "should": [
+            {
+              "bool": {
+                "_name": "fallback.housenumber",
+                "boost": { "$": 19 },
+                "must": [
+                  {
+                    "match_phrase": {
+                      "address_parts.number": "house number value"
+                    }
+                  }
+                ],
+                "should": [],
+                "filter": {
+                  "term": {
+                    "layer": "address"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "max_boost": 20,
+      "functions": [],
+      "score_mode": "avg",
+      "boost_mode": "multiply"
+    }
+  },
+  "size": { "$": "size value" },
+  "track_scores": { "$": "track_scores value" },
+  "sort": [
+    "_score"
+  ]
+}
