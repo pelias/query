@@ -1,5 +1,5 @@
 module.exports = function( vs ){
-  if( !vs.isset('boundary:wof')) {
+  if( !vs.isset('boundary:gid')) {
     return null;
   }
 
@@ -9,7 +9,7 @@ module.exports = function( vs ){
   // multi_match with field name wildcard
   view.multi_match = {
     fields: ['parent.*_id'],
-    query: vs.var('boundary:wof')
+    query: vs.var('boundary:gid')
   };
 
   return view;

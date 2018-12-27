@@ -30,7 +30,7 @@ var tests = [
   require('./view/sort_distance.js'),
   require('./view/sort_numeric_script.js'),
   require('./view/sources.js'),
-  require('./view/boundary_wof.js')
+  require('./view/boundary_gid.js')
 ];
 
 tests.map(function(t) {

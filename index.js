@@ -32,7 +32,7 @@ module.exports.view = {
   sort_numeric_script: require('./view/sort_numeric_script'),
   sources: require('./view/sources'),
   layers: require('./view/layers'),
-  boundary_wof: require('./view/boundary_wof')
+  boundary_gid: require('./view/boundary_gid')
 };
 
 module.exports.defaults = require('./defaults');

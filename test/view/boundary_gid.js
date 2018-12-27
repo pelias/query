@@ -1,9 +1,9 @@
-var boundary_wof = require('../../view/boundary_wof');
+var boundary_gid = require('../../view/boundary_gid');
 var VariableStore = require('../../lib/VariableStore');
 
 function getBaseVariableStore(toExclude) {
   var vs = new VariableStore();
-  vs.var('boundary:wof', 'boundary_wof');
+  vs.var('boundary:gid', 'boundary_gid');
 
   if (toExclude) {
     vs.unset(toExclude);
@@ -17,8 +17,8 @@ module.exports.tests = {};
 
 module.exports.tests.interface = function(test, common) {
   test('interface: constructor', function(t) {
-    t.equal(typeof boundary_wof, 'function', 'valid function');
-    t.equal(boundary_wof.length, 1, 'takes 1 arg');
+    t.equal(typeof boundary_gid, 'function', 'valid function');
+    t.equal(boundary_gid.length, 1, 'takes 1 arg');
     t.end();
   });
 
@@ -31,7 +31,7 @@ module.exports.tests.missing_variable_conditions = function(test, common) {
     test('missing required variable ' + missing_variable + ' should return null', function(t) {
       var vs = getBaseVariableStore(missing_variable);
 
-      t.equal(boundary_wof(vs), null, 'should have returned null for unset ' + missing_variable);
+      t.equal(boundary_gid(vs), null, 'should have returned null for unset ' + missing_variable);
       t.end();
 
     });
@@ -40,15 +40,15 @@ module.exports.tests.missing_variable_conditions = function(test, common) {
 };
 
 module.exports.tests.no_exceptions_conditions = function(test, common) {
-  test('boundary:wof should return when set', function(t) {
+  test('boundary:gid should return when set', function(t) {
     var vs = getBaseVariableStore();
 
-    var actual = boundary_wof(vs);
+    var actual = boundary_gid(vs);
 
     var expected = {
       multi_match: {
         fields: ['parent.*_id'],
-        query: { $: 'boundary_wof' }
+        query: { $: 'boundary_gid' }
       }
     };
 
@@ -61,7 +61,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
 
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {
-    return tape('boundary_wof ' + name, testFunction);
+    return tape('boundary_gid ' + name, testFunction);
   }
   for( var testCase in module.exports.tests ){
     module.exports.tests[testCase](test, common);
