@@ -7,7 +7,6 @@ function getBaseVariableStore(toExclude) {
   vs.var('address:asdf:analyzer', 'analyzer value');
   vs.var('address:asdf:field', 'field value');
   vs.var('address:asdf:boost', 'boost value');
-  vs.var('address:asdf:cutoff_frequency', 'cutoff_frequency value');
 
   if (toExclude) {
     vs.unset(toExclude);

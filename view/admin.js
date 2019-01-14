@@ -12,21 +12,24 @@ module.exports = function( property ){
         !vs.isset('input:'+property) ||
         !vs.isset('admin:'+property+':analyzer') ||
         !vs.isset('admin:'+property+':field') ||
-        !vs.isset('admin:'+property+':cutoff_frequency') ||
         !vs.isset('admin:'+property+':boost') ){
       return null;
     }
 
     // base view
-    var view = { 'match': {} };
+    let view = { 'match': {} };
 
     // match query
-    view.match[ vs.var('admin:'+property+':field') ] = {
+    let section = view.match[ vs.var('admin:'+property+':field') ] = {
       analyzer: vs.var('admin:'+property+':analyzer'),
       boost: vs.var('admin:'+property+':boost'),
-      cutoff_frequency: vs.var('admin:'+property+':cutoff_frequency'),
       query: vs.var('input:'+property)
     };
+
+    // optional 'cutoff_frequency' property
+    if( vs.isset('admin:'+property+':cutoff_frequency') ){
+      section.cutoff_frequency = vs.var('admin:'+property+':cutoff_frequency');
+    }
 
     return view;
   };

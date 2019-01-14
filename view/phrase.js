@@ -6,7 +6,6 @@ module.exports = function( vs ){
       !vs.isset('phrase:analyzer') ||
       !vs.isset('phrase:field') ||
       !vs.isset('phrase:boost') ||
-      !vs.isset('phrase:cutoff_frequency') ||
       !vs.isset('phrase:slop') ){
     return null;
   }
@@ -20,12 +19,15 @@ module.exports = function( vs ){
     type: 'phrase',
     boost: vs.var('phrase:boost'),
     slop: vs.var('phrase:slop'),
-    cutoff_frequency: vs.var('phrase:cutoff_frequency'),
     query: vs.var('input:name')
   };
 
   if (vs.isset('phrase:fuzziness')) {
     view.match[ vs.var('phrase:field') ].fuzziness = vs.var('phrase:fuzziness');
+  }
+
+  if (vs.isset('phrase:cutoff_frequency')) {
+    view.match[ vs.var('phrase:field') ].cutoff_frequency = vs.var('phrase:cutoff_frequency');
   }
 
   return view;

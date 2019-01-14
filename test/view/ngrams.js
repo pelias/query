@@ -7,7 +7,6 @@ function getBaseVariableStore(toExclude) {
   vs.var('ngram:analyzer', 'analyzer value');
   vs.var('ngram:field', 'field value');
   vs.var('ngram:boost', 'boost value');
-  vs.var('ngram:cutoff_frequency', 'cutoff_frequency value');
 
   if (toExclude) {
     vs.unset(toExclude);
@@ -52,7 +51,6 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
         'field value': {
           analyzer: { $: 'analyzer value' },
           boost: { $: 'boost value' },
-          cutoff_frequency: { $: 'cutoff_frequency value' },
           query: { $: 'name value' }
         }
       }
@@ -78,13 +76,36 @@ module.exports.tests.fuzziness_variable = function(test, common) {
           analyzer: { $: 'analyzer value' },
           boost: { $: 'boost value' },
           query: { $: 'name value' },
-          cutoff_frequency: { $: 'cutoff_frequency value' },
           fuzziness: { $: 'fuzziness value' }
         }
       }
     };
 
     t.deepEquals(actual, expected, 'should have returned object with fuzziness field');
+    t.end();
+
+  });
+};
+
+module.exports.tests.cutoff_frequency = function(test, common) {
+  test('cutoff_frequency variable should be presented in query', function(t) {
+    var store = getBaseVariableStore();
+    store.var('ngram:cutoff_frequency', 'cutoff_frequency value');
+
+    var actual = ngrams(store);
+
+    var expected = {
+      match: {
+        'field value': {
+          analyzer: { $: 'analyzer value' },
+          boost: { $: 'boost value' },
+          query: { $: 'name value' },
+          cutoff_frequency: { $: 'cutoff_frequency value' }
+        }
+      }
+    };
+
+    t.deepEquals(actual, expected, 'should have returned object with cutoff_frequency field');
     t.end();
 
   });
