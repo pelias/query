@@ -17,14 +17,19 @@ module.exports = function( property ){
     }
 
     // base view
-    var view = { 'match': {} };
+    let view = { 'match': {} };
 
     // match query
-    view.match[ vs.var('admin:'+property+':field') ] = {
+    let section = view.match[ vs.var('admin:'+property+':field') ] = {
       analyzer: vs.var('admin:'+property+':analyzer'),
       boost: vs.var('admin:'+property+':boost'),
       query: vs.var('input:'+property)
     };
+
+    // optional 'cutoff_frequency' property
+    if( vs.isset('admin:'+property+':cutoff_frequency') ){
+      section.cutoff_frequency = vs.var('admin:'+property+':cutoff_frequency');
+    }
 
     return view;
   };
