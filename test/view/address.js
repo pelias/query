@@ -7,7 +7,7 @@ function getBaseVariableStore(toExclude) {
   vs.var('address:asdf:analyzer', 'analyzer value');
   vs.var('address:asdf:field', 'field value');
   vs.var('address:asdf:boost', 'boost value');
-  vs.var('address:cutoff_frequency', 'cutoff_frequency value');
+  vs.var('address:asdf:cutoff_frequency', 'cutoff_frequency value');
 
   if (toExclude) {
     vs.unset(toExclude);
@@ -35,10 +35,10 @@ module.exports.tests.no_property = function(test, common) {
     vs.var('address::analyzer', 'analyzer value');
     vs.var('address::field', 'field value');
     vs.var('address::boost', 'boost value');
-    vs.var('address:cutoff_frequency', 'cutoff_frequency value');
+    vs.var('address::cutoff_frequency', 'cutoff_frequency value');
 
-    var falseyPropertyAddress = require('../../view/address')('');
-    var actual = address(vs);
+    var undefinedPropertyAddress = require('../../view/address')('');
+    var actual = undefinedPropertyAddress(vs);
 
     t.equal(actual, null, 'should have returned null');
     t.end();
@@ -51,10 +51,10 @@ module.exports.tests.no_property = function(test, common) {
     vs.var('address:0:analyzer', 'analyzer value');
     vs.var('address:0:field', 'field value');
     vs.var('address:0:boost', 'boost value');
-    vs.var('address:cutoff_frequency', 'cutoff_frequency value');
+    vs.var('address:0:cutoff_frequency', 'cutoff_frequency value');
 
-    var falseyPropertyAddress = require('../../view/address')(0);
-    var actual = address(vs);
+    var numericPropertyAddress = require('../../view/address')(0);
+    var actual = numericPropertyAddress(vs);
 
     t.equal(actual, null, 'should have returned null');
     t.end();
@@ -67,9 +67,10 @@ module.exports.tests.no_property = function(test, common) {
     vs.var('address:false:analyzer', 'analyzer value');
     vs.var('address:false:field', 'field value');
     vs.var('address:false:boost', 'boost value');
+    vs.var('address:false:cutoff_frequency', 'cutoff_frequency value');
 
     var falseyPropertyAddress = require('../../view/address')(false);
-    var actual = address(vs);
+    var actual = falseyPropertyAddress(vs);
 
     t.equal(actual, null, 'should have returned null');
     t.end();
@@ -100,7 +101,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
     vs.var('address:asdf:analyzer', 'analyzer value');
     vs.var('address:asdf:field', 'field value');
     vs.var('address:asdf:boost', 'boost value');
-    vs.var('address:cutoff_frequency', 'cutoff_frequency value');
+    vs.var('address:asdf:cutoff_frequency', 'cutoff_frequency value');
 
     var actual = address(vs);
 
