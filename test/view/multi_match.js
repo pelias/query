@@ -125,6 +125,40 @@ module.exports.tests.type = function (test, common) {
 
 };
 
+module.exports.tests.operator = function (test, common) {
+  test('optional operator', function (t) {
+    var vs = new VariableStore();
+    vs.var('query var', 'query value');
+    vs.var('multi_match:operator', 'and');
+
+    var fields_with_boosts = [
+      { field: 'field 1' },
+      { field: 'field 2' },
+      { field: 'field 3' }
+    ];
+
+    var actual = multi_match(vs, fields_with_boosts, 'analyzer value', 'query var');
+
+    var expected = {
+      multi_match: {
+        fields: [
+          'field 1^1',
+          'field 2^1',
+          'field 3^1'
+        ],
+        query: { $: 'query value' },
+        analyzer: 'analyzer value',
+        operator: { $: 'and' },
+      }
+    };
+
+    t.deepEquals(actual, expected, 'should have returned object');
+    t.end();
+
+  });
+
+};
+
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {
     return tape('multi_match ' + name, testFunction);
