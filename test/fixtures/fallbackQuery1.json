@@ -101,17 +101,23 @@
                 "must": [
                   {
                     "match_phrase": {
-                      "address_parts.unit": "unit value"
+                      "address_parts.unit": {
+                        "query": "unit value"
+                      }
                     }
                   },
                   {
                     "match_phrase": {
-                      "address_parts.number": "house number value"
+                      "address_parts.number": {
+                        "query": "house number value"
+                      }
                     }
                   },
                   {
                     "match_phrase": {
-                      "address_parts.street": "street value"
+                      "address_parts.street": {
+                        "query": "street value"
+                      }
                     }
                   },
                   {
@@ -198,7 +204,9 @@
                 "must": [
                   {
                     "match_phrase": {
-                      "address_parts.street": "street value"
+                      "address_parts.street": {
+                        "query": "street value"
+                      }
                     }
                   },
                   {

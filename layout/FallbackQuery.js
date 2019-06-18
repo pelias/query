@@ -80,7 +80,9 @@ function addPrimary(value, layer, fields, likely_to_have_abbreviation) {
   //   o.bool.must.push(
   //     {
   //       match_phrase: {
-  //         'phrase.default': value
+  //         'phrase.default': {
+  //           query: value
+  //         }
   //       }
   //     }
   //   );
@@ -110,7 +112,9 @@ function addSecPostCode(vs, o) {
   if (vs.isset('input:postcode')) {
     o.bool.should.push({
       match_phrase: {
-        'address_parts.zip': vs.var('input:postcode').toString()
+        'address_parts.zip': {
+          query: vs.var('input:postcode').toString()
+        }
       }
     });
   }
@@ -231,17 +235,23 @@ function addUnitAndHouseNumberAndStreet(vs) {
       must: [
         {
           match_phrase: {
-            'address_parts.unit': vs.var('input:unit').toString()
+            'address_parts.unit': {
+              query: vs.var('input:unit').toString()
+            }
           }
         },
         {
           match_phrase: {
-            'address_parts.number': vs.var('input:housenumber').toString()
+            'address_parts.number': {
+              query: vs.var('input:housenumber').toString()
+            }
           }
         },
         {
           match_phrase: {
-            'address_parts.street': vs.var('input:street').toString()
+            'address_parts.street': {
+              query: vs.var('input:street').toString()
+            }
           }
         }
       ],
@@ -277,12 +287,16 @@ function addHouseNumberAndStreet(vs) {
       must: [
         {
           match_phrase: {
-            'address_parts.number': vs.var('input:housenumber').toString()
+            'address_parts.number': {
+              query: vs.var('input:housenumber').toString()
+            }
           }
         },
         {
           match_phrase: {
-            'address_parts.street': vs.var('input:street').toString()
+            'address_parts.street': {
+              query: vs.var('input:street').toString()
+            }
           }
         }
       ],
@@ -318,7 +332,9 @@ function addStreet(vs) {
       must: [
         {
           match_phrase: {
-            'address_parts.street': vs.var('input:street').toString()
+            'address_parts.street': {
+              query: vs.var('input:street').toString()
+            }
           }
         }
       ],

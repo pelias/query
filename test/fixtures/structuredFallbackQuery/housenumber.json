@@ -12,7 +12,9 @@
                 "must": [
                   {
                     "match_phrase": {
-                      "address_parts.number": "house number value"
+                      "address_parts.number": {
+                        "query": "house number value"
+                      }
                     }
                   }
                 ],
