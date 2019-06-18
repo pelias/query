@@ -10,12 +10,16 @@ function createAddressShould(vs) {
       must: [
         {
           match_phrase: {
-            'address_parts.number': vs.var('input:housenumber')
+            'address_parts.number': {
+              query: vs.var('input:housenumber')
+            }
           }
         },
         {
           match_phrase: {
-            'address_parts.street': vs.var('input:street')
+            'address_parts.street': {
+              query: vs.var('input:street')
+            }
           }
         }
       ],
@@ -41,17 +45,23 @@ function createUnitAndAddressShould(vs) {
       must: [
         {
           match_phrase: {
-            'address_parts.unit': vs.var('input:unit')
+            'address_parts.unit': {
+              query: vs.var('input:unit')
+            }
           }
         },
         {
           match_phrase: {
-            'address_parts.number': vs.var('input:housenumber')
+            'address_parts.number': {
+              query: vs.var('input:housenumber')
+            }
           }
         },
         {
           match_phrase: {
-            'address_parts.street': vs.var('input:street')
+            'address_parts.street': {
+              query: vs.var('input:street')
+            }
           }
         }
       ],
@@ -77,17 +87,23 @@ function createPostcodeAndAddressShould(vs) {
       must: [
         {
           match_phrase: {
-            'address_parts.zip': vs.var('input:postcode')
+            'address_parts.zip': {
+              query: vs.var('input:postcode')
+            }
           }
         },
         {
           match_phrase: {
-            'address_parts.number': vs.var('input:housenumber')
+            'address_parts.number': {
+              query: vs.var('input:housenumber')
+            }
           }
         },
         {
           match_phrase: {
-            'address_parts.street': vs.var('input:street')
+            'address_parts.street': {
+              query: vs.var('input:street')
+            }
           }
         }
       ],
@@ -113,7 +129,9 @@ function createStreetShould(vs) {
       must: [
         {
           match_phrase: {
-            'address_parts.street': vs.var('input:street')
+            'address_parts.street': {
+              query: vs.var('input:street')
+            }
           }
         }
       ],
