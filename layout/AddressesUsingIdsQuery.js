@@ -18,7 +18,8 @@ function createAddressShould(vs) {
         {
           match_phrase: {
             'address_parts.street': {
-              query: vs.var('input:street')
+              query: vs.var('input:street'),
+              slop: vs.var('address:street:slop')
             }
           }
         }
@@ -60,7 +61,8 @@ function createUnitAndAddressShould(vs) {
         {
           match_phrase: {
             'address_parts.street': {
-              query: vs.var('input:street')
+              query: vs.var('input:street'),
+              slop: vs.var('address:street:slop')
             }
           }
         }
@@ -102,7 +104,8 @@ function createPostcodeAndAddressShould(vs) {
         {
           match_phrase: {
             'address_parts.street': {
-              query: vs.var('input:street')
+              query: vs.var('input:street'),
+              slop: vs.var('address:street:slop')
             }
           }
         }
@@ -130,7 +133,8 @@ function createStreetShould(vs) {
         {
           match_phrase: {
             'address_parts.street': {
-              query: vs.var('input:street')
+              query: vs.var('input:street'),
+              slop: vs.var('address:street:slop')
             }
           }
         }
@@ -191,6 +195,11 @@ class AddressesUsingIdsQuery extends Query {
     }
     else if (vs.isset('input:housenumber')) {
       base.query.function_score.query.bool.should.push(createAddressShould(vs));
+    }
+
+    // default address:street:slop to 0 if unset
+    if (!vs.isset('address:street:slop')) {
+      vs.var('address:street:slop', 0);
     }
 
     // if there are layer->id mappings, add the layers with non-empty ids

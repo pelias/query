@@ -13,7 +13,8 @@
                   {
                     "match_phrase": {
                       "address_parts.street": {
-                        "query": "street value"
+                        "query": "street value",
+                        "slop": 0
                       }
                     }
                   }
@@ -47,7 +48,8 @@
                   {
                     "match_phrase": {
                       "address_parts.street": {
-                        "query": "street value"
+                        "query": "street value",
+                        "slop": 0
                       }
                     }
                   }
