@@ -3,7 +3,7 @@
     "function_score": {
       "query": {
         "bool": {
-          "minimum_number_should_match": 1,
+          "minimum_should_match": 1,
           "should": [
             {
               "bool": {
@@ -60,7 +60,7 @@
           ],
           "filter": {
             "bool": {
-              "minimum_number_should_match": 1,
+              "minimum_should_match": 1,
               "should": [
                 {
                   "terms": {
