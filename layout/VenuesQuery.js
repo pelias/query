@@ -20,7 +20,7 @@ class VenuesQuery extends Query {
                   match_phrase: {
                     'name.default': {
                       query: vs.var('input:query'),
-                      analyzer: 'standard'
+                      analyzer: vs.var('ngram:analyzer')
                     }
                   }
                 }

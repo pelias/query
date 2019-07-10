@@ -12,6 +12,7 @@ module.exports.tests.base_render = (test, common) => {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
     vs.var('input:query', 'query value');
+    vs.var('ngram:analyzer', 'peliasOneEdgeGram');
 
     const actual = query.render(vs);
     const expected = require('../fixtures/venuesQuery/base_render.json');
@@ -50,6 +51,7 @@ module.exports.tests.render_with_scores = (test, common) => {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
     vs.var('input:query', 'query value');
+    vs.var('ngram:analyzer', 'peliasOneEdgeGram');
 
     const actual = query.render(vs);
     const expected = require('../fixtures/venuesQuery/with_scores.json');
@@ -88,6 +90,7 @@ module.exports.tests.render_with_filters = (test, common) => {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
     vs.var('input:query', 'query value');
+    vs.var('ngram:analyzer', 'peliasOneEdgeGram');
 
     const actual = query.render(vs);
     const expected = require('../fixtures/venuesQuery/with_filters.json');

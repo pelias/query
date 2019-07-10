@@ -8,7 +8,7 @@
               "match_phrase": {
                 "name.default": {
                     "query": "query value",
-                    "analyzer": "standard"
+                    "analyzer": "peliasOneEdgeGram"
                 }
               }
             }
