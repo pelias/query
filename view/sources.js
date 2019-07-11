@@ -1,4 +1,4 @@
-var terms = require('./terms');
+const terms = require('../lib/leaf/terms');
 
 module.exports = function( vs ){
   if( !vs.isset('sources')) {
