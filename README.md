@@ -238,7 +238,7 @@ The `FilteredBooleanQuery` has two different methods for **assigning conditional
 
 ##### .score()
 
-The `.score` method is used to assign views which **will effect the scoring** of the results.
+The `.score` method is used to assign views which **will affect the scoring** of the results.
 
 In most cases you can assume that **records which match more of these conditions will appear higher in the results than those which match fewer**.
 
@@ -252,14 +252,14 @@ q.score(view);
 q.score(view, 'should');
 
 // in this case we mark the view as a 'must' match condition.
-// Matching results will effect the score **but** in this case
+// Matching results will affect the score **but** in this case
 // **non-matching records will be removed from the results completely**
 q.score(view, 'must');
 ```
 
 ##### .filter()
 
-The `.filter` method is used to assign views which **do not effect the scoring** of results.
+The `.filter` method is used to assign views which **do not affect the scoring** of results.
 
 **note:** The more results you remove before sorting; using either this method *or* the `.score` method above (with 'must'), the better your query performance will be.
 
@@ -272,9 +272,9 @@ q.filter(view);
 
 ##### .sort()
 
-The `.sort` method is used to assign views which effect the sorting of results.
+The `.sort` method is used to assign views which affect the sorting of results.
 
-In effect this method is not as useful as it sounds, for the most part you should be using `.score` methods above to effect the sorting of results.
+This method is not as useful as it sounds, for the most part you should be using `.score` methods above to affect the sorting of results.
 
 This function is only really useful in cases where a 'tiebreaker' is needed. For example: searching 'mcdonalds' may result in several records which scored the same value, in this case we can attempt to 'break the tie'.
 
