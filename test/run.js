@@ -8,6 +8,7 @@ var tests = [
   require('./layout/FilteredBooleanQuery.js'),
   require('./layout/StructuredFallbackQuery.js'),
   require('./layout/VenuesQuery.js'),
+  require('./lib/leaf/match_phrase.js'),
   require('./lib/leaf/terms.js'),
   require('./lib/Variable.js'),
   require('./lib/VariableStore.js'),
