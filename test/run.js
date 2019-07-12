@@ -32,7 +32,8 @@ var tests = [
   require('./view/population_only_function.js'),
   require('./view/sort_distance.js'),
   require('./view/sources.js'),
-  require('./view/boundary_gid.js')
+  require('./view/boundary_gid.js'),
+  require('./view/leaf/match_phrase.js')
 ];
 
 tests.map(function(t) {

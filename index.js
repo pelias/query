@@ -11,6 +11,9 @@ module.exports.layout = {
 };
 
 module.exports.view = {
+  leaf: {
+    match_phrase: require('./view/leaf/match_phrase')
+  },
   focus: require('./view/focus'),
   focus_only_function: require('./view/focus_only_function'),
   popularity: require('./view/popularity'),
