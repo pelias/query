@@ -27,5 +27,9 @@ module.exports = function( vs ){
     view.match[ vs.var('ngram:field') ].cutoff_frequency = vs.var('ngram:cutoff_frequency');
   }
 
+  if (vs.isset('ngram:minimum_should_match')) {
+    view.match[ vs.var('ngram:field') ].minimum_should_match = vs.var('ngram:minimum_should_match');
+  }
+
   return view;
 };

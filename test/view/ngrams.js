@@ -111,6 +111,30 @@ module.exports.tests.cutoff_frequency = function(test, common) {
   });
 };
 
+module.exports.tests.minimum_should_match = function(test, common) {
+  test('minimum_should_match variable should be presented in query', function(t) {
+    var store = getBaseVariableStore();
+    store.var('ngram:minimum_should_match', 'minimum_should_match value');
+
+    var actual = ngrams(store);
+
+    var expected = {
+      match: {
+        'field value': {
+          analyzer: { $: 'analyzer value' },
+          boost: { $: 'boost value' },
+          query: { $: 'name value' },
+          minimum_should_match: { $: 'minimum_should_match value' }
+        }
+      }
+    };
+
+    t.deepEquals(actual, expected, 'should have returned object with minimum_should_match field');
+    t.end();
+
+  });
+};
+
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {
     return tape('ngrams ' + name, testFunction);
