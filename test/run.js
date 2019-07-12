@@ -20,7 +20,6 @@ var tests = [
   require('./view/focus.js'),
   require('./view/focus_only_function.js'),
   require('./view/layers.js'),
-  require('./view/localregions.js'),
   require('./view/multi_match.js'),
   require('./view/ngrams.js'),
   require('./view/phrase.js'),

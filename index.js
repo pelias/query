@@ -17,7 +17,6 @@ module.exports.view = {
   population: require('./view/population'),
   popularity_only_function: require('./view/popularity_only_function'),
   population_only_function: require('./view/population_only_function'),
-  localregions: require('./view/localregions'),
   ngrams: require('./view/ngrams'),
   phrase: require('./view/phrase'),
   address: require('./view/address'),
