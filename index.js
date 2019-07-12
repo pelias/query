@@ -12,6 +12,7 @@ module.exports.layout = {
 
 module.exports.view = {
   leaf: {
+    match_all: require('./view/leaf/match_all'),
     match_phrase: require('./view/leaf/match_phrase')
   },
   focus: require('./view/focus'),
