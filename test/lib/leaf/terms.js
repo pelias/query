@@ -29,6 +29,20 @@ module.exports.tests.terms = function(test, common) {
     t.deepEqual(query, expected, 'valid terms query');
     t.end();
   });
+
+  test('terms query can handle optional boost parameter', function(t) {
+    const query = terms('property', 'value', { boost: 5});
+
+    const expected = {
+      terms: {
+        property: 'value',
+        boost: 5
+      }
+    };
+
+    t.deepEqual(query, expected, 'valid terms query with boost');
+    t.end();
+  });
 };
 
 module.exports.all = function (tape, common) {
