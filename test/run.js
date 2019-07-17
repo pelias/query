@@ -16,6 +16,7 @@ var tests = [
   require('./view/boundary_circle.js'),
   require('./view/boundary_country.js'),
   require('./view/boundary_rect.js'),
+  require('./view/categories.js'),
   require('./view/focus.js'),
   require('./view/focus_only_function.js'),
   require('./view/layers.js'),
