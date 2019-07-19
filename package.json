@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/pelias/query#readme",
   "dependencies": {
-    "check-types": "^8.0.0",
     "lodash": "^4.17.14"
   },
   "devDependencies": {
