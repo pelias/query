@@ -20,7 +20,6 @@ var tests = [
   require('./view/focus.js'),
   require('./view/focus_only_function.js'),
   require('./view/layers.js'),
-  require('./view/localregions.js'),
   require('./view/multi_match.js'),
   require('./view/ngrams.js'),
   require('./view/phrase.js'),
@@ -29,7 +28,6 @@ var tests = [
   require('./view/population.js'),
   require('./view/population_only_function.js'),
   require('./view/sort_distance.js'),
-  require('./view/sort_numeric_script.js'),
   require('./view/sources.js'),
   require('./view/boundary_gid.js')
 ];
