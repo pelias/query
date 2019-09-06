@@ -33,6 +33,7 @@ var tests = [
   require('./view/sort_distance.js'),
   require('./view/sources.js'),
   require('./view/boundary_gid.js'),
+  require('./view/leaf/match.js'),
   require('./view/leaf/match_phrase.js')
 ];
 
