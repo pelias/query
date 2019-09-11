@@ -1,5 +1,7 @@
 const match_phrase = require('../../lib/leaf/match_phrase');
 
+const optional_params = ['boost', 'slop', 'analyzer'];
+
 module.exports = function( prefix ){
   return function( vs ){
 
@@ -12,8 +14,6 @@ module.exports = function( prefix ){
     }
 
     const options = { };
-
-    const optional_params = ['boost', 'slop', 'analyzer'];
 
     optional_params.forEach(function(param) {
       const variable_name = `match_phrase:${prefix}:${param}`;
