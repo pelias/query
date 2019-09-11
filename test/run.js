@@ -8,6 +8,9 @@ var tests = [
   require('./layout/FilteredBooleanQuery.js'),
   require('./layout/StructuredFallbackQuery.js'),
   require('./layout/VenuesQuery.js'),
+  require('./lib/leaf/match.js'),
+  require('./lib/leaf/match_phrase.js'),
+  require('./lib/leaf/terms.js'),
   require('./lib/Variable.js'),
   require('./lib/VariableStore.js'),
   require('./view/address.js'),
@@ -29,7 +32,9 @@ var tests = [
   require('./view/population_only_function.js'),
   require('./view/sort_distance.js'),
   require('./view/sources.js'),
-  require('./view/boundary_gid.js')
+  require('./view/boundary_gid.js'),
+  require('./view/leaf/match.js'),
+  require('./view/leaf/match_phrase.js')
 ];
 
 tests.map(function(t) {
