@@ -8,7 +8,7 @@ function createAddressShould(vs) {
       _name: 'fallback.address',
       must: [
         match_phrase('address_parts.number', vs.var('input:housenumber')),
-        match_phrase('address_parts.street', vs.var('input:street'))
+        match_phrase('address_parts.street', vs.var('input:street'), { slop: vs.var('address:street:slop') })
       ],
       filter: {
         term: {
@@ -32,7 +32,7 @@ function createUnitAndAddressShould(vs) {
       must: [
         match_phrase('address_parts.unit', vs.var('input:unit')),
         match_phrase('address_parts.number', vs.var('input:housenumber')),
-        match_phrase('address_parts.street', vs.var('input:street'))
+        match_phrase('address_parts.street', vs.var('input:street'), { slop: vs.var('address:street:slop') })
       ],
       filter: {
         term: {
@@ -56,7 +56,7 @@ function createPostcodeAndAddressShould(vs) {
       must: [
         match_phrase('address_parts.zip', vs.var('input:postcode')),
         match_phrase('address_parts.number', vs.var('input:housenumber')),
-        match_phrase('address_parts.street', vs.var('input:street'))
+        match_phrase('address_parts.street', vs.var('input:street'), { slop: vs.var('address:street:slop') })
       ],
       filter: {
         term: {
@@ -78,7 +78,7 @@ function createStreetShould(vs) {
     bool: {
       _name: 'fallback.street',
       must: [
-        match_phrase('address_parts.street', vs.var('input:street'))
+        match_phrase('address_parts.street', vs.var('input:street'), { slop: vs.var('address:street:slop') })
       ],
       filter: {
         term: {

@@ -52,6 +52,43 @@ module.exports.tests.base_render = (test, common) => {
 
   });
 
+  test('street slop should be set in query', (t) => {
+    const query = new AddressesUsingIdsQuery();
+
+    const vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:unit', 'unit value');
+    vs.var('input:housenumber', 'housenumber value');
+    vs.var('input:street', 'street value');
+    vs.var('address:street:slop', 3);
+
+    const actual = JSON.parse(JSON.stringify(query.render(vs)));
+
+    const expected_query_clause = {
+      match_phrase: {
+        'address_parts.street': {
+          query: 'street value',
+          slop: 3
+        }
+      }
+    };
+
+    // console.error(JSON.stringify(actual, null, 2));
+    // console.error(JSON.stringify(expected, null, 2));
+
+    // use this object as a starting point for finding all the individual street queries to check
+    const bool_query = actual.query.function_score.query.bool;
+
+    const street_fallback_query_clause = bool_query.should[0].bool.must[0];
+    const address_fallback_query_clause = bool_query.should[1].bool.must[2];
+
+    t.deepEquals(street_fallback_query_clause, expected_query_clause);
+    t.deepEquals(address_fallback_query_clause, expected_query_clause);
+    t.end();
+
+  });
+
   test('VariableStore without housenumber should not add must for address', (t) => {
     const query = new AddressesUsingIdsQuery();
 
