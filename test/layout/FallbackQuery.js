@@ -12,7 +12,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/fallbackQuery_nothing_set.json');
 
     t.deepEquals(actual, expected);
@@ -28,7 +28,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('track_scores', 'track_scores value');
     vs.var('input:neighbourhood', 'neighbourhood value');
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/fallbackQuery_neighbourhood_only.json');
 
     t.deepEquals(actual, expected);
@@ -55,7 +55,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('boost:address', 19);
     vs.var('boost:street', 17);
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/fallbackQuery1.json');
 
     t.deepEquals(actual, expected);
@@ -80,7 +80,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('boost:address', 19);
     vs.var('boost:street', 17);
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/fallbackQuery2.json');
 
     t.deepEquals(actual, expected);
@@ -102,7 +102,7 @@ module.exports.tests.base_render = function(test, common) {
 
     var fs = require('fs');
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/fallbackQuery_address_with_postcode.json');
 
     t.deepEquals(actual, expected);
@@ -122,7 +122,7 @@ module.exports.tests.boosts = function(test, common) {
     vs.var('input:housenumber', 'house number value');
     vs.var('input:street', 'street value');
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
 
     t.false(actual.query.function_score.query.bool.should[0].bool.hasOwnProperty('boost'));
     t.false(actual.query.function_score.query.bool.should[1].bool.hasOwnProperty('boost'));
