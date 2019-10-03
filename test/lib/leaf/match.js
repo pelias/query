@@ -1,4 +1,5 @@
 const match = require('../../../lib/leaf/match');
+const Variable = require('../../../lib/Variable');
 
 module.exports.tests = {};
 
@@ -125,6 +126,36 @@ module.exports.tests.match = function(test, common) {
     };
 
     t.deepEqual(query, expected, 'valid match query with analyzer');
+    t.end();
+  });
+
+  test('match query does not allow empty string as optional param value', function(t) {
+    const query = match('property', 'value', { analyzer: ''});
+
+    const expected = {
+      match: {
+        property: {
+          query: 'value'
+        }
+      }
+    };
+
+    t.deepEqual(query, expected, 'valid match query with out empty string value');
+    t.end();
+  });
+
+  test('match query does not allow empty Variable as optional param value', function(t) {
+    const query = match('property', 'value', { analyzer: new Variable() });
+
+    const expected = {
+      match: {
+        property: {
+          query: 'value'
+        }
+      }
+    };
+
+    t.deepEqual(query, expected, 'valid match query with out empty string value');
     t.end();
   });
 };
