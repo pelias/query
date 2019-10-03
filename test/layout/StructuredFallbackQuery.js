@@ -12,7 +12,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/fallbackQuery_nothing_set.json');
 
     t.deepEquals(actual, expected);
@@ -28,7 +28,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('track_scores', 'track_scores value');
     vs.var('input:neighbourhood', 'neighbourhood value');
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/fallbackQuery_neighbourhood_only.json');
 
     t.deepEquals(actual, expected);
@@ -54,7 +54,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('boost:address', 19);
     vs.var('boost:street', 17);
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/structuredFallbackQuery/address.json');
 
     t.deepEquals(actual, expected);
@@ -80,7 +80,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('boost:address', 19);
     vs.var('boost:street', 17);
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/structuredFallbackQuery/query.json');
 
     t.deepEquals(actual, expected);
@@ -97,7 +97,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('track_scores', 'track_scores value');
     vs.var('boost:address', 19);
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/structuredFallbackQuery/housenumber.json');
 
     t.deepEquals(actual, expected);
@@ -116,7 +116,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('boost:address', 19);
     vs.var('boost:street', 17);
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/structuredFallbackQuery/address_with_postcode.json');
 
     t.deepEquals(actual, expected);
@@ -133,7 +133,7 @@ module.exports.tests.base_render = function(test, common) {
     vs.var('input:locality', 'locality value');
     vs.var('input:region', 'region value');
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var expected = require('../fixtures/structuredFallbackQuery/locality_as_borough.json');
 
     t.deepEquals(actual, expected);
@@ -153,7 +153,7 @@ module.exports.tests.boosts = function(test, common) {
     vs.var('input:housenumber', 'house number value');
     vs.var('input:street', 'street value');
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
 
     t.false(actual.query.function_score.query.bool.should[0].bool.hasOwnProperty('boost'));
     t.false(actual.query.function_score.query.bool.should[1].bool.hasOwnProperty('boost'));
@@ -192,7 +192,7 @@ module.exports.tests.scores = function(test, common) {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
     var actual_scoring_functions = actual.query.function_score.functions;
 
     var expected_scoring_functions = [
@@ -234,7 +234,7 @@ module.exports.tests.filter = function(test, common) {
     vs.var('size', 'size value');
     vs.var('track_scores', 'track_scores value');
 
-    var actual = query.render(vs);
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
 
     var expected_filter = [
       { 'filter field 1': 'filter value 1'},

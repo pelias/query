@@ -8,7 +8,7 @@
             {
               "bool": {
                 "_name": "fallback.housenumber",
-                "boost": { "$": 19 },
+                "boost": 19,
                 "must": [
                   {
                     "match_phrase": {
@@ -35,8 +35,8 @@
       "boost_mode": "multiply"
     }
   },
-  "size": { "$": "size value" },
-  "track_scores": { "$": "track_scores value" },
+  "size": "size value",
+  "track_scores": "track_scores value",
   "sort": [
     "_score"
   ]
