@@ -14,7 +14,8 @@ module.exports.view = {
   leaf: {
     match_all: require('./view/leaf/match_all'),
     match_phrase: require('./view/leaf/match_phrase'),
-    match: require('./view/leaf/match')
+    match: require('./view/leaf/match'),
+    multi_match: require('./view/leaf/multi_match')
   },
   focus: require('./view/focus'),
   focus_only_function: require('./view/focus_only_function'),

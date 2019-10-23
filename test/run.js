@@ -10,6 +10,7 @@ var tests = [
   require('./layout/VenuesQuery.js'),
   require('./lib/leaf/match.js'),
   require('./lib/leaf/match_phrase.js'),
+  require('./lib/leaf/multi_match.js'),
   require('./lib/leaf/terms.js'),
   require('./lib/Variable.js'),
   require('./lib/VariableStore.js'),
@@ -34,7 +35,8 @@ var tests = [
   require('./view/sources.js'),
   require('./view/boundary_gid.js'),
   require('./view/leaf/match.js'),
-  require('./view/leaf/match_phrase.js')
+  require('./view/leaf/match_phrase.js'),
+  require('./view/leaf/multi_match.js')
 ];
 
 tests.map(function(t) {
