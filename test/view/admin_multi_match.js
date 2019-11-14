@@ -92,7 +92,8 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           'property2_field value^property2_boost value'
         ],
         'query': { $: 'property1 value' },
-        'analyzer': 'analyzer value'
+        'analyzer': 'analyzer value',
+        'type': { $: 'cross_fields' }
       }
     };
 
@@ -117,7 +118,8 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
           'property1_field value^1'
         ],
         'query': { $: 'property1 value' },
-        'analyzer': 'analyzer value'
+        'analyzer': 'analyzer value',
+        'type': { $: 'cross_fields' }
       }
     };
 
