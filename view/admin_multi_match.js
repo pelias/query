@@ -46,6 +46,10 @@ module.exports = function( admin_properties, analyzer ){
     // see: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html#multi-match-types
     vs.var('multi_match:type', 'cross_fields');
 
+    // disable cutoff_frequency as most of these admin  terms are very common
+    // and we would still like them to match and score appropriately.
+    vs.unset('multi_match:cutoff_frequency');
+
     // send the parameters to the standard multi_match view
     var view = multi_match(vs, fields_with_boosts, analyzer, queryVar);
 
