@@ -33,6 +33,7 @@ module.exports.view = {
   boundary_rect: require('./view/boundary_rect'),
   boundary_country: require('./view/boundary_country'),
   sort_distance: require('./view/sort_distance'),
+  sort_popularity: require('./view/sort_popularity'),
   sources: require('./view/sources'),
   layers: require('./view/layers'),
   boundary_gid: require('./view/boundary_gid')
