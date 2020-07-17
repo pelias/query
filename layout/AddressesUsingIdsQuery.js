@@ -183,38 +183,24 @@ function createLayerIdsShould(layer, ids) {
   return _.set({}, ['terms', `parent.${layer}_id`], ids);
 }
 
-function createLayerBoundingBoxesShould(bboxes) {
+function createLayerBoundingBoxesShould(bboxes, scale = 1.0) {
   // TODO: make sure to use centroid point var here
   return bboxes.map((bbox) => {
     if (bbox.min_lat === bbox.max_lat || bbox.min_lon === bbox.max_lon) {
       return;
     }
-    console.log(bbox);
 
-    var poly = turf.lineString([[bbox.min_lat,bbox.min_lon],[bbox.max_lat,bbox.max_lon]]);
-    var scaledPoly = turf.transformScale(poly, 1.5);
-    // Returns BBox bbox extent in [minX, minY, maxX, maxY] order
+    var poly = turf.bboxPolygon([bbox.min_lon, bbox.min_lat, bbox.max_lon, bbox.max_lat])
+    var scaledPoly = turf.transformScale(poly, scale);
     const [minX, minY, maxX, maxY]  = turf.bbox(scaledPoly);
-
-    // ex:
-    //  {
-    //   min_lat: 44.530798,
-    //   max_lat: 44.6445012385,
-    //   min_lon: -87.825856,
-    //   max_lon: -87.7623760999
-    // }
 
     return {
         "geo_bounding_box" : {
           "center_point" : {
-              // "top": maxY,
-              // "right": maxX,
-              // "bottom": minY,
-              // "left": minX,
-              "top": bbox.max_lat,
-              "right": bbox.max_lon,
-              "bottom": bbox.min_lat,
-              "left": bbox.min_lon,
+              "top": maxY,
+              "right": maxX,
+              "bottom": minY,
+              "left": minX,
           }
       },
     }
@@ -265,7 +251,10 @@ class AddressesUsingIdsQuery extends Query {
         if (!_.isEmpty(layers_map[layer]) && !_.isEmpty(layers_map[layer].ids)) {
           const layer_ids_should = createLayerIdsShould(layer, layers_map[layer].ids);
 
-          const layer_bounding_box_clauses = createLayerBoundingBoxesShould(layers_map[layer].bounding_boxes);
+          console.log(layer);
+          const scale = vs.var(`admin:${layer}:bboxScale`).$ || 1;
+          console.log({layer, scale});
+          const layer_bounding_box_clauses = createLayerBoundingBoxesShould(layers_map[layer].bounding_boxes, scale);
           console.log(layer_bounding_box_clauses);
 
           acc.push({bool: {
