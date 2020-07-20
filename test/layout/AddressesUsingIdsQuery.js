@@ -1,6 +1,5 @@
 const AddressesUsingIdsQuery = require('../../layout/AddressesUsingIdsQuery');
 const VariableStore = require('../../lib/VariableStore');
-const diff = require('deep-diff').diff;
 
 module.exports.tests = {};
 
@@ -128,9 +127,9 @@ module.exports.tests.base_render = (test, common) => {
     const actual = query.render(vs);
     const expected = require('../fixtures/addressesUsingIdsQuery/with_layers.json');
 
-    // console.error(JSON.stringify(actual, null, 2));
-    // console.error(JSON.stringify(expected, null, 2));
-
+    // console.error(JSON.stringify(actual));
+    // console.error(JSON.stringify(expected));
+    
     // marshall/unmarshall to handle toString's internally
     t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
     t.end();
@@ -309,13 +308,120 @@ module.exports.tests.render_with_filters = (test, common) => {
     const actual = query.render(vs);
     const expected = require('../fixtures/addressesUsingIdsQuery/with_layers_and_filters.json');
 
-    // console.error(JSON.stringify(actual));
-    // console.error(JSON.stringify(expected));
+    // console.error(JSON.stringify(actual, null, 2));
+    // console.error(JSON.stringify(expected, null, 2));
 
     // marshall/unmarshall to handle toString's internally
     t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
     t.end();
 
+  });
+
+  test('VariableStore with admins and bboxes should generate queries with both, ignoring point queries', (t) => {
+    const query = new AddressesUsingIdsQuery();
+
+    const vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('centroid:field', 'center_point');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:unit', 'unit value');
+    vs.var('input:housenumber', 'housenumber value');
+    vs.var('input:street', 'street value');
+    vs.var('input:layers:ids', {
+      layer1: [1, 2, 3],
+      layer2: [],
+      layer3: undefined,
+      layer4: [4]
+    });
+
+    vs.var('input:layers:bounding_boxes', {
+      layer1: [{
+        min_lon: 1,
+        min_lat: 2,
+        max_lon: 3,
+        max_lat: 4,
+      }, {
+        min_lon: 1,
+        min_lat: 2,
+        max_lon: 1,
+        max_lat: 2,
+      }],
+      layer2: [],
+      layer3: undefined,
+      layer4: [4]
+    });
+
+    const actual = query.render(vs);
+    const expected = require('../fixtures/addressesUsingIdsQuery/with_layers_and_bboxes.json');
+
+    // console.error(JSON.stringify(actual));
+    // console.error(JSON.stringify(expected));
+    
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
+    t.end();
+  });
+
+  test('VariableStore should scale bboxes if scaling factor is set', (t) => {
+    const query = new AddressesUsingIdsQuery();
+
+    const vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('admin:layer1:bboxScale', 2);
+    vs.var('centroid:field', 'center_point');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:unit', 'unit value');
+    vs.var('input:housenumber', 'housenumber value');
+    vs.var('input:street', 'street value');
+    vs.var('input:layers:ids', {
+      layer1: [1, 2, 3],
+      layer2: [],
+      layer3: undefined,
+      layer4: [4]
+    });
+
+    vs.var('input:layers:bounding_boxes', {
+      layer1: [{
+        min_lon: 1,
+        min_lat: 2,
+        max_lon: 3,
+        max_lat: 4,
+      }, {
+        min_lon: 1,
+        min_lat: 2,
+        max_lon: 1,
+        max_lat: 2,
+      }],
+      layer2: [],
+      layer3: undefined,
+      layer4: [4]
+    });
+
+    const actual = query.render(vs);
+    const expected = require('../fixtures/addressesUsingIdsQuery/with_layers_and_bboxes.json');
+    // console.error(JSON.stringify(actual));
+    // console.error(JSON.stringify(expected));
+
+    function approxeq(v1, v2, epsilon) {
+      return Math.abs(v1 - v2) < epsilon;
+    }
+
+    const scaled_bbox = actual.query.function_score.query.bool.filter.bool.should[0].bool.should[0].geo_bounding_box.center_point;
+  
+    // Scaling is a messy float operation, so use approx matchers to make sure we scaled appropriately
+    //"geo_bounding_box":{"center_point":{"top":5.000000000000001,"right":4.001221291680963,"bottom":0.999999999999999,"left":-0.001221291680963077}}
+    t.ok(approxeq(scaled_bbox.top, 5, 0.01));
+    t.ok(approxeq(scaled_bbox.right, 4, 0.01));
+    t.ok(approxeq(scaled_bbox.bottom, 1, 0.01));
+    t.ok(approxeq(scaled_bbox.left, 0, 0.01));
+
+    // And also delete the field from both exepected and actual so we're not doing deepEquality on floats
+    delete actual.query.function_score.query.bool.filter.bool.should[0].bool.should[0].geo_bounding_box.center_point;
+    delete expected.query.function_score.query.bool.filter.bool.should[0].bool.should[0].geo_bounding_box.center_point;
+
+    // marshall/unmarshall to handle toString's internally
+    t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
+    t.end();
   });
 
 };

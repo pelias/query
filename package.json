@@ -26,6 +26,7 @@
   "dependencies": {
     "@turf/transform-scale": "^5.1.5",
     "@turf/turf": "^5.1.6",
+    "jsondiffpatch": "^0.4.1",
     "lodash": "^4.17.14"
   },
   "devDependencies": {

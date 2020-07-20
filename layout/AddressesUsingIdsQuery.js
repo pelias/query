@@ -3,6 +3,40 @@ const Query = require('./Query');
 const match_phrase = require('../lib/leaf/match_phrase');
 const turf = require('@turf/turf');
 
+
+function createParentIdShould(layer, ids) {
+  // create an object initialize with terms.'parent.locality_id' (or whatever)
+  // must use array syntax for 2nd parameter as _.set interprets '.' as new object
+  return _.set({}, ['terms', `parent.${layer}_id`], ids);
+}
+
+function getLayersIdMap(vs) {
+  console.log('layers: ids', vs.var('input:layers:ids'));
+  console.log('layers', vs.var('input:layers'));
+  if (vs.isset('input:layers') || vs.isset('input:layers:ids')) {
+    return vs.var('input:layers').$ || vs.var('input:layers:ids').$;
+  } 
+  return {};
+}
+
+function createLayerIdsShould(vs) {
+  // if there are layer->id mappings , build an array of objects suitable
+  // for filter or query context that check if the id is in the parents
+  // of the search.
+  //
+  // This is designed to boost exact parent id containment matches over
+  // looser bounding box in our filter query.
+
+  const layers_map = getLayersIdMap(vs);
+
+  return Object.keys(layers_map).reduce((acc, layer) => {
+    if (!_.isEmpty(layers_map[layer])) {
+      acc.push(createParentIdShould(layer, layers_map[layer]));
+    }
+    return acc;
+  }, []);
+}
+
 function createAddressShould(vs) {
   const should = {
     bool: {
@@ -26,21 +60,12 @@ function createAddressShould(vs) {
     should.bool.boost = vs.var('boost:address');
   }
 
-   // if there are layer->id mappings, add the layers with non-empty ids
-   if (vs.isset('input:layers')) {
-    // using $ due to reference object and not scalar object
-    const layers_map = vs.var('input:layers').$;
-
-    const layer_filters = Object.keys(layers_map).reduce((acc, layer) => {
-      if (!_.isEmpty(layers_map[layer]) && !_.isEmpty(layers_map[layer].ids)) {
-        acc.push(createLayerIdsShould(layer, layers_map[layer].ids));
-      }
-      return acc;
-    }, []);
-
-    if (!_.isEmpty(layer_filters)) {
-      should.bool.should = [...should.bool.should || [], layer_filters]
-    }
+  // Give a little should boost to features that have a parent id that
+  // perfectly matches part of the searched for admin hierarchy,
+  // so they beat out hits that were retrieved based on bounding box containment
+  const layer_filters = createLayerIdsShould(vs);
+  if (!_.isEmpty(layer_filters)) {
+    should.bool.should = [...should.bool.should || [], layer_filters];
   }
 
   return should;
@@ -70,21 +95,12 @@ function createUnitAndAddressShould(vs) {
     should.bool.boost = vs.var('boost:address');
   }
 
-   // if there are layer->id mappings, add the layers with non-empty ids
-   if (vs.isset('input:layers')) {
-    // using $ due to reference object and not scalar object
-    const layers_map = vs.var('input:layers').$;
-
-    const layer_filters = Object.keys(layers_map).reduce((acc, layer) => {
-      if (!_.isEmpty(layers_map[layer]) && !_.isEmpty(layers_map[layer].ids)) {
-        acc.push(createLayerIdsShould(layer, layers_map[layer].ids));
-      }
-      return acc;
-    }, []);
-
-    if (!_.isEmpty(layer_filters)) {
-      should.bool.should = [...should.bool.should || [], layer_filters]
-    }
+  // Give a little should boost to features that have a parent id that
+  // perfectly matches part of the searched for admin hierarchy,
+  // so they beat out hits that were retrieved based on bounding box containment
+  const layer_filters = createLayerIdsShould(vs);
+  if (!_.isEmpty(layer_filters)) {
+    should.bool.should = [...should.bool.should || [], layer_filters];
   }
 
   return should;
@@ -114,21 +130,12 @@ function createPostcodeAndAddressShould(vs) {
     should.bool.boost = vs.var('boost:address');
   }
 
-   // if there are layer->id mappings, add the layers with non-empty ids
-   if (vs.isset('input:layers')) {
-    // using $ due to reference object and not scalar object
-    const layers_map = vs.var('input:layers').$;
-
-    const layer_filters = Object.keys(layers_map).reduce((acc, layer) => {
-      if (!_.isEmpty(layers_map[layer]) && !_.isEmpty(layers_map[layer].ids)) {
-        acc.push(createLayerIdsShould(layer, layers_map[layer].ids));
-      }
-      return acc;
-    }, []);
-
-    if (!_.isEmpty(layer_filters)) {
-      should.bool.should = [...should.bool.should || [], layer_filters]
-    }
+  // Give a little should boost to features that have a parent id that
+  // perfectly matches part of the searched for admin hierarchy,
+  // so they beat out hits that were retrieved based on bounding box containment
+  const layer_filters = createLayerIdsShould(vs);
+  if (!_.isEmpty(layer_filters)) {
+    should.bool.should = [...should.bool.should || [], layer_filters];
   }
 
   return should;
@@ -156,54 +163,33 @@ function createStreetShould(vs) {
     should.bool.boost = vs.var('boost:street');
   }
 
-   // if there are layer->id mappings, add the layers with non-empty ids
-   if (vs.isset('input:layers')) {
-    // using $ due to reference object and not scalar object
-    const layers_map = vs.var('input:layers').$;
-
-    const layer_filters = Object.keys(layers_map).reduce((acc, layer) => {
-      if (!_.isEmpty(layers_map[layer]) && !_.isEmpty(layers_map[layer].ids)) {
-        acc.push(createLayerIdsShould(layer, layers_map[layer].ids));
-      }
-      return acc;
-    }, []);
-
-    if (!_.isEmpty(layer_filters)) {
-      should.bool.should = [...should.bool.should || [], layer_filters]
-    }
+  // Give a little should boost to features that have a parent id that
+  // perfectly matches part of the searched for admin hierarchy,
+  // so they beat out hits that were retrieved based on bounding box containment
+  const layer_filters = createLayerIdsShould(vs);
+  if (!_.isEmpty(layer_filters)) {
+    should.bool.should = [...should.bool.should || [], layer_filters];
   }
 
   return should;
-
 }
 
-function createLayerIdsShould(layer, ids) {
-  // create an object initialize with terms.'parent.locality_id' (or whatever)
-  // must use array syntax for 2nd parameter as _.set interprets '.' as new object
-  return _.set({}, ['terms', `parent.${layer}_id`], ids);
-}
-
-function createLayerBoundingBoxesShould(bboxes, scale = 1.0) {
-  // TODO: make sure to use centroid point var here
+function createLayerBoundingBoxesShould(vs, bboxes, scale = 1.0) {
   return bboxes.map((bbox) => {
     if (bbox.min_lat === bbox.max_lat || bbox.min_lon === bbox.max_lon) {
       return;
     }
 
-    var poly = turf.bboxPolygon([bbox.min_lon, bbox.min_lat, bbox.max_lon, bbox.max_lat])
+    var poly = turf.bboxPolygon([bbox.min_lon, bbox.min_lat, bbox.max_lon, bbox.max_lat]);
     var scaledPoly = turf.transformScale(poly, scale);
     const [minX, minY, maxX, maxY]  = turf.bbox(scaledPoly);
 
-    return {
-        "geo_bounding_box" : {
-          "center_point" : {
-              "top": maxY,
-              "right": maxX,
-              "bottom": minY,
-              "left": minX,
-          }
-      },
-    }
+    return _.set({}, `geo_bounding_box.${vs.var('centroid:field').$}`, {
+      'top': maxY,
+      'right': maxX,
+      'bottom': minY,
+      'left': minX,
+    });
   }).filter(Boolean);
 }
 
@@ -232,41 +218,48 @@ class AddressesUsingIdsQuery extends Query {
     };
 
     // if there are layer->id mappings, add the layers with non-empty ids
-    if (vs.isset('input:layers')) {
-      // using $ due to reference object and not scalar object
-      const layers_map = vs.var('input:layers').$;
+    // old style: input:layers = [1, 2, 3]
+    // new style: input:layers:ids = [1,2,3], input:layers:bounding_boxes: [{...}, {...}]
+    const layers_id_map = getLayersIdMap(vs);
+    const layers_bbox_map = vs.var('input:layers:bounding_boxes').$;
 
-      // add the layers-to-ids 'should' conditions
-      // if layers_map is:
-      // {
-      //   locality: {ids: [1, 2], bounding_boxes: [{...}, {....}]},
-      //   localadmin: {ids: [], },
-      //   region: {ids: [3, 4]}
-      // }
-      // then this adds the results of:
-      // - createShould('locality', [1, 2])
-      // - createShould('region', [3, 4])
-      // to an array
-      const layer_filters = Object.keys(layers_map).reduce((acc, layer) => {
-        if (!_.isEmpty(layers_map[layer]) && !_.isEmpty(layers_map[layer].ids)) {
-          const layer_ids_should = createLayerIdsShould(layer, layers_map[layer].ids);
-
-          console.log(layer);
-          const scale = vs.var(`admin:${layer}:bboxScale`).$ || 1;
-          console.log({layer, scale});
-          const layer_bounding_box_clauses = createLayerBoundingBoxesShould(layers_map[layer].bounding_boxes, scale);
-          console.log(layer_bounding_box_clauses);
-
-          acc.push({bool: {
-            minimum_should_match: 1,
-            should: [...layer_bounding_box_clauses, layer_ids_should]
-          }});
-        }
+    // add the layers-to-ids 'should' conditions
+    // if layers_map is:
+    // {
+    //   locality: {ids: [1, 2], bounding_boxes: [{...}, {...}]},
+    //   localadmin: {ids: [], },
+    //   region: {ids: [3, 4]}
+    // }
+    // this creates an array, with one query clause per layer, with what is 
+    // essentially OR query for each layer between the ids or the
+    // bounding boxes (optionally increased by the bboxScale factor)
+    const layer_filters = Object.keys(layers_id_map).reduce((acc, layer) => {
+      // If there are no ids on this layer, don't add a filter
+      if (_.isEmpty(layers_id_map[layer])) {
         return acc;
-      }, []);
+      }
 
-      // add filter.bool.minimum_should_match and filter.bool.should,
-      //  creating intermediate objects as it goes
+      const layer_ids_should = createParentIdShould(layer, layers_id_map[layer]);
+
+      const scale = vs.var(`admin:${layer}:bboxScale`).$ || 1;
+      const layer_bounding_box_clauses = createLayerBoundingBoxesShould(vs, layers_bbox_map[layer] || [], scale);
+
+      // if there are bounding box clauses in addition to the ids clause,
+      // combine them. Otherwise don't.
+      if (!_.isEmpty(layer_bounding_box_clauses)) {
+        acc.push({bool: {
+          minimum_should_match: 1,
+          should: [...layer_bounding_box_clauses, layer_ids_should]
+        }});
+      } else {
+        acc.push(layer_ids_should);
+      }
+      return acc;
+    }, []);
+
+    // add filter.bool.minimum_should_match and filter.bool.should,
+    //  creating intermediate objects as it goes
+    if (!_.isEmpty(layer_filters)) {
       _.set(base.query.function_score.query.bool, 'filter.bool', {
         minimum_should_match: 1,
         should: layer_filters

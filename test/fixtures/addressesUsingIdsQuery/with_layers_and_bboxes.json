@@ -12,7 +12,12 @@
                   { "match_phrase": { "address_parts.street": { "query": "street value" } } }
                 ],
                 "filter": { "term": { "layer": "street" } },
-                "should": [[{ "terms": { "parent.layer1_id": [1, 2, 3] } }]]
+                "should": [
+                  [
+                    { "terms": { "parent.layer1_id": [1, 2, 3] } },
+                    { "terms": { "parent.layer4_id": [4] } }
+                  ]
+                ]
               }
             },
             {
@@ -24,15 +29,34 @@
                   { "match_phrase": { "address_parts.street": { "query": "street value" } } }
                 ],
                 "filter": { "term": { "layer": "address" } },
-                "should": [[{ "terms": { "parent.layer1_id": [1, 2, 3] } }]]
+                "should": [
+                  [
+                    { "terms": { "parent.layer1_id": [1, 2, 3] } },
+                    { "terms": { "parent.layer4_id": [4] } }
+                  ]
+                ]
               }
             }
           ],
           "filter": {
             "bool": {
               "minimum_should_match": 1,
-              "should": [{ "terms": { "parent.layer1_id": [1, 2, 3] } }],
-              "must": [{ "filter field 1": "filter value 1" }]
+              "should": [
+                {
+                  "bool": {
+                    "minimum_should_match": 1,
+                    "should": [
+                      {
+                        "geo_bounding_box": {
+                          "center_point": { "top": 4, "right": 3, "bottom": 2, "left": 1 }
+                        }
+                      },
+                      { "terms": { "parent.layer1_id": [1, 2, 3] } }
+                    ]
+                  }
+                },
+                { "terms": { "parent.layer4_id": [4] } }
+              ]
             }
           }
         }
