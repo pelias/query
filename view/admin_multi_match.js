@@ -2,7 +2,7 @@
   this view is wrapped in a function so it can be re-used
 **/
 
-var multi_match = require('./multi_match');
+var multi_match = require('../lib/leaf/multi_match');
 
 /*
  * Match several admin fields against the same query
@@ -22,18 +22,13 @@ module.exports = function( admin_properties, analyzer ){
       return null;
     }
 
-    // from the input parameters, generate a list of fields with boosts to
-    // query against
-    var fields_with_boosts = valid_admin_properties.map(function(admin_property) {
-      var boost = 1;
-      if (vs.isset('admin:' + admin_property + ':boost')) {
-        boost = vs.var('admin:' + admin_property + ':boost');
+    const fields = valid_admin_properties.map(function(admin_property) {
+      if (vs.isset(`admin:${admin_property}:boost`)) {
+        return vs.var(`admin:${admin_property}:field`) + '^' +
+          vs.var(`admin:${admin_property}:boost`);
+      } else {
+        return vs.var(`admin:${admin_property}:field`).get();
       }
-
-      return {
-        field: vs.var('admin:' + admin_property + ':field'),
-        boost: boost
-      };
     });
 
     // the actual query text is simply taken from the first valid admin field
@@ -42,7 +37,7 @@ module.exports = function( admin_properties, analyzer ){
     var queryVar = 'input:' + valid_admin_properties[0];
 
     // send the parameters to the standard multi_match view
-    var view = multi_match(vs, fields_with_boosts, analyzer, queryVar);
+    var view = multi_match(vs.var('multi_match:type').get(), fields, vs.var(queryVar), { analyzer: analyzer });
 
     return view;
   };
