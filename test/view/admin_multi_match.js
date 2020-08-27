@@ -80,6 +80,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
     vs.var('input:property2', 'property2 value');
     vs.var('admin:property2:field', 'property2_field value');
     vs.var('admin:property2:boost', 'property2_boost value');
+    vs.var('multi_match:type', 'cross_fields');
 
     var admin_multi_match = require('../../view/admin_multi_match')(['property1', 'property2'], 'analyzer value');
 
@@ -87,6 +88,7 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
 
     var expected = {
       'multi_match': {
+        'type': 'cross_fields',
         'fields': [
           'property1_field value^property1_boost value',
           'property2_field value^property2_boost value'
@@ -101,10 +103,11 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
 
   });
 
-  test('boosts should default to 1 when not specified', function(t) {
+  test('boosts should default to unset when not specified', function(t) {
     var vs = new VariableStore();
     vs.var('input:property1', 'property1 value');
     vs.var('admin:property1:field', 'property1_field value');
+    vs.var('multi_match:type', 'cross_fields');
     // there is no boost
 
     var admin_multi_match = require('../../view/admin_multi_match')(['property1'], 'analyzer value');
@@ -113,8 +116,9 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
 
     var expected = {
       'multi_match': {
+        'type': 'cross_fields',
         'fields': [
-          'property1_field value^1'
+          'property1_field value'
         ],
         'query': { $: 'property1 value' },
         'analyzer': 'analyzer value'
