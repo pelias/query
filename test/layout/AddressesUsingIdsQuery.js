@@ -317,7 +317,7 @@ module.exports.tests.render_with_filters = (test, common) => {
 
   });
 
-  test('VariableStore with admins and bboxes should generate queries with both, ignoring point queries', (t) => {
+  test('VariableStore with admins and bboxes should generate queries with both, ignoring point queries, ignoring country', (t) => {
     const query = new AddressesUsingIdsQuery();
 
     const vs = new VariableStore();
@@ -328,14 +328,14 @@ module.exports.tests.render_with_filters = (test, common) => {
     vs.var('input:housenumber', 'housenumber value');
     vs.var('input:street', 'street value');
     vs.var('input:layers:ids', {
-      layer1: [1, 2, 3],
-      layer2: [],
-      layer3: undefined,
-      layer4: [4]
+      locality: [1, 2, 3],
+      country: [],
+      neighbourhood: undefined,
+      region: [4]
     });
 
     vs.var('input:layers:bounding_boxes', {
-      layer1: [{
+      locality: [{
         min_lon: 1,
         min_lat: 2,
         max_lon: 3,
@@ -346,9 +346,15 @@ module.exports.tests.render_with_filters = (test, common) => {
         max_lon: 1,
         max_lat: 2,
       }],
-      layer2: [],
-      layer3: undefined,
-      layer4: [4]
+      country: [{
+        min_lon: 5,
+        min_lat: 6,
+        max_lon: 7,
+        max_lat: 8,
+      }],
+      neighbourhood: [],
+      localadmin: undefined,
+      region: [4]
     });
 
     const actual = query.render(vs);
@@ -367,21 +373,21 @@ module.exports.tests.render_with_filters = (test, common) => {
 
     const vs = new VariableStore();
     vs.var('size', 'size value');
-    vs.var('admin:layer1:bboxScale', 2);
+    vs.var('admin:locality:bbox_scale', 2);
     vs.var('centroid:field', 'center_point');
     vs.var('track_scores', 'track_scores value');
     vs.var('input:unit', 'unit value');
     vs.var('input:housenumber', 'housenumber value');
     vs.var('input:street', 'street value');
     vs.var('input:layers:ids', {
-      layer1: [1, 2, 3],
-      layer2: [],
-      layer3: undefined,
-      layer4: [4]
+      locality: [1, 2, 3],
+      county: [],
+      country: undefined,
+      region: [4]
     });
 
     vs.var('input:layers:bounding_boxes', {
-      layer1: [{
+      locality: [{
         min_lon: 1,
         min_lat: 2,
         max_lon: 3,
@@ -392,13 +398,14 @@ module.exports.tests.render_with_filters = (test, common) => {
         max_lon: 1,
         max_lat: 2,
       }],
-      layer2: [],
-      layer3: undefined,
-      layer4: [4]
+      country: [],
+      neighbourhood: undefined,
+      region: [4]
     });
 
     const actual = query.render(vs);
-    const expected = require('../fixtures/addressesUsingIdsQuery/with_layers_and_bboxes.json');
+
+    const expected = require('../fixtures/addressesUsingIdsQuery/with_layers_and_bboxes_scaled.json');
     // console.error(JSON.stringify(actual));
     // console.error(JSON.stringify(expected));
 

@@ -11,8 +11,6 @@ function createParentIdShould(layer, ids) {
 }
 
 function getLayersIdMap(vs) {
-  console.log('layers: ids', vs.var('input:layers:ids'));
-  console.log('layers', vs.var('input:layers'));
   if (vs.isset('input:layers') || vs.isset('input:layers:ids')) {
     return vs.var('input:layers').$ || vs.var('input:layers:ids').$;
   } 
@@ -190,7 +188,7 @@ function createLayerBoundingBoxesShould(vs, bboxes, scale = 1.0) {
       'bottom': minY,
       'left': minX,
     });
-  }).filter(Boolean);
+  }).filter(clause => clause !== undefined);
 }
 
 class AddressesUsingIdsQuery extends Query {
@@ -232,7 +230,7 @@ class AddressesUsingIdsQuery extends Query {
     // }
     // this creates an array, with one query clause per layer, with what is 
     // essentially OR query for each layer between the ids or the
-    // bounding boxes (optionally increased by the bboxScale factor)
+    // bounding boxes (optionally increased by the bbox_scale factor)
     const layer_filters = Object.keys(layers_id_map).reduce((acc, layer) => {
       // If there are no ids on this layer, don't add a filter
       if (_.isEmpty(layers_id_map[layer])) {
@@ -241,8 +239,13 @@ class AddressesUsingIdsQuery extends Query {
 
       const layer_ids_should = createParentIdShould(layer, layers_id_map[layer]);
 
-      const scale = vs.var(`admin:${layer}:bboxScale`).$ || 1;
-      const layer_bounding_box_clauses = createLayerBoundingBoxesShould(vs, layers_bbox_map[layer] || [], scale);
+      const scale = vs.var(`admin:${layer}:bbox_scale`).$ || 1;
+      // Only use admin bounding box clauses if the parents is smaller than a region
+      // This is mainly to prevent anti-meridian crossing issues
+      const should_use_admin_bounding_box = ['neighbourhood', 'borough', 'locality', 'county', 'macrocounty', 'region'].includes(layer);
+      const layer_bounding_box_clauses = 
+        should_use_admin_bounding_box ? createLayerBoundingBoxesShould(vs, layers_bbox_map[layer] || [], scale) 
+        : [];
 
       // if there are bounding box clauses in addition to the ids clause,
       // combine them. Otherwise don't.

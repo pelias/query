@@ -62,23 +62,23 @@
   "admin:county:analyzer": "peliasAdmin",
   "admin:county:field": "parent.county",
   "admin:county:boost": 1,
-  "admin:county:bboxScale": 1.5,
+  "admin:county:bbox_scale": 1.5,
 
   "admin:localadmin:analyzer": "peliasAdmin",
   "admin:localadmin:field": "parent.localadmin",
   "admin:localadmin:boost": 1,
-  "admin:localadmin:bboxScale": 1.5,
+  "admin:localadmin:bbox_scale": 1.5,
 
 
   "admin:locality:analyzer": "peliasAdmin",
   "admin:locality:field": "parent.locality",
   "admin:locality:boost": 1,
-  "admin:locality:bboxScale": 1.5,
+  "admin:locality:bbox_scale": 1.5,
 
   "admin:neighbourhood:analyzer": "peliasAdmin",
   "admin:neighbourhood:field": "parent.neighbourhood",
   "admin:neighbourhood:boost": 1,
-  "admin:neighbourhood:bboxScale": 1.5,
+  "admin:neighbourhood:bbox_scale": 1.5,
 
   "popularity:field": "popularity",
   "popularity:modifier": "sqrt",
