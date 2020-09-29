@@ -242,7 +242,7 @@ class AddressesUsingIdsQuery extends Query {
       const scale = vs.var(`admin:${layer}:bbox_scale`).$ || 1;
       // Only use admin bounding box clauses if the parents is smaller than a region
       // This is mainly to prevent anti-meridian crossing issues
-      const should_use_admin_bounding_box = ['neighbourhood', 'borough', 'locality', 'county', 'macrocounty', 'region'].includes(layer);
+      const should_use_admin_bounding_box = ['neighbourhood', 'borough', 'locality', 'county', 'macrocounty'].includes(layer);
       const layer_bounding_box_clauses = 
         should_use_admin_bounding_box ? createLayerBoundingBoxesShould(vs, layers_bbox_map[layer] || [], scale) 
         : [];
