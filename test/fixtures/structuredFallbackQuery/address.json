@@ -94,6 +94,7 @@
                       "fields": [
                         "parent.country",
                         "parent.country_a",
+                        "parent.country_a2",
                         "parent.dependency",
                         "parent.dependency_a"
                       ]
@@ -183,6 +184,7 @@
                       "fields": [
                         "parent.country",
                         "parent.country_a",
+                        "parent.country_a2",
                         "parent.dependency",
                         "parent.dependency_a"
                       ]
@@ -264,6 +266,7 @@
                       "fields": [
                         "parent.country",
                         "parent.country_a",
+                        "parent.country_a2",
                         "parent.dependency",
                         "parent.dependency_a"
                       ]
@@ -334,6 +337,7 @@
                       "fields": [
                         "parent.country",
                         "parent.country_a",
+                        "parent.country_a2",
                         "parent.dependency",
                         "parent.dependency_a"
                       ]
@@ -392,6 +396,7 @@
                       "fields": [
                         "parent.country",
                         "parent.country_a",
+                        "parent.country_a2",
                         "parent.dependency",
                         "parent.dependency_a"
                       ]
@@ -450,6 +455,7 @@
                       "fields": [
                         "parent.country",
                         "parent.country_a",
+                        "parent.country_a2",
                         "parent.dependency",
                         "parent.dependency_a"
                       ]
@@ -496,6 +502,7 @@
                       "fields": [
                         "parent.country",
                         "parent.country_a",
+                        "parent.country_a2",
                         "parent.dependency",
                         "parent.dependency_a"
                       ]
@@ -542,6 +549,7 @@
                       "fields": [
                         "parent.country",
                         "parent.country_a",
+                        "parent.country_a2",
                         "parent.dependency",
                         "parent.dependency_a"
                       ]
@@ -576,6 +584,7 @@
                       "fields": [
                         "parent.country",
                         "parent.country_a",
+                        "parent.country_a2",
                         "parent.dependency",
                         "parent.dependency_a"
                       ]
@@ -610,6 +619,7 @@
                       "fields": [
                         "parent.country",
                         "parent.country_a",
+                        "parent.country_a2",
                         "parent.dependency",
                         "parent.dependency_a"
                       ]
@@ -655,7 +665,8 @@
                       "type": "phrase",
                       "fields": [
                         "parent.country",
-                        "parent.country_a"
+                        "parent.country_a",
+                        "parent.country_a2"
                       ]
                     }
                   }

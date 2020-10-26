@@ -197,6 +197,7 @@ function addSecCountry(vs, o) {
       [
         'parent.country',
         'parent.country_a',
+        'parent.country_a2',
         'parent.dependency',
         'parent.dependency_a'
       ]
@@ -489,7 +490,8 @@ function addCountry(vs) {
     'country',
     [
       'parent.country',
-      'parent.country_a'
+      'parent.country_a',
+      'parent.country_a2'
     ],
     true
   );

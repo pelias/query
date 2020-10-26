@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/pelias/query#readme",
   "dependencies": {
+    "country-iso-2-to-3": "^1.1.0",
     "lodash": "^4.17.14"
   },
   "devDependencies": {

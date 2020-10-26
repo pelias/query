@@ -34,6 +34,7 @@ q.score( query.view.address('unit') )
 
 // admin components
 q.score( query.view.admin('country_a') )
+ .score( query.view.admin('country_a2') )
  .score( query.view.admin('country') )
  .score( query.view.admin('region') )
  .score( query.view.admin('region_a') )

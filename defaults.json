@@ -47,6 +47,10 @@
   "admin:country_a:field": "parent.country_a",
   "admin:country_a:boost": 1,
 
+  "admin:country_a2:analyzer": "standard",
+  "admin:country_a2:field": "parent.country_a2",
+  "admin:country_a2:boost": 1,
+
   "admin:country:analyzer": "peliasAdmin",
   "admin:country:field": "parent.country",
   "admin:country:boost": 1,
