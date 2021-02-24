@@ -1,8 +1,14 @@
 const _ = require('lodash');
 const Query = require('./Query');
 const match_phrase = require('../lib/leaf/match_phrase');
-const turf = require('@turf/turf');
+const turf = {
+  bbox: require('@turf/bbox').default,
+  bboxPolygon: require('@turf/bbox-polygon').default,
+  transformScale: require('@turf/transform-scale')
+};
 
+// https://github.com/pelias/query/pull/124#discussion_r481110850
+const allowed_bounding_box_layers = ['neighbourhood', 'borough', 'locality', 'county', 'macrocounty'];
 
 function createParentIdShould(layer, ids) {
   // create an object initialize with terms.'parent.locality_id' (or whatever)
@@ -13,7 +19,7 @@ function createParentIdShould(layer, ids) {
 function getLayersIdMap(vs) {
   if (vs.isset('input:layers') || vs.isset('input:layers:ids')) {
     return vs.var('input:layers').$ || vs.var('input:layers:ids').$;
-  } 
+  }
   return {};
 }
 
@@ -228,7 +234,7 @@ class AddressesUsingIdsQuery extends Query {
     //   localadmin: {ids: [], },
     //   region: {ids: [3, 4]}
     // }
-    // this creates an array, with one query clause per layer, with what is 
+    // this creates an array, with one query clause per layer, with what is
     // essentially OR query for each layer between the ids or the
     // bounding boxes (optionally increased by the bbox_scale factor)
     const layer_filters = Object.keys(layers_id_map).reduce((acc, layer) => {
@@ -242,9 +248,9 @@ class AddressesUsingIdsQuery extends Query {
       const scale = vs.var(`admin:${layer}:bbox_scale`).$ || 1;
       // Only use admin bounding box clauses if the parents is smaller than a region
       // This is mainly to prevent anti-meridian crossing issues
-      const should_use_admin_bounding_box = ['neighbourhood', 'borough', 'locality', 'county', 'macrocounty'].includes(layer);
-      const layer_bounding_box_clauses = 
-        should_use_admin_bounding_box ? createLayerBoundingBoxesShould(vs, layers_bbox_map[layer] || [], scale) 
+      const should_use_admin_bounding_box = allowed_bounding_box_layers.includes(layer);
+      const layer_bounding_box_clauses =
+        should_use_admin_bounding_box ? createLayerBoundingBoxesShould(vs, layers_bbox_map[layer] || [], scale)
         : [];
 
       // if there are bounding box clauses in addition to the ids clause,

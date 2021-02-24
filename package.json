@@ -24,7 +24,9 @@
   },
   "homepage": "https://github.com/pelias/query#readme",
   "dependencies": {
-    "@turf/turf": "^5.1.6",
+    "@turf/bbox": "^6.3.0",
+    "@turf/bbox-polygon": "^6.3.0",
+    "@turf/transform-scale": "^6.3.0",
     "lodash": "^4.17.14"
   },
   "devDependencies": {
