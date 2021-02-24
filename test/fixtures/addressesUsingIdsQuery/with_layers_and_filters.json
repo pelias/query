@@ -9,30 +9,88 @@
               "bool": {
                 "_name": "fallback.street",
                 "must": [
-                  { "match_phrase": { "address_parts.street": { "query": "street value" } } }
+                  {
+                    "match_phrase": {
+                      "address_parts.street": {
+                        "query": "street value"
+                      }
+                    }
+                  }
                 ],
-                "filter": { "term": { "layer": "street" } },
-                "should": [[{ "terms": { "parent.layer1_id": [1, 2, 3] } }]]
+                "filter": {
+                  "term": {
+                    "layer": "street"
+                  }
+                },
+                "should": [
+                  [
+                    {
+                      "terms": {
+                        "parent.layer1_id": [1, 2, 3]
+                      }
+                    }
+                  ]
+                ]
               }
             },
             {
               "bool": {
                 "_name": "fallback.address",
                 "must": [
-                  { "match_phrase": { "address_parts.unit": { "query": "unit value" } } },
-                  { "match_phrase": { "address_parts.number": { "query": "housenumber value" } } },
-                  { "match_phrase": { "address_parts.street": { "query": "street value" } } }
+                  {
+                    "match_phrase": {
+                      "address_parts.unit": {
+                        "query": "unit value"
+                      }
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "address_parts.number": {
+                        "query": "housenumber value"
+                      }
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "address_parts.street": {
+                        "query": "street value"
+                      }
+                    }
+                  }
                 ],
-                "filter": { "term": { "layer": "address" } },
-                "should": [[{ "terms": { "parent.layer1_id": [1, 2, 3] } }]]
+                "filter": {
+                  "term": {
+                    "layer": "address"
+                  }
+                },
+                "should": [
+                  [
+                    {
+                      "terms": {
+                        "parent.layer1_id": [1, 2, 3]
+                      }
+                    }
+                  ]
+                ]
               }
             }
           ],
           "filter": {
             "bool": {
               "minimum_should_match": 1,
-              "should": [{ "terms": { "parent.layer1_id": [1, 2, 3] } }],
-              "must": [{ "filter field 1": "filter value 1" }]
+              "should": [
+                {
+                  "terms": {
+                    "parent.layer1_id": [1, 2, 3]
+                  }
+                }
+              ],
+              "must": [
+                {
+                  "filter field 1": "filter value 1"
+                }
+              ]
             }
           }
         }
