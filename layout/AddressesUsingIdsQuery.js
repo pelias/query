@@ -18,7 +18,7 @@ function createParentIdShould(layer, ids) {
 
 function getLayersIdMap(vs) {
   if (vs.isset('input:layers') || vs.isset('input:layers:ids')) {
-    return vs.var('input:layers').$ || vs.var('input:layers:ids').$;
+    return vs.var('input:layers').get() || vs.var('input:layers:ids').get();
   }
   return {};
 }
@@ -188,7 +188,7 @@ function createLayerBoundingBoxesShould(vs, bboxes, scale = 1.0) {
     var scaledPoly = turf.transformScale(poly, scale);
     const [minX, minY, maxX, maxY]  = turf.bbox(scaledPoly);
 
-    return _.set({}, `geo_bounding_box.${vs.var('centroid:field').$}`, {
+    return _.set({}, `geo_bounding_box.${vs.var('centroid:field').get()}`, {
       'top': maxY,
       'right': maxX,
       'bottom': minY,
@@ -225,7 +225,7 @@ class AddressesUsingIdsQuery extends Query {
     // old style: input:layers = [1, 2, 3]
     // new style: input:layers:ids = [1,2,3], input:layers:bounding_boxes: [{...}, {...}]
     const layers_id_map = getLayersIdMap(vs);
-    const layers_bbox_map = vs.var('input:layers:bounding_boxes').$;
+    const layers_bbox_map = vs.var('input:layers:bounding_boxes').get();
 
     // add the layers-to-ids 'should' conditions
     // if layers_map is:
@@ -245,7 +245,7 @@ class AddressesUsingIdsQuery extends Query {
 
       const layer_ids_should = createParentIdShould(layer, layers_id_map[layer]);
 
-      const scale = vs.var(`admin:${layer}:bbox_scale`).$ || 1;
+      const scale = vs.var(`admin:${layer}:bbox_scale`).get() || 1;
       // Only use admin bounding box clauses if the parents is smaller than a region
       // This is mainly to prevent anti-meridian crossing issues
       const should_use_admin_bounding_box = allowed_bounding_box_layers.includes(layer);
