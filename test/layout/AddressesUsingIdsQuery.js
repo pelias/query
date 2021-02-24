@@ -1,5 +1,17 @@
 const AddressesUsingIdsQuery = require('../../layout/AddressesUsingIdsQuery');
 const VariableStore = require('../../lib/VariableStore');
+const bboxDefaults = {
+  'admin:macrocounty:bbox_enabled': true,
+  'admin:macrocounty:bbox_scale': 1.5,
+  'admin:county:bbox_enabled': true,
+  'admin:county:bbox_scale': 1.5,
+  'admin:localadmin:bbox_enabled': true,
+  'admin:localadmin:bbox_scale': 1.5,
+  'admin:locality:bbox_enabled': true,
+  'admin:locality:bbox_scale': 1.5,
+  'admin:neighbourhood:bbox_enabled': true,
+  'admin:neighbourhood:bbox_scale': 1.5,
+};
 
 module.exports.tests = {};
 
@@ -129,7 +141,7 @@ module.exports.tests.base_render = (test, common) => {
 
     // console.error(JSON.stringify(actual));
     // console.error(JSON.stringify(expected));
-    
+
     // marshall/unmarshall to handle toString's internally
     t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
     t.end();
@@ -320,7 +332,7 @@ module.exports.tests.render_with_filters = (test, common) => {
   test('VariableStore with admins and bboxes should generate queries with both, ignoring point queries, ignoring country', (t) => {
     const query = new AddressesUsingIdsQuery();
 
-    const vs = new VariableStore();
+    const vs = new VariableStore(bboxDefaults);
     vs.var('size', 'size value');
     vs.var('centroid:field', 'center_point');
     vs.var('track_scores', 'track_scores value');
@@ -360,9 +372,9 @@ module.exports.tests.render_with_filters = (test, common) => {
     const actual = query.render(vs);
     const expected = require('../fixtures/addressesUsingIdsQuery/with_layers_and_bboxes.json');
 
-    // console.error(JSON.stringify(actual));
-    // console.error(JSON.stringify(expected));
-    
+    // console.error(JSON.stringify(actual, null, 2));
+    // console.error(JSON.stringify(expected, null, 2));
+
     // marshall/unmarshall to handle toString's internally
     t.deepEquals(JSON.parse(JSON.stringify(actual)), expected);
     t.end();
@@ -371,7 +383,7 @@ module.exports.tests.render_with_filters = (test, common) => {
   test('VariableStore should scale bboxes if scaling factor is set', (t) => {
     const query = new AddressesUsingIdsQuery();
 
-    const vs = new VariableStore();
+    const vs = new VariableStore(bboxDefaults);
     vs.var('size', 'size value');
     vs.var('admin:locality:bbox_scale', 2);
     vs.var('centroid:field', 'center_point');
@@ -406,15 +418,15 @@ module.exports.tests.render_with_filters = (test, common) => {
     const actual = query.render(vs);
 
     const expected = require('../fixtures/addressesUsingIdsQuery/with_layers_and_bboxes_scaled.json');
-    // console.error(JSON.stringify(actual));
-    // console.error(JSON.stringify(expected));
+    // console.error(JSON.stringify(actual, null, 2));
+    // console.error(JSON.stringify(expected, null, 2));
 
     function approxeq(v1, v2, epsilon) {
       return Math.abs(v1 - v2) < epsilon;
     }
 
     const scaled_bbox = actual.query.function_score.query.bool.filter.bool.should[0].bool.should[0].geo_bounding_box.center_point;
-  
+
     // Scaling is a messy float operation, so use approx matchers to make sure we scaled appropriately
     //"geo_bounding_box":{"center_point":{"top":5.000000000000001,"right":4.001221291680963,"bottom":0.999999999999999,"left":-0.001221291680963077}}
     t.ok(approxeq(scaled_bbox.top, 5, 0.01));

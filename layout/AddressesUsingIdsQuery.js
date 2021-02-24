@@ -7,9 +7,6 @@ const turf = {
   transformScale: require('@turf/transform-scale')
 };
 
-// https://github.com/pelias/query/pull/124#discussion_r481110850
-const allowed_bounding_box_layers = ['neighbourhood', 'borough', 'locality', 'county', 'macrocounty'];
-
 function createParentIdShould(layer, ids) {
   // create an object initialize with terms.'parent.locality_id' (or whatever)
   // must use array syntax for 2nd parameter as _.set interprets '.' as new object
@@ -245,13 +242,14 @@ class AddressesUsingIdsQuery extends Query {
 
       const layer_ids_should = createParentIdShould(layer, layers_id_map[layer]);
 
-      const scale = vs.var(`admin:${layer}:bbox_scale`).get() || 1;
       // Only use admin bounding box clauses if the parents is smaller than a region
       // This is mainly to prevent anti-meridian crossing issues
-      const should_use_admin_bounding_box = allowed_bounding_box_layers.includes(layer);
-      const layer_bounding_box_clauses =
-        should_use_admin_bounding_box ? createLayerBoundingBoxesShould(vs, layers_bbox_map[layer] || [], scale)
-        : [];
+      // https://github.com/pelias/query/pull/124#discussion_r481110850
+      var layer_bounding_box_clauses = [];
+      if (vs.var(`admin:${layer}:bbox_enabled`).get() === true){
+        const scale = vs.var(`admin:${layer}:bbox_scale`).get() || 1;
+        layer_bounding_box_clauses = createLayerBoundingBoxesShould(vs, layers_bbox_map[layer] || [], scale);
+      }
 
       // if there are bounding box clauses in addition to the ids clause,
       // combine them. Otherwise don't.
