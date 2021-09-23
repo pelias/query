@@ -11,7 +11,7 @@
     "units": "./bin/units",
     "test": "npm run units",
     "validate": "npm ls",
-    "travis": "npm test"
+    "ci": "npm test"
   },
   "repository": {
     "type": "git",
