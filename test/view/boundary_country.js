@@ -5,7 +5,6 @@ function getBaseVariableStore(toExclude) {
   var vs = new VariableStore();
   vs.var('boundary:country', 'boundary_country');
   vs.var('admin:country_a:analyzer', 'country_a_analyzer');
-  vs.var('admin:country_a:field', 'country_a_field');
 
   if (toExclude) {
     vs.unset(toExclude);
@@ -48,14 +47,13 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
     var actual = boundary_country(vs);
 
     var expected = {
-      match: {
-        country_a_field: {
-          analyzer: {
-            $: 'country_a_analyzer'
-          },
-          query: {
-            $: 'boundary_country'
-          }
+      multi_match: {
+        fields: [ 'parent.country_a', 'parent.dependency_a' ],
+        analyzer: {
+          $: 'country_a_analyzer'
+        },
+        query: {
+          $: 'boundary_country'
         }
       }
     };
