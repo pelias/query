@@ -75,5 +75,9 @@
     }
   },
   "size": "size value" ,
-  "track_scores": "track_scores value"
+  "track_scores": "track_scores value",
+  "sort": [
+    "_score",
+    "_id"
+  ]
 }

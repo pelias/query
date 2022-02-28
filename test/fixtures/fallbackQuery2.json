@@ -672,6 +672,7 @@
   "size": "size value",
   "track_scores": "track_scores value",
   "sort": [
-    "_score"
+    "_score",
+    "_id"
   ]
 }
