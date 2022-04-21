@@ -15,6 +15,7 @@
                       "type": "phrase",
                       "fields": [
                         "phrase.default",
+                        "phrase.default_*",
                         "category"
                       ]
                     }
