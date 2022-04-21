@@ -17,11 +17,14 @@ class VenuesQuery extends Query {
             bool: {
               must: [
                 {
-                  match_phrase: {
-                    'name.default': {
-                      query: vs.var('input:query'),
-                      analyzer: 'standard'
-                    }
+                  multi_match: {
+                    query: vs.var('input:query'),
+                    type: 'phrase',
+                    analyzer: 'standard',
+                    fields: [
+                      'name.default',
+                      'name.default_*'
+                    ]
                   }
                 }
               ],
