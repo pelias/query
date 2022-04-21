@@ -1,3 +1,4 @@
+const _ = require('lodash');
 
 module.exports = function( vs ){
 
@@ -11,23 +12,33 @@ module.exports = function( vs ){
   }
 
   // base view
-  var view = { 'match': {} };
+  var view = { 'multi_match': {} };
+
+  var pf = vs.var('phrase:field').get();
+  var fields = [pf, `${pf}_*`];
+
+  var lang = vs.var('lang').get();
+  if (_.isString(lang) && !_.isEmpty(lang)) {
+    var lf = pf.replace('default', lang);
+    fields.push(lf, `${lf}_*`);
+  }
 
   // match query
-  view.match[ vs.var('phrase:field') ] = {
+  view.multi_match = {
     analyzer: vs.var('phrase:analyzer'),
     type: 'phrase',
     boost: vs.var('phrase:boost'),
     slop: vs.var('phrase:slop'),
-    query: vs.var('input:name')
+    query: vs.var('input:name'),
+    fields: fields
   };
 
   if (vs.isset('phrase:fuzziness')) {
-    view.match[ vs.var('phrase:field') ].fuzziness = vs.var('phrase:fuzziness');
+    view.multi_match.fuzziness = vs.var('phrase:fuzziness');
   }
 
   if (vs.isset('phrase:cutoff_frequency')) {
-    view.match[ vs.var('phrase:field') ].cutoff_frequency = vs.var('phrase:cutoff_frequency');
+    view.multi_match.cutoff_frequency = vs.var('phrase:cutoff_frequency');
   }
 
   return view;

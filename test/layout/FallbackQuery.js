@@ -63,6 +63,36 @@ module.exports.tests.base_render = function(test, common) {
 
   });
 
+  test('VariableStore with query AND street should only add query - with lang', function (t) {
+    var query = new FallbackQuery();
+
+    var vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:query', 'query value');
+    vs.var('input:unit', 'unit value');
+    vs.var('input:housenumber', 'house number value');
+    vs.var('input:street', 'street value');
+    vs.var('input:neighbourhood', 'neighbourhood value');
+    vs.var('input:borough', 'borough value');
+    vs.var('input:locality', 'locality value');
+    vs.var('input:county', 'county value');
+    vs.var('input:region', 'region value');
+    vs.var('input:country', 'country value');
+    vs.var('boost:address', 19);
+    vs.var('boost:street', 17);
+
+    // everything is same as above except lang is set here
+    vs.var('lang', 'foo');
+
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
+    var expected = require('../fixtures/fallbackQuery1-with-lang.js');
+
+    t.deepEquals(actual, expected);
+    t.end();
+
+  });
+
   test('VariableStore with number+street and less granular fields should include all others', function(t) {
     var query = new FallbackQuery();
 

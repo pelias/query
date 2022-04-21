@@ -1,5 +1,6 @@
-var phrase = require('../../view/phrase');
-var VariableStore = require('../../lib/VariableStore');
+const _ = require('lodash');
+const phrase = require('../../view/phrase');
+const VariableStore = require('../../lib/VariableStore');
 
 function getBaseVariableStore(toExclude) {
   var vs = new VariableStore();
@@ -48,14 +49,16 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
     var actual = phrase(getBaseVariableStore());
 
     var expected = {
-      match: {
-        'field value': {
-          analyzer: { $: 'analyzer value' },
-          type: 'phrase',
-          boost: { $: 'boost value' },
-          slop: { $: 'slop value' },
-          query: { $: 'name value' }
-        }
+      multi_match: {
+        analyzer: { $: 'analyzer value' },
+        type: 'phrase',
+        boost: { $: 'boost value' },
+        slop: { $: 'slop value' },
+        query: { $: 'name value' },
+        fields: [
+          'field value',
+          'field value_*'
+        ]
       }
     };
 
@@ -74,15 +77,17 @@ module.exports.tests.fuzziness_variable = function(test, common) {
     var actual = phrase(store);
 
     var expected = {
-      match: {
-        'field value': {
-          analyzer: { $: 'analyzer value' },
-          type: 'phrase',
-          boost: { $: 'boost value' },
-          slop: { $: 'slop value' },
-          query: { $: 'name value' },
-          fuzziness: { $: 'fuzziness value' }
-        }
+      multi_match: {
+        analyzer: { $: 'analyzer value' },
+        type: 'phrase',
+        boost: { $: 'boost value' },
+        slop: { $: 'slop value' },
+        query: { $: 'name value' },
+        fuzziness: { $: 'fuzziness value' },
+        fields: [
+          'field value',
+          'field value_*'
+        ]
       }
     };
 
@@ -100,15 +105,17 @@ module.exports.tests.cutoff_frequency = function(test, common) {
     var actual = phrase(store);
 
     var expected = {
-      match: {
-        'field value': {
-          analyzer: { $: 'analyzer value' },
-          type: 'phrase',
-          boost: { $: 'boost value' },
-          slop: { $: 'slop value' },
-          query: { $: 'name value' },
-          cutoff_frequency: { $: 'cutoff_frequency value' }
-        }
+      multi_match: {
+        analyzer: { $: 'analyzer value' },
+        type: 'phrase',
+        boost: { $: 'boost value' },
+        slop: { $: 'slop value' },
+        query: { $: 'name value' },
+        cutoff_frequency: { $: 'cutoff_frequency value' },
+        fields: [
+          'field value',
+          'field value_*'
+        ]
       }
     };
 

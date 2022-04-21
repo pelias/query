@@ -164,13 +164,23 @@ function addSecCountry(vs, o) {
 
 
 function addQuery(vs) {
+  var fields = [
+    'phrase.default',
+    'phrase.default_*'
+  ];
+
+  var lang = vs.var('lang').get();
+  if (_.isString(lang) && !_.isEmpty(lang)) {
+    fields.push(
+      `phrase.${lang}`,
+      `phrase.${lang}_*`
+    );
+  }
+
   var o = addPrimary(
     vs.var('input:query').toString(),
     'venue',
-    [
-      'phrase.default',
-      'category'
-    ],
+    fields.concat(['category']),
     false
   );
 
