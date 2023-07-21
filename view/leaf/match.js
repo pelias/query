@@ -15,7 +15,6 @@ module.exports = function( prefix ){
     const optional_params = ['boost',
       'operator',
       'analyzer',
-      'cutoff_frequency',
       'fuzziness',
       'max_expansions',
       'prefix_length',

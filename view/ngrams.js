@@ -23,10 +23,6 @@ module.exports = function( vs ){
     view.match[ vs.var('ngram:field') ].fuzziness = vs.var('ngram:fuzziness');
   }
 
-  if (vs.isset('ngram:cutoff_frequency')) {
-    view.match[ vs.var('ngram:field') ].cutoff_frequency = vs.var('ngram:cutoff_frequency');
-  }
-
   if (vs.isset('ngram:minimum_should_match')) {
     view.match[ vs.var('ngram:field') ].minimum_should_match = vs.var('ngram:minimum_should_match');
   }
