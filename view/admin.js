@@ -26,11 +26,6 @@ module.exports = function( property ){
       query: vs.var('input:'+property)
     };
 
-    // optional 'cutoff_frequency' property
-    if( vs.isset('admin:'+property+':cutoff_frequency') ){
-      section.cutoff_frequency = vs.var('admin:'+property+':cutoff_frequency');
-    }
-
     return view;
   };
 };

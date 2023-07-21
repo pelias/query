@@ -26,9 +26,5 @@ module.exports = function( vs ){
     view.match[ vs.var('phrase:field') ].fuzziness = vs.var('phrase:fuzziness');
   }
 
-  if (vs.isset('phrase:cutoff_frequency')) {
-    view.match[ vs.var('phrase:field') ].cutoff_frequency = vs.var('phrase:cutoff_frequency');
-  }
-
   return view;
 };

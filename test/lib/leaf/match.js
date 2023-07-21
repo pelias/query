@@ -49,22 +49,6 @@ module.exports.tests.match = function(test, common) {
     t.end();
   });
 
-  test('match query can handle optional cutoff_frequency parameter', function(t) {
-    const query = match('property', 'value', { cutoff_frequency: 0.01});
-
-    const expected = {
-      match: {
-        property: {
-          query: 'value',
-          cutoff_frequency: 0.01
-        }
-      }
-    };
-
-    t.deepEqual(query, expected, 'valid match query with cutoff_frequency');
-    t.end();
-  });
-
   test('match query can handle optional minimum_should_match parameter', function(t) {
     const query = match('property', 'value', { minimum_should_match: '25%'});
 

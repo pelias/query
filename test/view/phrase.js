@@ -92,33 +92,6 @@ module.exports.tests.fuzziness_variable = function(test, common) {
   });
 };
 
-module.exports.tests.cutoff_frequency = function(test, common) {
-  test('cutoff_frequency variable should be presented in query', function(t) {
-    var store = getBaseVariableStore();
-    store.var('phrase:cutoff_frequency', 'cutoff_frequency value');
-
-    var actual = phrase(store);
-
-    var expected = {
-      match: {
-        'field value': {
-          analyzer: { $: 'analyzer value' },
-          type: 'phrase',
-          boost: { $: 'boost value' },
-          slop: { $: 'slop value' },
-          query: { $: 'name value' },
-          cutoff_frequency: { $: 'cutoff_frequency value' }
-        }
-      }
-    };
-
-    t.deepEquals(actual, expected, 'should have returned object with cutoff_frequency field');
-    t.end();
-
-  });
-};
-
-
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {
     return tape('phrase ' + name, testFunction);

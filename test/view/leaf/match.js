@@ -32,7 +32,6 @@ module.exports.tests.base_usage = function(test, common) {
     vs.var('match:example2:input', 'input value');
     vs.var('match:example2:field', 'field value');
     vs.var('match:example2:fuzziness', 2);
-    vs.var('match:example2:cutoff_frequency', 0.01);
     vs.var('match:example2:analyzer', 'customAnalyzer');
 
     const view = match('example2')(vs);
@@ -44,7 +43,6 @@ module.exports.tests.base_usage = function(test, common) {
         ['field value']: {
           query: 'input value',
           fuzziness: 2,
-          cutoff_frequency: 0.01,
           analyzer: 'customAnalyzer'
         }
       }
