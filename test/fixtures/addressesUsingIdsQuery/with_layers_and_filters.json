@@ -21,7 +21,16 @@
                   "term": {
                     "layer": "street"
                   }
-                }
+                },
+                "should": [
+                  [
+                    {
+                      "terms": {
+                        "parent.layer1_id": [1, 2, 3]
+                      }
+                    }
+                  ]
+                ]
               }
             },
             {
@@ -54,7 +63,16 @@
                   "term": {
                     "layer": "address"
                   }
-                }
+                },
+                "should": [
+                  [
+                    {
+                      "terms": {
+                        "parent.layer1_id": [1, 2, 3]
+                      }
+                    }
+                  ]
+                ]
               }
             }
           ],
@@ -79,6 +97,6 @@
       }
     }
   },
-  "size": "size value" ,
+  "size": "size value",
   "track_scores": "track_scores value"
 }

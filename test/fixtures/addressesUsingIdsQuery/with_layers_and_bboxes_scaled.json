@@ -1,0 +1,89 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "minimum_should_match": 1,
+          "should": [
+            {
+              "bool": {
+                "_name": "fallback.street",
+                "must": [
+                  {
+                    "match_phrase": {
+                      "address_parts.street": { "query": "street value" }
+                    }
+                  }
+                ],
+                "filter": { "term": { "layer": "street" } },
+                "should": [
+                  [
+                    { "terms": { "parent.locality_id": [1, 2, 3] } },
+                    { "terms": { "parent.region_id": [4] } }
+                  ]
+                ]
+              }
+            },
+            {
+              "bool": {
+                "_name": "fallback.address",
+                "must": [
+                  {
+                    "match_phrase": {
+                      "address_parts.unit": { "query": "unit value" }
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "address_parts.number": { "query": "housenumber value" }
+                    }
+                  },
+                  {
+                    "match_phrase": {
+                      "address_parts.street": { "query": "street value" }
+                    }
+                  }
+                ],
+                "filter": { "term": { "layer": "address" } },
+                "should": [
+                  [
+                    { "terms": { "parent.locality_id": [1, 2, 3] } },
+                    { "terms": { "parent.region_id": [4] } }
+                  ]
+                ]
+              }
+            }
+          ],
+          "filter": {
+            "bool": {
+              "minimum_should_match": 1,
+              "should": [
+                {
+                  "bool": {
+                    "minimum_should_match": 1,
+                    "should": [
+                      {
+                        "geo_bounding_box": {
+                          "center_point": {
+                            "top": 5.000000000000001,
+                            "right": 4.001221291680963,
+                            "bottom": 0.999999999999999,
+                            "left": -0.001221291680963077
+                          }
+                        }
+                      },
+                      { "terms": { "parent.locality_id": [1, 2, 3] } }
+                    ]
+                  }
+                },
+                { "terms": { "parent.region_id": [4] } }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "size": "size value",
+  "track_scores": "track_scores value"
+}
