@@ -14,7 +14,8 @@
                       "query": "postcode value",
                       "type": "phrase",
                       "fields": [
-                        "parent.postalcode"
+                        "parent.postalcode",
+                        "address_parts.zip"
                       ]
                     }
                   }
