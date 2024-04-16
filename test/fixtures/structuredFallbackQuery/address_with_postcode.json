@@ -78,7 +78,10 @@
                     "multi_match": {
                       "query": "postcode value",
                       "type": "phrase",
-                      "fields": ["parent.postalcode"]
+                      "fields": [
+                        "parent.postalcode",
+                        "address_parts.zip"
+                      ]
                     }
                   }
                 ],

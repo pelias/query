@@ -503,7 +503,8 @@ function addPostCode(vs) {
     vs.var('input:postcode').toString(),
     'postalcode',
     [
-      'parent.postalcode'
+      'parent.postalcode',
+      'address_parts.zip'
     ],
     false
   );
