@@ -1,0 +1,43 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+        "bool": {
+          "minimum_should_match": 1,
+          "should": [
+            {
+              "bool": {
+                "_name": "fallback.postalcode",
+                "must": [
+                  {
+                    "multi_match": {
+                      "query": "postcode value",
+                      "type": "phrase",
+                      "fields": [
+                        "parent.postalcode"
+                      ]
+                    }
+                  }
+                ],
+                "filter": {
+                  "term": {
+                    "layer": "postalcode"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "max_boost": 20,
+      "functions": [],
+      "score_mode": "avg",
+      "boost_mode": "multiply"
+    }
+  },
+  "sort": [
+    "_score"
+  ],
+  "size": "size value",
+  "track_scores": "track_scores value"
+}

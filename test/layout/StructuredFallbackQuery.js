@@ -36,6 +36,22 @@ module.exports.tests.base_render = function(test, common) {
 
   });
 
+  test('VariableStore with postcode only', function(t) {
+    var query = new StructuredFallbackQuery();
+
+    var vs = new VariableStore();
+    vs.var('size', 'size value');
+    vs.var('track_scores', 'track_scores value');
+    vs.var('input:postcode', 'postcode value');
+
+    var actual = JSON.parse(JSON.stringify(query.render(vs)));
+    var expected = require('../fixtures/structuredFallbackQuery/postcode.json');
+
+    t.deepEquals(actual, expected);
+    t.end();
+
+  });
+
   test('VariableStore with address and less granular fields should include all others', function(t) {
     var query = new StructuredFallbackQuery();
 
