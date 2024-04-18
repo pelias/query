@@ -88,39 +88,6 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
   });
 };
 
-module.exports.tests.cutoff_frequency = function(test, common) {
-  test('cutoff_frequency value used if provided', function(t) {
-    var vs = getBaseVariableStore();
-
-    vs.var('admin:asdf:cutoff_frequency', 'cutoff_frequency value');
-
-    var actual = admin(vs);
-
-    var expected = {
-      match: {
-        'field value': {
-          analyzer: {
-            $: 'analyzer value'
-          },
-          boost: {
-            $: 'boost value'
-          },
-          cutoff_frequency: {
-            $: 'cutoff_frequency value'
-          },
-          query: {
-            $: 'input value'
-          }
-        }
-      }
-    };
-
-    t.deepEquals(actual, expected, 'should have returned object');
-    t.end();
-
-  });
-};
-
 module.exports.all = function (tape, common) {
   function test(name, testFunction) {
     return tape('admin ' + name, testFunction);

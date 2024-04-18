@@ -30,7 +30,6 @@ module.exports.tests.base_usage = function(test, common) {
     const vs = new VariableStore();
     vs.var('multi_match:example2:input', 'input value');
     vs.var('multi_match:example2:fields', ['fields', 'values']);
-    vs.var('multi_match:example2:cutoff_frequency', 0.001);
     vs.var('multi_match:example2:analyzer', 'customAnalyzer');
 
     const view = multi_match('example2')(vs);
@@ -43,7 +42,6 @@ module.exports.tests.base_usage = function(test, common) {
         fields: ['fields', 'values'],
         query: 'input value',
         analyzer: 'customAnalyzer',
-        cutoff_frequency: 0.001
       }
     };
 
@@ -56,7 +54,6 @@ module.exports.tests.base_usage = function(test, common) {
     vs.var('multi_match:example2:input', 'input value');
     vs.var('multi_match:example2:type', 'phrase');
     vs.var('multi_match:example2:fields', ['fields', 'values']);
-    vs.var('multi_match:example2:cutoff_frequency', 0.001); // this will be ignored because it's a phrase type
     vs.var('multi_match:example2:analyzer', 'customAnalyzer');
     vs.var('multi_match:example2:slop', 3);
 
