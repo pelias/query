@@ -70,7 +70,7 @@ Layout.base = function( vs ){
     },
     size: vs.var('size'),
     track_scores: vs.var('track_scores'),
-    sort: ['_score']
+    sort: ['_score', '_id']
   };
 };
 
