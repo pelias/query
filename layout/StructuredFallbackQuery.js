@@ -194,7 +194,11 @@ function addUnitAndHouseNumberAndStreet(vs) {
         match_phrase('address_parts.number', vs.var('input:housenumber')),
         match_phrase('address_parts.street', vs.var('input:street'), { slop: vs.var('address:street:slop') })
       ],
-      should: [],
+      should: [
+        // non-numeric tokens are stripped from the index, use the phrase field to improve sorting.
+        // see: https://github.com/pelias/pelias/issues/810
+        match_phrase('phrase.default', vs.var('input:housenumber'))
+      ],
       filter: {
         term: {
           layer: 'address'
@@ -232,7 +236,11 @@ function addHouseNumber(vs) {
           }
         }
       ],
-      should: [],
+      should: [
+        // non-numeric tokens are stripped from the index, use the phrase field to improve sorting.
+        // see: https://github.com/pelias/pelias/issues/810
+        match_phrase('phrase.default', vs.var('input:housenumber'))
+      ],
       filter: {
         term: {
           layer: 'address'
@@ -264,7 +272,11 @@ function addHouseNumberAndStreet(vs) {
         match_phrase('address_parts.number', vs.var('input:housenumber')),
         match_phrase('address_parts.street', vs.var('input:street'), { slop: vs.var('address:street:slop') })
       ],
-      should: [],
+      should: [
+        // non-numeric tokens are stripped from the index, use the phrase field to improve sorting.
+        // see: https://github.com/pelias/pelias/issues/810
+        match_phrase('phrase.default', vs.var('input:housenumber'))
+      ],
       filter: {
         term: {
           layer: 'address'
