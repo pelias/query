@@ -50,6 +50,15 @@
                     }
                   }
                 ],
+                "should": [
+                  {
+                    "match_phrase": {
+                      "phrase.default": {
+                        "query": "housenumber value"
+                      }
+                    }
+                  }
+                ],
                 "filter": {
                   "term": {
                     "layer": "address"
@@ -79,6 +88,15 @@
                     "match_phrase": {
                       "address_parts.street": {
                         "query": "street value"
+                      }
+                    }
+                  }
+                ],
+                "should": [
+                  {
+                    "match_phrase": {
+                      "phrase.default": {
+                        "query": "housenumber value"
                       }
                     }
                   }

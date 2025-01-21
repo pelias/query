@@ -43,6 +43,15 @@
                     }
                   }
                 ],
+                "should": [
+                  {
+                    "match_phrase": {
+                      "phrase.default": {
+                        "query": "housenumber value"
+                      }
+                    }
+                  }
+                ],
                 "filter": {
                   "term": {
                     "layer": "address"

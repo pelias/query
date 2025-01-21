@@ -189,7 +189,15 @@
                     }
                   }
                 ],
-                "should": [],
+                "should": [
+                  {
+                    "match_phrase": {
+                      "phrase.default": {
+                        "query": "house number value"
+                      }
+                    }
+                  }
+                ],
                 "filter": {
                   "term": {
                     "layer": "address"

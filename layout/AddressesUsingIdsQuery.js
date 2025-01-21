@@ -13,6 +13,11 @@ function createAddressShould(vs) {
           analyzer: vs.var('address:street:analyzer')
         })
       ],
+      should: [
+        // non-numeric tokens are stripped from the index, use the phrase field to improve sorting.
+        // see: https://github.com/pelias/pelias/issues/810
+        match_phrase('phrase.default', vs.var('input:housenumber'))
+      ],
       filter: {
         term: {
           layer: 'address'
@@ -40,6 +45,11 @@ function createUnitAndAddressShould(vs) {
           analyzer: vs.var('address:street:analyzer')
         })
       ],
+      should: [
+        // non-numeric tokens are stripped from the index, use the phrase field to improve sorting.
+        // see: https://github.com/pelias/pelias/issues/810
+        match_phrase('phrase.default', vs.var('input:housenumber'))
+      ],
       filter: {
         term: {
           layer: 'address'
@@ -66,6 +76,11 @@ function createPostcodeAndAddressShould(vs) {
           slop: vs.var('address:street:slop'),
           analyzer: vs.var('address:street:analyzer')
         })
+      ],
+      should: [
+        // non-numeric tokens are stripped from the index, use the phrase field to improve sorting.
+        // see: https://github.com/pelias/pelias/issues/810
+        match_phrase('phrase.default', vs.var('input:housenumber'))
       ],
       filter: {
         term: {
