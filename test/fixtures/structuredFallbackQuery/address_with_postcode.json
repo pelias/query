@@ -28,6 +28,13 @@
                 "should": [
                   {
                     "match_phrase": {
+                      "phrase.default": {
+                        "query": "house number value"
+                      }
+                    }
+                  },
+                  {
+                    "match_phrase": {
                       "address_parts.zip": {
                         "query": "postcode value"
                       }
