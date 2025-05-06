@@ -7,7 +7,6 @@ function getBaseVariableStore(toExclude) {
   vs.var('boundary:rect:right', 'right value');
   vs.var('boundary:rect:bottom', 'bottom value');
   vs.var('boundary:rect:left', 'left value');
-  vs.var('boundary:rect:type', 'type value');
   vs.var('centroid:field', 'field value');
 
   if (toExclude) {
@@ -52,7 +51,6 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
 
     var expected = {
       geo_bounding_box: {
-        type: { $: 'type value' },
         'field value': {
           top: { $: 'top value' },
           right: { $: 'right value' },

@@ -11,8 +11,6 @@
   "boundary:circle:radius": "50km",
   "boundary:circle:distance_type": "plane",
 
-  "boundary:rect:type": "indexed",
-
   "ngram:analyzer": "peliasOneEdgeGram",
   "ngram:field": "name.default",
   "ngram:boost": 1,
