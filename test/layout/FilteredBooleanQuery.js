@@ -19,7 +19,7 @@ module.exports.tests.base_render = function(test, common) {
       },
       size: { $: 'size value' },
       track_scores: { $: 'track_scores value' },
-      sort: ['_score']
+      sort: ['_score', '_id']
     };
 
     t.deepEquals(actual, expected);
@@ -94,7 +94,7 @@ module.exports.tests.scores = function(test, common) {
       },
       size: { $: 'size value' },
       track_scores: { $: 'track_scores value' },
-      sort: ['_score']
+      sort: ['_score', '_id']
     };
 
     t.deepEquals(actual, expected);
@@ -127,7 +127,7 @@ module.exports.tests.scores = function(test, common) {
       },
       size: { $: 'size value' },
       track_scores: { $: 'track_scores value' },
-      sort: ['_score']
+      sort: ['_score', '_id']
     };
 
     t.deepEquals(actual, expected);
@@ -160,7 +160,7 @@ module.exports.tests.scores = function(test, common) {
       },
       size: { $: 'size value' },
       track_scores: { $: 'track_scores value' },
-      sort: ['_score']
+      sort: ['_score', '_id']
     };
 
     t.deepEquals(actual, expected);
@@ -204,7 +204,7 @@ module.exports.tests.scores = function(test, common) {
       },
       size: { $: 'size value' },
       track_scores: { $: 'track_scores value' },
-      sort: ['_score']
+      sort: ['_score', '_id']
     };
 
     t.equals(score_views_called, 8);
@@ -254,7 +254,7 @@ module.exports.tests.filter = function(test, common) {
       },
       size: { $: 'size value' },
       track_scores: { $: 'track_scores value' },
-      sort: ['_score']
+      sort: ['_score', '_id']
     };
 
     t.equals(filter_views_called, 8);
@@ -299,7 +299,7 @@ module.exports.tests.sort = function(test, common) {
       size: { $: 'size value' },
       track_scores: { $: 'track_scores value' },
       sort: [
-        '_score',
+        '_score', '_id',
         { 'sort field 1': 'sort value 1'},
         { 'sort field 2': 'sort value 2'}
       ]
