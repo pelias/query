@@ -15,6 +15,7 @@ module.exports = {
     }
   },
   sort: [
-    '_score'
+    '_score',
+    '_id'
   ]
 };
