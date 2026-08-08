@@ -36,6 +36,15 @@ module.exports = function( admin_properties, analyzer ){
     // TODO: handle the case where not all admin area input values are the same
     var queryVar = 'input:' + valid_admin_properties[0];
 
+    // admin multi-matching should always use the 'cross_fields' matching type
+    // this is to ensure that scoring is not only based on the best matching field.
+    // see: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-multi-match-query.html#multi-match-types
+    vs.var('multi_match:type', 'cross_fields');
+
+    // disable cutoff_frequency as most of these admin  terms are very common
+    // and we would still like them to match and score appropriately.
+    vs.unset('multi_match:cutoff_frequency');
+
     // send the parameters to the standard multi_match view
     var view = multi_match(vs.var('multi_match:type').get(), fields, vs.var(queryVar), { analyzer: analyzer });
 
