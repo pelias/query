@@ -59,6 +59,50 @@ module.exports.tests.no_exceptions_conditions = function(test, common) {
     t.end();
 
   });
+
+  test('only negative categories should produce a bool must_not query', function(t) {
+    var vs = new VariableStore();
+    vs.var('categories:field', 'category');
+    vs.var('input:not_categories', ['foo', 'bar']);
+
+    var actual = categories(vs);
+
+    var expected = {
+      bool: {
+        must_not: [
+          { terms: { category: ['foo', 'bar'] } }
+        ]
+      }
+    };
+
+    t.deepEquals(actual, expected, 'should have returned bool must_not query');
+    t.end();
+
+  });
+
+  test('positive and negative categories should produce a bool must/must_not query', function(t) {
+    var vs = new VariableStore();
+    vs.var('categories:field', 'category');
+    vs.var('input:categories', ['foo']);
+    vs.var('input:not_categories', ['bar']);
+
+    var actual = categories(vs);
+
+    var expected = {
+      bool: {
+        must: [
+          { terms: { category: ['foo'] } }
+        ],
+        must_not: [
+          { terms: { category: ['bar'] } }
+        ]
+      }
+    };
+
+    t.deepEquals(actual, expected, 'should have returned bool must/must_not query');
+    t.end();
+
+  });
 };
 
 module.exports.all = function (tape, common) {
