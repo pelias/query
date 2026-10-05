@@ -3,6 +3,7 @@ var VariableStore = require('../../lib/VariableStore');
 
 function getBaseVariableStore(toExclude) {
   var vs = new VariableStore();
+  vs.var('sort:field', 'distance');
   vs.var('focus:point:lat', 'lat value');
   vs.var('focus:point:lon', 'lon value');
   vs.var('sort:distance:order', 'order value');
