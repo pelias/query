@@ -150,7 +150,8 @@ class AddressesUsingIdsQuery extends Query {
         }
       },
       size: vs.var('size'),
-      track_scores: vs.var('track_scores')
+      track_scores: vs.var('track_scores'),
+      sort: ['_score', '_id']
     };
 
     // add unit/housenumber/street if available
